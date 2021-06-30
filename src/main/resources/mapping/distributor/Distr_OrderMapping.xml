@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.distributor.Distr_OrderMapper">
+
+    <resultMap id="OrdervsMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.OrdervDto">
+        <id column="autoid" property="autoid"/>
+        <result column="csocode" property="csocode"/>
+        <result column="csocodes" property="csocodes"/>
+        <result column="csotype" property="csotype"/>
+        <result column="csotypename" property="csotypename"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="CCUS_NAME" property="CCUS_NAME"/>
+        <result column="CCUS_XPOINT" property="CCUS_XPOINT"/>
+        <result column="CCUS_YPOINT" property="CCUS_YPOINT"/>
+        <result column="CCUS_OADDRESS" property="CCUS_OADDRESS"/>
+        <result column="CCUS_PHONE" property="CCUS_PHONE"/>
+        <result column="CCUS_PERSON" property="CCUS_PERSON"/>
+        <result column="CCUS_PAYTYPE_NAME" property="CCUS_PAYTYPE_NAME"/>
+        <result column="CCUS_LEVEL" property="CCUS_LEVEL"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cInvName" property="cInvName"/>
+        <result column="cInvStd" property="cInvStd"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="cmaker" property="cmaker"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+        <result column="cdefine28" property="cdefine28"/>
+        <result column="cso_state" property="cso_state"/>
+        <result column="enumname" property="enumname"/>
+        <result column="cinvimg" property="cinvimg"/>
+        <result column="ccus_remaker" property="ccus_remaker"/>
+        <result column="ccom_remaker" property="ccom_remaker"/>
+        <result column="igold_sum" property="igold_sum"/>
+        <result column="iusegold_sum" property="iusegold_sum"/>
+        <result column="cpaytype" property="cpaytype"/>
+        <result column="cpaytypename" property="cpaytypename"/>
+        <result column="icashmoney" property="icashmoney"/>
+        <result column="iqrcodemoney" property="iqrcodemoney"/>
+        <result column="bclose" property="bclose"/>
+        <result column="borderpay" property="borderpay"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="CCOMNAME" property="CCOMNAME"/>
+        <result column="ccus_distribution" property="ccus_distribution"/>
+        <result column="ordersid" property="ordersid"/>
+        <result column="cshiptype" property="cshiptype"/>
+        <result column="cCus_Code" property="cCus_Code"/>
+        <result column="cso_state_sub" property="cso_state_sub"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="mdefine1" property="mdefine1"/>
+        <result column="cso_statename" property="cso_statename"/>
+        <result column="cdefine3" property="cdefine3"/>
+        <result column="ipay_sum" property="ipay_sum"/>
+    </resultMap>
+
+    <resultMap id="ResultMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+    <resultMap id="DistributionMap" type="com.shunxin.shunxin_salesman_visit.dto.distributordto.DistributionDto">
+        <result column="ctype" property="ctype"/>
+        <result column="cinvcode1" property="cinvcode1"/>
+        <result column="cinvcode2" property="cinvcode2"/>
+        <result column="cinvcode3" property="cinvcode3"/>
+        <result column="cinvcode4" property="cinvcode4"/>
+        <result column="cinvcode5" property="cinvcode5"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+    </resultMap>
+
+    <resultMap id="orderdMps" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.OrdervDto">
+        <result column="cInvName" property="cInvName"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+    </resultMap>
+
+
+    <resultMap id="ManageTotalMap" type="com.shunxin.shunxin_salesman_visit.dto.distributordto.ManageTotalDto">
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="yps" property="yps"/>
+        <result column="wsk" property="wsk"/>
+        <result column="ysk" property="ysk"/>
+        <result column="ctype1" property="ctype1"/>
+        <result column="ctype2" property="ctype2"/>
+        <result column="ctype3" property="ctype3"/>
+        <result column="ctype4" property="ctype4"/>
+        <result column="ctype5" property="ctype5"/>
+    </resultMap>
+
+
+    <resultMap id="PayCountMap" type="com.shunxin.shunxin_salesman_visit.dto.distributordto.PayCountDto">
+        <result column="csocode" property="csocode"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ddate" property="ddate"/>
+        <result column="dcreatedate" property="dcreatedate"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="payer_id" property="payer_id"/>
+    </resultMap>
+
+    <resultMap id="OrderMaap" type="com.shunxin.shunxin_salesman_visit.dto.distributordto.OrderListDto">
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvname" property="cinvname"/>
+    </resultMap>
+
+    <resultMap id="SxCustomerUserMap" type="com.shunxin.shunxin_salesman_visit.dto.distributordto.SxCustomerUser">
+        <result column="cuser_type" property="cuser_type"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="ccus_user_name" property="ccus_user_name"/>
+        <result column="ccus_user_tel" property="ccus_user_tel"/>
+        <result column="ccus_user_openid_gzh" property="ccus_user_openid_gzh"/>
+        <result column="ccus_user_openid_unitid" property="ccus_user_openid_unitid"/>
+        <result column="ccus_user_openid_xcx" property="ccus_user_openid_xcx"/>
+    </resultMap>
+
+
+    <!--查询订单列表(分销商部分)-->
+    <!--订单配送方式 cshiptype  01公司配送 06直营车销 57分销配送-->
+    <!--其他单据状态，目前用于分销单据状态，cso_state_sub  51生效(新订单)，52受理打印（接单） 53配送完成（未收款） 55已收款 59拒绝-->
+    <select id="getDistrOrderList" resultMap="OrdervsMap">
+        SELECT top 5000 * FROM order_v
+        where ISNULL(bclose,'') &lt;&gt; '关闭'and isnull(cshiptype,'') = '57'
+        <if test="ddate1!=null and ddate1!=''">
+            and CONVERT(varchar(10),ddate,120) >= #{ddate1} and CONVERT(varchar(10),ddate,120) &lt; = #{ddate2}
+        </if>
+        <if test="csocode!=null and csocode!=''">
+            and (csocode like '%'+#{csocode}+'%' or CCUS_NAME like '%'+#{csocode}+'%' or cInvName like '%'+#{csocode}+'%')
+        </if>
+        <if test="cso_state_sub!=null and cso_state_sub!=''">
+            <if test="cso_state_sub=='53'">
+                and ISNULL(imoney_sum,0) > ISNULL(ipay_sum,0)
+            </if>
+            <if test="cso_state_sub=='55'">
+               and ISNULL(imoney_sum,0) &lt;= ISNULL(ipay_sum,0)
+            </if>
+            <if test="cso_state_sub!='53' and cso_state_sub!='55'">
+                and isnull(cso_state_sub,'') = #{cso_state_sub}
+            </if>
+        </if>
+        <if test="cdefine3!=null and cdefine3!=''">
+            and isnull(cdefine3,'') = #{cdefine3}
+        </if>
+        <if test="ccus_id!=null and ccus_id!=''">
+            and ccus_id = #{ccus_id}
+        </if>
+        <if test="ccus_distribution!=null and ccus_distribution!=''">
+            and isnull(ccus_distribution,'') = #{ccus_distribution}
+        </if>
+        ORDER BY ddate DESC
+    </select>
+
+
+    <!--根据订单号查询订单-->
+    <select id="getDistrOrderOne" resultMap="OrdervsMap">
+        SELECT * FROM order_v where csocode = #{csocode}
+    </select>
+
+
+    <!--分销商点击接单或者拒单、订单开始配送、订单配送完成-->
+    <select id="receivingOrder" resultMap="ResultMap">
+        exec order_add #{jsonvit}
+    </select>
+
+
+    <!--每天00:30将未配送完成的订单重新划至新订单-->
+    <update id="clearUpOrder">
+        update order_v set cso_state_sub = '51',cdefine3 = '' where cshiptype = '57' and cso_state_sub = '52' and ISNULL(cdefine3,'') &lt;&gt; ''
+    </update>
+
+
+    <!--分销商查询合计-->
+    <select id="getDistributionTotal" resultMap="DistributionMap">
+        exec distribution_total #{jsonvit}
+    </select>
+
+
+    <!--根据分销商查询已配送商品数量-->
+    <select id="getCommIquanSum" resultMap="orderdMps">
+        select cinvcode,SUM(iquan_sum) iquan_sum from order_v where
+        ccus_distribution = #{ccus_distribution} and ISNULL(bclose,0) &lt;&gt; '关闭'
+        and cinvcode in (#{cinvcode}) group by cinvcode
+    </select>
+
+
+    <!--主管查询合计-->
+    <select id="getManageTotal" resultMap="ManageTotalMap">
+        select scut.ccus_name,SUM(case when cso_state_sub='53' then imoney else 0 end) 'yps',
+        SUM(case when cso_state_sub='53' and ISNULL(imoney_sum,0) > ISNULL(ipay_sum,0) then isnull(imoney,0) else 0 end) 'wsk',
+        SUM(case when cso_state_sub='53' and ISNULL(imoney_sum,0) &lt;= ISNULL(ipay_sum,0) then isnull(imoney,0) else 0 end) 'ysk',
+        SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode1} then iquantity else 0 end) as 'ctype1',
+        SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode2} then iquantity else 0 end) as 'ctype2',
+        SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode3} then iquantity else 0 end) as 'ctype3',
+        SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode4} then iquantity else 0 end) as 'ctype4',
+        SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode5} then iquantity else 0 end) as 'ctype5'
+        from sx_order inner join sx_order_sub on sx_order.autoid=sx_order_sub.id
+        inner join (select autoid,cus.ccus_distribution from sx_customer cus inner join (select ccus_distribution from sx_customer where CPERSON_ID = #{cuserid}) cut
+        on cus.ccus_distribution = cut.ccus_distribution) cust on sx_order.ccus_id = cust.autoid
+        inner join sx_customer scut on cust.ccus_distribution = scut.autoid
+        where  datediff(DAY,ddate,GETDATE()) &lt; 30 and cshiptype='57'
+        group by scut.ccus_name
+    </select>
+
+
+    <!--根据工号判断客户是否为分销商-->
+    <select id="getDistributionSf" resultType="java.lang.String">
+        select top 1 ccus_distribution from sx_customer where CPERSON_ID = #{cuserid} and ccus_distribution is not null
+    </select>
+
+
+    <!--业务员查询合计-->
+    <select id="getManageTotal_salesman" resultMap="ManageTotalMap">
+        select cus.ccus_name,
+        SUM(case when cso_state_sub='53' then imoney else 0 end) yps,
+        SUM(case when cso_state_sub='53' and imoney_sum &lt;=ipay_sum then isnull(imoney,0) else 0 end) wsk,
+        SUM(case when cso_state_sub='53' and imoney_sum>ipay_sum then isnull(imoney,0) else 0 end) ysk,
+        SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode1} then iquantity else 0 end) ctype1,
+        SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode2} then iquantity else 0 end) ctype2,
+        SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode3} then iquantity else 0 end) ctype3,
+        SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode4} then iquantity else 0 end) ctype4,
+        SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode5} then iquantity else 0 end) ctype5
+        from sx_order inner join sx_order_sub on sx_order.autoid=sx_order_sub.id
+        inner join
+        (select a.ccus_cid,ccus_name from sx_customer_planadd a inner join customer_v b on
+        isnull(a.CCUS_DISTRIBUTION,'')=b.autoid where b.cperson_id=#{cuserid}
+        union all
+        select autoid,ccus_name from customer_v where cperson_id=#{cuserid} and ISNULL(ccus_distribution,'')&lt;&gt;''
+        ) cus on sx_order.ccus_id=cus.ccus_cid
+        where cshiptype='57' and cso_state_sub='53' and datediff(DAY,ddate,GETDATE())&lt;30
+        group by cus.ccus_name
+    </select>
+    <!--select ccus_name,SUM(case when cso_state_sub='53' then imoney else 0 end) 'yps',
+    SUM(case when cso_state_sub='53' and ISNULL(imoney_sum,0) > ISNULL(ipay_sum,0) then isnull(imoney,0) else 0 end) 'wsk',
+    SUM(case when cso_state_sub='53' and ISNULL(imoney_sum,0) &lt;= ISNULL(ipay_sum,0) then isnull(imoney,0) else 0 end) 'ysk',
+    SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode1} then iquantity else 0 end) as 'ctype1',
+    SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode2} then iquantity else 0 end) as 'ctype2',
+    SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode3} then iquantity else 0 end) as 'ctype3',
+    SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode4} then iquantity else 0 end) as 'ctype4',
+    SUM(case when cso_state_sub='53' and cinvcode=#{cinvcode5} then iquantity else 0 end) as 'ctype5'
+    from sx_order inner join sx_order_sub on sx_order.autoid=sx_order_sub.id
+    inner join (select autoid from sx_customer where CPERSON_ID = #{cuserid}) cust on sx_order.ccus_id = cust.autoid
+    where datediff(DAY,ddate,GETDATE()) &lt;30 and cshiptype='57' group by ccus_name-->
+
+    <!--根据两个经纬度计算出距离（米）-->
+    <select id="getCalculateDistance" resultType="java.lang.Double">
+        select dbo.e_getdistance(#{ccus_xpoint},#{ccus_ypoint},#{courier_xpoint},#{courier_ypoint})
+    </select>
+
+
+    <!--根据定位查询200米以内的订单-->
+    <select id="getNearbyOrder" resultMap="OrdervsMap">
+        SELECT * FROM order_v where ISNULL(bclose,'') &lt;&gt; '关闭'and isnull(cshiptype,'') = '57' and ISNULL(imoney_sum,0) > ISNULL(ipay_sum,0)
+        and ISNULL(cdefine3,'') = #{cdefine3}
+    </select>
+    <!--and ccus_distribution in (select ccus_distribution from order_v where ISNULL(cdefine3,'') = #{cdefine3})-->
+
+    <!--查询经销商近7天支付次数大于等于5次的订单-->
+    <select id="getDistrPayCount" resultMap="PayCountMap">
+        select csocode,ccus_name,ddate,dcreatedate,imoney_sum,payer_id from sx_order inner join sx_order_pay on sx_order.csocode=sx_order_pay.orderid where cshiptype='06' and datediff(day,dcreatedate,getdate()) &lt;=7
+        and payer_id in (
+        select payer_id from sx_order inner join sx_order_pay on sx_order.csocode=sx_order_pay.orderid where cshiptype='06' and datediff(day,dcreatedate,getdate()) &lt;=7
+        group by payer_id having COUNT(payer_id)>=0)
+        group by csocode,ccus_name,ddate,dcreatedate,imoney_sum,payer_id
+        order by payer_id,ddate
+    </select>
+
+
+    <!--查询分销商出售的商品列表-->
+    <select id="getOrderCinvname" resultMap="OrderMaap">
+         select inventory.cinvcode,inventory.cinvname from sx_order inner join sx_order_sub on sx_order.autoid=sx_order_sub.id
+         inner join inventory on sx_order_sub.cinvcode=inventory.cinvcode
+         where  datediff(DAY,ddate,GETDATE()) &lt; 30
+         and cshiptype='57' group by inventory.cinvcode,inventory.cinvname
+    </select>
+
+
+    <!--先传入openid查询是否已经绑定过-->
+    <select id="getWxSmallBand" resultType="java.lang.Integer">
+        select COUNT(*) from sx_customer_user where (ccus_user_openid_xcx = #{ccus_user_openid_xcx} or ccus_user_tel = #{ccus_user_openid_xcx})
+    </select>
+
+
+    <!--未绑定过的进行openid和手机号的绑定-->
+    <update id="addWxSmallBand">
+        update sx_customer_user set ccus_user_openid_xcx = #{ccus_user_openid_xcx},ccus_user_openid_unitid=#{ccus_user_openid_unitid} where ccus_user_tel = #{ccus_user_tel}
+    </update>
+
+
+    <!--通过openid查询绑定信息-->
+    <select id="getDistriList" resultMap="SxCustomerUserMap">
+        select * from sx_customer_user where ccus_user_openid_xcx = #{ccus_user_openid_xcx}
+        <if test="session_key!=null and session_key!=''">
+            and session_key = #{session_key}
+        </if>
+    </select>
+
+
+    <!--每次登录获取key以便进行效验-->
+    <update id="getSessionKey">
+        update sx_customer_user set session_key = #{session_key} where ccus_user_openid_xcx = #{ccus_user_openid_xcx}
+    </update>
+
+
+    <!--查询配送员信息-->
+    <select id="getDistribution" resultMap="SxCustomerUserMap">
+        select * from sx_customer_user where ccus_id = #{ccus_id}
+        <if test="cuser_type!=null and cuser_type!=''">
+            and cuser_type = #{cuser_type}
+        </if>
+    </select>
+
+
+    <!--新增配送员-->
+    <insert id="addDistribution">
+        insert into sx_customer_user (ccus_id,cuser_type,ccus_user_name,ccus_user_tel,ccus_user_openid_gzh,ccus_user_openid_unitid,ccus_user_openid_xcx)
+        values (#{ccus_id},#{cuser_type},#{ccus_user_name},#{ccus_user_tel},'',#{ccus_user_openid_unitid},#{ccus_user_openid_xcx})
+    </insert>
+
+
+
+</mapper>

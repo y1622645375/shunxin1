@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.promotmapper.SettleAccountMapper">
+
+    <resultMap id="SettleMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.SettleDetailed">
+        <result column="csocode" property="csocode"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="cso_state" property="cso_state"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="icashmoney" property="icashmoney"/>
+        <result column="iqrcodemoney" property="iqrcodemoney"/>
+    </resultMap>
+
+
+    <resultMap id="AmountQuantityMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.AmountQuantity">
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="ikpquan_sum" property="ikpquan_sum"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="icashmoney" property="icashmoney"/>
+        <result column="iqrcodemoney" property="iqrcodemoney"/>
+        <result column="ipay_sum" property="ipay_sum"/>
+    </resultMap>
+
+
+    <resultMap id="OrderSubMap" type="com.shunxin.shunxin_salesman_visit.dto.promotdto.OrderSubSum">
+        <result column="iquans_sum" property="iquans_sum"/>
+        <result column="imoneys_sum" property="imoneys_sum"/>
+    </resultMap>
+
+
+    <resultMap id="SxJsqdMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.SxJsqd">
+        <id column="autoid" property="autoid"/>
+        <result column="cjscode" property="cjscode"/>
+        <result column="csocode" property="csocode"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="cacc_id" property="cacc_id"/>
+        <result column="ccompand_id" property="ccompand_id"/>
+        <result column="cpersoncode" property="cpersoncode"/>
+        <result column="ddate" property="ddate"/>
+        <result column="dbegin" property="dbegin"/>
+        <result column="dend" property="dend"/>
+        <result column="istate" property="istate"/>
+        <result column="iquan" property="iquan"/>
+        <result column="imoney" property="imoney"/>
+        <result column="iqrmoney" property="iqrmoney"/>
+        <result column="ixjmoney" property="ixjmoney"/>
+        <result column="cmemo" property="cmemo"/>
+    </resultMap>
+
+
+    <!--00提交，01审核拒绝，02审核通过，03交账申请，04打印完成，05生成折旧完成，06无须生成折扣单-->
+    <!--生成结算清单-->
+    <insert id="createDetailedList">
+        insert into sx_jsqd(cjscode,cacc_id,ccompand_id,cpersoncode,ddate,dbegin,dend,istate,iquan,imoney,iqrmoney,ixjmoney,cmemo)
+        values (#{cjscode},#{cacc_id},#{ccompand_id},#{cpersoncode},GETDATE(),#{dbegin},#{dend},#{istate},#{iquan},#{imoney},#{iqrmoney},#{ixjmoney},#{cmemo})
+    </insert>
+
+
+    <!--根据工号查询所属公司和账套-->
+    <select id="getCcompands" resultMap="SxJsqdMap">
+        select enumcode ccompand_id,enumname3 cacc_id from ufdata_web..enumdata where enumcode =
+        (select ccomcode from ufdata_web..staff where ccode= #{cperson_id}) and enumid= 1
+    </select>
+
+
+    <!--检查该业务员是否有未审核的账单-->
+    <select id="selectIstates" resultType="java.lang.Integer">
+        select COUNT(*) from sx_jsqd where cpersoncode = #{cpersoncode} and istate = '04'
+    </select>
+
+
+    <!--查询账单-->
+    <select id="selectOrderDetailed" resultMap="SettleMap">
+        select csocode,ccus_id,cperson_id,cso_state,iquan_sum,imoney_sum,icashmoney,iqrcodemoney from sx_order
+        where cperson_id = #{cperson_id} and (ddate between #{dbegin} and #{dend})
+    </select>
+
+
+    <!--核对数量和金额-->
+    <select id="calculationAmount" resultMap="AmountQuantityMap">
+        select SUM(iquan_sum) iquan_sum,SUM(ikpquan_sum) ikpquan_sum,sum(imoney_sum) imoney_sum,SUM(icashmoney) icashmoney,SUM(iqrcodemoney) iqrcodemoney,SUM(ipay_sum) ipay_sum from sx_order
+        where isnull(bclose,0)=0 and isnull(cdefine2,'')='' and cperson_id=#{cperson_id} and djsdate &gt;=#{dbegin} and djsdate &lt;= #{dend} and cshiptype='06'
+    </select>
+
+
+    <!--查询子表的数据合计-->
+    <select id="selectOrderSubQuan" resultMap="OrderSubMap">
+        select ISNULL(SUM(iquantity),0) iquans_sum,ISNULL(SUM(convert(money,imoney)),0) imoneys_sum from sx_order_sub inner join sx_order on sx_order.autoid=sx_order_sub.id
+        where isnull(bclose,0)=0  and isnull(cdefine2,'')='' and cperson_id=#{cperson_id} and djsdate &gt;=#{dbegin} and djsdate &lt;= #{dend}  and ISNULL(iprice,0)>0 and cshiptype='06'
+    </select>
+
+
+    <!--生成过结算清单的订单做好记号-->
+    <update id="updateOrderCdefine">
+        update sx_order set cdefine2 = #{autoid} where isnull(bclose,0)=0 and isnull(cdefine2,'')='' and cperson_id=#{cperson_id} and djsdate &gt;=#{dbegin} and djsdate &lt;= #{dend} and cshiptype='06'
+    </update>
+
+
+    <!--查询清单号是否存在-->
+    <select id="selectCjscodes" resultType="java.lang.Integer">
+        select COUNT(*) from sx_jsqd where cjscode = #{cjscode}
+    </select>
+
+
+    <!--根据清单号查询autoid-->
+    <select id="selectAutoids" resultType="java.lang.Integer">
+        select autoid from sx_jsqd where cjscode = #{cjscode}
+    </select>
+
+
+    <!--根据工号查询核算的时间-->
+    <select id="selectMinDate" resultType="java.util.Date">
+        select MAX(ddate) from sx_order where cperson_id = #{cperson_id} and ISNULL(cdefine2,'') &lt;&gt; ''
+    </select>
+
+
+    <!--查询结算清单表-->
+    <select id="selectSxJsqds" resultMap="SxJsqdMap">
+        select js.autoid,cjscode,oder.csocode,oder.ccus_name,cacc_id,cpersoncode,js.ddate,js.dbegin,js.dend,js.istate,oder.iquan_sum iquan,oder.imoney_sum imoney,oder.iqrcodemoney iqrmoney,oder.icashmoney ixjmoney,cmemo from
+        sx_jsqd js inner join sx_order oder on js.autoid = oder.cdefine2
+        where cpersoncode = #{cpersoncode} and js.ddate &gt;=#{dbegin} and js.ddate &lt;= #{dend}
+        <if test="istate!=null and istate!=''">
+            <if test="istate=='05'">
+                and istate in ('05','06')
+            </if>
+            <if test="istate!=05">
+                and istate = #{istate}
+            </if>
+        </if>
+    </select>
+
+
+    <!--查询核算订单的合计-->
+    <select id="getjOrderCount" resultMap="SxJsqdMap">
+        select isnull(SUM(iquan_sum),0) iquan,isnull(SUM(imoney_sum),0) imoney,isnull(SUM(iqrcodemoney),0) iqrmoney,isnull(SUM(icashmoney),0) ixjmoney from
+        sx_jsqd js inner join sx_order oder on js.autoid = oder.cdefine2
+        where cpersoncode = #{cpersoncode} and js.ddate &gt;=#{dbegin} and js.ddate &lt;= #{dend}
+        <if test="istate!=null and istate!=''">
+            <if test="istate=='05'">
+                and istate in ('05','06')
+            </if>
+            <if test="istate!=05">
+                and istate = #{istate}
+            </if>
+        </if>
+    </select>
+
+
+    <!--查询未生成结算清单的订单-->
+    <select id="selectJsqdOrders" resultMap="SxJsqdMap">
+        select autoid,csocode,ccus_name,cperson_id,ddate,iquan_sum iquan,imoney_sum imoney,iqrcodemoney iqrmoney,icashmoney ixjmoney from sx_order
+        where  cperson_id = #{cperson_id}  and djsdate &gt;=#{dbegin} and djsdate &lt;= #{dend} and ISNULL(bclose,0) =0 and ISNULL(cdefine2,'') = '' and cshiptype='06'
+    </select>
+
+
+    <!--查询订单合计-->
+    <select id="getJsOrderSum" resultMap="SxJsqdMap">
+        select isnull(SUM(iquan_sum),0) iquan,isnull(SUM(imoney_sum),0) imoney,isnull(SUM(iqrcodemoney),0) iqrmoney,isnull(SUM(icashmoney),0) ixjmoney   from sx_order
+        where cperson_id = #{cperson_id}  and djsdate &gt;=#{dbegin} and djsdate &lt;= #{dend} and ISNULL(bclose,0) =0 and ISNULL(cdefine2,'') = '' and cshiptype='06'
+    </select>
+
+
+    <!--根据工号查询未打印的结算单号-->
+    <select id="getCjcodeStr" resultType="java.lang.String">
+        select cjscode from sx_jsqd where cpersoncode = #{cpersoncode} and istate = '00'
+    </select>
+
+
+    <!--扫码之后写入日志-->
+    <insert id="insertRemoteprints">
+        insert into openrowset('SQLOLEDB','nserver' ;'sa';'jiang',ufdata.dbo.remoteprint)(ctype,ddate,ccode,cuser_id,ccomputer,istate,prnid)
+        values('jsd',GETDATE(),#{ccode},#{cuser_id},#{ccomputer},'0','0000')
+    </insert>
+
+
+    <!--查询该结算单号是否存在-->
+    <select id="selectOpenrowset" resultType="java.lang.Integer">
+        select count(*) from openrowset('SQLOLEDB','nserver' ;'sa';'jiang',ufdata.dbo.remoteprint) where ctype = 'jsd' and ccode = #{ccode}
+    </select>
+
+
+
+</mapper>

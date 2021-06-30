@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.eatbarmapper.PriceEnterMapper">
+
+    <resultMap id="PriceEnterMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.PriceEnter">
+        <id column="autoid" property="autoid"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvccode" property="cinvccode"/>
+        <result column="ccus_level" property="ccus_level"/>
+        <result column="ccus_price" property="ccus_price"/>
+        <result column="igoldrate" property="igoldrate"/>
+        <result column="ddateb" property="ddateb"/>
+        <result column="ddatee" property="ddatee"/>
+        <result column="igrade" property="igrade"/>
+        <result column="bclose" property="bclose"/>
+        <result column="cInvName" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="clevelname" property="clevelname"/>
+        <result column="cinvimg64" property="cinvimg64"/>
+        <result column="cinvimg500" property="cinvimg500"/>
+    </resultMap>
+
+    <resultMap id="CompayMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.Compay">
+        <result column="ccode" property="ccode"/>
+        <result column="cname" property="cname"/>
+        <result column="cname2" property="cname2"/>
+        <result column="cname3" property="cname3"/>
+        <result column="cname4" property="cname4"/>
+        <result column="cname5" property="cname5"/>
+        <result column="cname6" property="cname6"/>
+    </resultMap>
+
+    <resultMap id="InventsMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.Inventory">
+        <result column="cInvCode" property="cinvcode"/>
+        <result column="cInvName" property="cinvname"/>
+        <result column="cInvStd" property="cinvstd"/>
+    </resultMap>
+
+
+    <resultMap id="CustLevelMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.CustLevelDto">
+        <result column="clevelid" property="clevelid"/>
+        <result column="clevelname" property="clevelname"/>
+        <result column="cparentid" property="cparentid"/>
+        <result column="isxemallid" property="isxemallid"/>
+    </resultMap>
+
+
+    <!--查询商品价格录入表 (用于车销和顺兴商城)-->
+    <select id="selectPriceEnter" resultMap="PriceEnterMap">
+        exec Order_InvPrice #{ccus_account},#{ddate},#{cuserid},''
+    </select>
+    <!--select inventory_ext.*,cinvccode,cInvName,cinvstd,clevelname,ISNULL('http://pic.hnsxtj.com/sxemall/public/'+inventory_img.cinvimg+'_64.jpg','') cinvimg64,
+    ISNULL('http://pic.hnsxtj.com/sxemall/public/'+inventory_img.cinvimg+'_500.jpg' ,'') cinvimg500  from inventory_ext
+    inner join inventory on inventory_ext.cinvcode=inventory.cinvcode
+    inner join sx_customer_level on inventory_ext.ccus_level=sx_customer_level.clevelid
+    left join inventory_img on inventory_ext.cInvCode=inventory_img.cinvcode
+    where 1 = 1 and inventory_ext.bclose=0 and ccus_price &lt;&gt; 0
+    and CLEVELID = (select top 1 ccus_level_sub from sx_customer_planadd inner join sx_customer on sx_customer_planadd.CCUS_CID=sx_customer.autoid where CCUS_ACCOUNT=#{ccus_account} and CCUS_PID=#{ccus_pid})
+    and ccomcode=(select ccomcode from person_v where ccode=#{ccus_pid})
+    <if test="ddate!=null and ddate!=''">
+        and #{ddate} between ddateb and ddatee
+    </if>
+    order by cinvccode asc-->
+
+
+
+   <!-- 查询公司 -->
+    <select id="selectCompay" resultMap="CompayMap">
+        select enumcode ccode,enumname cname,enumname2 cname2,enumname3 cname3 from enumdata where enumid=1
+        and enumcode in(select cdepcode from ufdata_web..userhold where cusercode=#{cusercode} and ctype=#{ctype})
+        order by enumcode
+    </select>
+
+
+    <!--查询基础档案（公司 company，部门 department）-->
+    <select id="selectEnumdataLists" resultMap="CompayMap">
+          exec enumdatas #{ctype},#{cuser_id}
+    </select>
+
+
+    <!--新增价格表-->
+    <insert id="addInventoryExt">
+        insert into inventory_ext(ccomcode,cinvcode,ccus_level,ccus_price,igoldrate,ddateb,ddatee,igrade,bclose)
+         values(#{ccomcode},#{cinvcode},#{ccus_level},#{ccus_price},#{igoldrate},#{ddateb},#{ddatee},#{igrade},'0')
+    </insert>
+
+
+    <!--查询所有商品名称及编码-->
+    <select id="getInvents" resultMap="InventsMap">
+        select cInvCode,cInvName,cinvstd from inventory where cInvName like '%'+#{cInvName}+'%' or cInvCode like '%'+#{cInvName}+'%'
+    </select>
+
+
+    <!--修改价格表-->
+    <update id="updateInvents">
+        update inventory_ext set ccomcode=#{ccomcode},cinvcode =#{cinvcode},ccus_level =#{ccus_level},ccus_price=#{ccus_price},igoldrate =#{igoldrate},
+        ddateb =#{ddateb},ddatee=#{ddatee},igrade=#{igrade} where autoid=#{autoid}
+    </update>
+
+
+
+</mapper>

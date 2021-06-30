@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.checkmapper.CheckMapper">
+
+    <resultMap id="CheckMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.CheckIng">
+        <id column="autoid" property="autoid"/>
+        <result column="cpersoncode" property="cpersoncode"/>
+        <result column="cname" property="cname"/>
+        <result column="cworkrule" property="cworkrule"/>
+        <result column="irule" property="irule"/>
+        <result column="iclass" property="iclass"/>
+        <result column="iwctype" property="iwctype"/>
+        <result column="cworktype" property="cworktype"/>
+        <result column="dstandtime" property="dstandtime"/>
+        <result column="dchecktime" property="dchecktime"/>
+        <result column="clocation_title" property="clocation_title"/>
+        <result column="clocation_detail" property="clocation_detail"/>
+        <result column="cworkdevice" property="cworkdevice"/>
+        <result column="cnotes" property="cnotes"/>
+        <result column="lat" property="lat"/>
+        <result column="lng" property="lng"/>
+        <result column="ccheckimg" property="ccheckimg"/>
+        <result column="dchecktype" property="dchecktype"/>
+        <result column="cgroupcode" property="cgroupcode"/>
+    </resultMap>
+
+    <resultMap id="Check2Map" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.CheckIng">
+        <result column="clocation_title" property="clocation_title"/>
+    </resultMap>
+
+    <resultMap id="CcomcodeMap" type="com.shunxin.shunxin_salesman_visit.dto.checkdto.CcomcodeDto">
+        <result column="ccode" property="ccode"/>
+        <result column="counts" property="counts"/>
+        <result column="cworkrule" property="cworkrule"/>
+        <result column="cpersoncode" property="cpersoncode"/>
+    </resultMap>
+
+    <resultMap id="WorkcheckMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.Workcheck">
+        <result column="cname" property="cname"/>
+        <result column="cpersoncode" property="cpersoncode"/>
+        <result column="dchecktype" property="dchecktype"/>
+        <result column="counts" property="counts"/>
+    </resultMap>
+
+
+    <resultMap id="WorkCheckGroupMap" type="com.shunxin.shunxin_salesman_visit.dto.checkdto.WorkCheckGroupDto">
+        <result column="autoid" property="autoid"/>
+        <result column="cgroupcode" property="cgroupcode"/>
+        <result column="cgroupname" property="cgroupname"/>
+        <result column="cpcode" property="cpcode"/>
+    </resultMap>
+
+    <resultMap id="CheckDtoMap" type="com.shunxin.shunxin_salesman_visit.dto.checkdto.CheckDto">
+        <result column="dstandtime" property="dstandtime"/>
+        <result column="cworkclasscode" property="cworkclasscode"/>
+    </resultMap>
+
+
+    <resultMap id="WorkRuleMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.WorkRule">
+        <result column="autoid" property="autoid"/>
+        <result column="cworkrulecode" property="cworkrulecode"/>
+        <result column="cworkrulename" property="cworkrulename"/>
+        <result column="cworkclassid_1" property="cworkclassid_1"/>
+        <result column="cworkclassid_2" property="cworkclassid_2"/>
+        <result column="cworkclassid_3" property="cworkclassid_3"/>
+        <result column="cworkclassid_4" property="cworkclassid_4"/>
+        <result column="cworkclassid_5" property="cworkclassid_5"/>
+        <result column="cworkclassid_6" property="cworkclassid_6"/>
+        <result column="cworkclassid_7" property="cworkclassid_7"/>
+    </resultMap>
+
+
+    <resultMap id="PersonNamesDto" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.PersonNameDto">
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccode" property="ccode"/>
+        <result column="cname" property="cname"/>
+    </resultMap>
+
+
+    <resultMap id="WorkCheckClassMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.WorkCheckClass">
+        <result column="autoid" property="autoid"/>
+        <result column="cworkclasscode" property="cworkclasscode"/>
+        <result column="cworkclassname" property="cworkclassname"/>
+        <result column="cwtimestart" property="cwtimestart"/>
+        <result column="cwtimeend" property="cwtimeend"/>
+        <result column="inoneedwtend" property="inoneedwtend"/>
+        <result column="classname" property="classname"/>
+    </resultMap>
+
+
+    <resultMap id="ResultMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+
+    <resultMap id="WorkcheckLogMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.WorkcheckLog">
+        <result column="autoid" property="autoid"/>
+        <result column="altertime" property="altertime"/>
+        <result column="ccode" property="ccode"/>
+        <result column="cstate" property="cstate"/>
+        <result column="uploadtime" property="uploadtime"/>
+    </resultMap>
+
+
+    <resultMap id="WorkCheckMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.WorkCheckList">
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccomname" property="ccomname"/>
+        <result column="cdepcode" property="cdepcode"/>
+        <result column="cdepname" property="cdepname"/>
+        <result column="cpersoncode" property="cpersoncode"/>
+        <result column="cname" property="cname"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cwcplan" property="cwcplan"/>
+        <result column="cwcheck" property="cwcheck"/>
+        <result column="cwctype" property="cwctype"/>
+    </resultMap>
+
+
+    <resultMap id="WorkCheckMonStaMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.WorkCheckMonSta">
+        <result column="cpersoncode" property="cpersoncode"/>
+        <result column="cname" property="cname"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccomname" property="ccomname"/>
+        <result column="cdepcode" property="cdepcode"/>
+        <result column="cdepname" property="cdepname"/>
+        <result column="iperiod" property="iperiod"/>
+        <result column="czjcode" property="czjcode"/>
+        <result column="D1A" property="D1A"/>
+        <result column="D1P" property="D1P"/>
+        <result column="D2A" property="D2A"/>
+        <result column="D2P" property="D2P"/>
+        <result column="D3A" property="D3A"/>
+        <result column="D3P" property="D3P"/>
+        <result column="D4A" property="D4A"/>
+        <result column="D4P" property="D4P"/>
+        <result column="D5A" property="D5A"/>
+        <result column="D5P" property="D5P"/>
+        <result column="D6A" property="D6A"/>
+        <result column="D6P" property="D6P"/>
+        <result column="D7A" property="D7A"/>
+        <result column="D7P" property="D7P"/>
+        <result column="D8A" property="D8A"/>
+        <result column="D8P" property="D8P"/>
+        <result column="D9A" property="D9A"/>
+        <result column="D9P" property="D9P"/>
+        <result column="D10A" property="D10A"/>
+        <result column="D10P" property="D10P"/>
+        <result column="D11A" property="D11A"/>
+        <result column="D11P" property="D11P"/>
+        <result column="D12A" property="D12A"/>
+        <result column="D12P" property="D12P"/>
+        <result column="D13A" property="D13A"/>
+        <result column="D13P" property="D13P"/>
+        <result column="D14A" property="D14A"/>
+        <result column="D14P" property="D14P"/>
+        <result column="D15A" property="D15A"/>
+        <result column="D15P" property="D15P"/>
+        <result column="D16A" property="D16A"/>
+        <result column="D16P" property="D16P"/>
+        <result column="D17A" property="D17A"/>
+        <result column="D17P" property="D17P"/>
+        <result column="D18A" property="D18A"/>
+        <result column="D18P" property="D18P"/>
+        <result column="D19A" property="D19A"/>
+        <result column="D19P" property="D19P"/>
+        <result column="D20A" property="D20A"/>
+        <result column="D20P" property="D20P"/>
+        <result column="D21A" property="D21A"/>
+        <result column="D21P" property="D21P"/>
+        <result column="D22A" property="D22A"/>
+        <result column="D22P" property="D22P"/>
+        <result column="D23A" property="D23A"/>
+        <result column="D23P" property="D23P"/>
+        <result column="D24A" property="D24A"/>
+        <result column="D24P" property="D24P"/>
+        <result column="D25A" property="D25A"/>
+        <result column="D25P" property="D25P"/>
+        <result column="D26A" property="D26A"/>
+        <result column="D26P" property="D26P"/>
+        <result column="D27A" property="D27A"/>
+        <result column="D27P" property="D27P"/>
+        <result column="D28A" property="D28A"/>
+        <result column="D28P" property="D28P"/>
+        <result column="D29A" property="D29A"/>
+        <result column="D29P" property="D29P"/>
+        <result column="D30A" property="D30A"/>
+        <result column="D30P" property="D30P"/>
+        <result column="D31A" property="D31A"/>
+        <result column="D31P" property="D31P"/>
+    </resultMap>
+
+
+    <resultMap id="WorkcheckRecordMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.WorkcheckRecord">
+        <result column="ccode" property="ccode"/>
+        <result column="cname" property="cname"/>
+        <result column="ydk_day" property="ydk_day"/>
+        <result column="sdk_day" property="sdk_day"/>
+        <result column="qk_day" property="qk_day"/>
+        <result column="cd_count" property="cd_count"/>
+        <result column="zt_count" property="zt_count"/>
+    </resultMap>
+
+    <!--获取企业微信端打卡记录到本地-->
+    <insert id="addCheckin">
+        insert into ufdata_web..staff_workcheck(cpersoncode,cworkrule,cworktype,dstandtime,dchecktime,clocation_title,clocation_detail,cworkdevice,cnotes,lat,lng,ccheckimg,dchecktype)
+        values (#{cpersoncode},#{cworkrule},#{cworktype},DATEADD(S,(#{dstandtime}+28800),'1970-01-01 00:00:00'),DATEADD(S,(#{dchecktime}+28800),'1970-01-01 00:00:00'),#{clocation_title},
+        #{clocation_detail},#{cworkdevice},#{cnotes},#{lat},#{lng},#{ccheckimg},#{dchecktype})
+    </insert>
+
+
+    <!--获取企业微信端打卡记录到本地(新接口)-->
+    <select id="updateCheckin" resultMap="ResultMap">
+        exec ufdata_web..workcheck_list #{jsonvist}
+    </select>
+
+
+    <!--补全当日未打卡人的数据-->
+    <update id="updateStaffWorkcheck">
+        update ufdata_web..staff_workcheck set cworktype = #{cworktype},dchecktime = convert(varchar(10),DATEADD(S,(#{starttime}+28800),'1970-01-01 00:00:00'), 120)+' 00:00:00',dchecktype = '缺卡'
+        where CONVERT(varchar(10),dstandtime,120) = CONVERT(varchar(10),DATEADD(S,(#{starttime}+28800),'1970-01-01 00:00:00'),120) and ISNULL(cworktype,'') = '' and iwctype = #{iwctype}
+    </update>
+
+
+    <!--效验key是否正确-->
+    <select id="charmKeyValidity" resultType="java.lang.String">
+        exec checklogin #{cuserid},#{ckey},#{ilogin_type}
+    </select>
+
+
+    <!--获取所有人的工号-->
+    <select id="getPersonCcomcode" resultMap="CcomcodeMap">
+        select ccode,(select COUNT(*) from person_v) counts from person_v
+    </select>
+
+
+    <!--根据工号写入当天的打卡规则-->
+    <update id="updateDstandTime">
+        update ufdata_web..staff_workcheck set dstandtime = DATEADD(S,#{dstandtime},CONVERT(varchar(10),getdate(),120)+' 00:00:00') where cworkrule = #{cworkrule}
+        and CONVERT(varchar(10),dchecktime,120) = CONVERT(varchar(10),getdate(),120)
+    </update>
+
+
+    <!--获取打卡规则的种类-->
+    <select id="getCworkrule" resultMap="CcomcodeMap">
+        select cworkrule,MIN(cpersoncode) cpersoncode from ufdata_web..staff_workcheck where CONVERT(varchar(10),dchecktime,120) = CONVERT(varchar(10),GETDATE(),120) group by cworkrule
+    </select>
+
+
+    <!--获取某天的上班 或者 下班打卡记录-->
+    <!--cworktype 为1时是上班打卡，为2是下班打卡，为3时是全部打卡-->
+    <!--cworkrule 考勤规则，clocation_title 打卡地点 -->
+   <!-- <select id="getPunchRecord" resultMap="CheckMap">
+        select wor.*,sta.cname,case cworktype when 1 then (case when dchecktime &lt;=dstandtime then '正常' else '迟到' end)
+        when 2 then (case when DATEDIFF(SECOND,dchecktime,dstandtime)>0 then '早退' else '正常' end) else '外出打卡' end dchecktype
+        from ufdata_web..staff_workcheck wor inner join ufdata_web..staff sta on sta.ccode = wor.cpersoncode where 1 = 1
+        <if test="ddate1!=null and ddate1!=''">
+           and CONVERT(varchar(10),dchecktime,120) between CONVERT(varchar(10),#{ddate1},120) and CONVERT(varchar(10),#{ddate2},120)
+        </if>
+        <if test="cpersoncode!=null and cpersoncode!=''">
+            and (cpersoncode = #{cpersoncode} or cpersoncode = (select top 1 ccode from SXEMALL..person_v where cname =#{cpersoncode}))
+        </if>
+        <if test="cworktype!=null and cworktype!=''">
+            and cworktype = #{cworktype}
+        </if>
+        <if test="cworkrule!=null and cworkrule!=''">
+            and cworkrule like '%'+#{cworkrule}+'%'
+        </if>
+        <if test="clocation_title!=null and clocation_title!=''">
+            and clocation_title like '%'+#{clocation_title}+'%'
+        </if>
+        <if test="dchecktype!=null and dchecktype!=''">
+            <if test="dchecktype=='正常'">
+                and cworktype = '1' and dchecktime &lt;= dstandtime
+            </if>
+            <if test="dchecktype=='迟到'">
+                and cworktype = '1' and dchecktime > dstandtime
+            </if>
+            <if test="dchecktype=='早退'">
+                and cworktype = '2' and dchecktime &lt; dstandtime
+            </if>
+        </if>
+        <if test="ccomcode!=null and ccomcode!=''">
+            and sta.ccomcode = #{ccomcode}
+        </if>
+         order by dchecktime
+    </select>-->
+
+
+    <!--获取所有考勤机-->
+    <select id="getClocationTitle" resultMap="Check2Map">
+        select clocation_title from ufdata_web..staff_workcheck where CONVERT(varchar(10),dchecktime,120) = CONVERT(varchar(10),'2020-12-28',120) group by clocation_title
+    </select>
+
+
+    <!--更新打卡规则数据 truncate table ufdata_web..staff_workcheck_rule-->
+    <insert id="addWorkCheckRule">
+        insert into ufdata_web..staff_workcheck_rule (cpersoncode,cworkrule,dstandtime,ctype) values (#{cpersoncode},#{cworkrule},DATEADD(S,#{dstandtime},CONVERT(varchar(10),GETDATE(),120)+' 00:00:00'),#{ctype})
+    </insert>
+
+
+    <!--获取某天的上班 或者 下班打卡记录-->
+    <!--cworktype 为1时是上班打卡，为2是下班打卡，为3时是全部打卡-->
+    <!--cworkrule 考勤规则，clocation_title 打卡地点 -->
+    <select id="getWorkCheckList" resultMap="CheckMap">
+        exec ufdata_web..workcheck_list #{jsonvist}
+    </select>
+
+
+   <!-- 获取考勤统计-->
+    <select id="getWorkCheckNext" resultMap="WorkcheckMap">
+        exec ufdata_web..workcheck_list #{jsonvist}
+    </select>
+
+
+    <!--查询消息组-->
+    <select id="getStaffWorkCheck" resultMap="WorkCheckGroupMap">
+        select cgroupcode,cgroupname from ufdata_web..staff_workcheck_group group by cgroupcode,cgroupname
+    </select>
+
+
+    <!--获取所有的班次-->
+    <select id="getWorkCheckClass" resultMap="WorkCheckClassMap">
+        select *,case inoneedwtend when 0 then (cwtimestart+'-'+cwtimeend) else (cwtimestart+'-无下班卡') end classname from ufdata_web..staff_workcheck_class
+    </select>
+
+
+    <!--获取所有的员工姓名和工号-->
+    <select id="selectPersonNameList" resultMap="PersonNamesDto">
+        select * from person_v where 1 = 1
+        <if test="cname!=null and cname!=''">
+            and  (cname like '%'+#{cname}+'%' or ccode = #{cname} or ccomcode = #{cname})
+        </if>
+    </select>
+
+
+    <!--获取下一轮需要排班的工号-->
+    <select id="selectCpersonCodeList" resultMap="WorkcheckMap">
+        SELECT
+            cpersoncode
+        FROM
+            ufdata_web..staff_workcheck
+        WHERE
+            CONVERT (VARCHAR(10), dstandtime, 120) BETWEEN CONVERT (
+                VARCHAR (10),
+                DATEADD (dd, 1, GETDATE()),
+                120
+            )
+        AND CONVERT (
+            VARCHAR (10),
+            DATEADD (dd, 31, GETDATE()),
+            120
+        )
+        GROUP BY
+            cpersoncode
+    </select>
+
+
+    <!--根据工号查询下一轮的排班班次ID-->
+    <select id="selectWorkCheeckClassId" resultMap="CheckMap">
+        SELECT
+            wor.cworkclasscode iclass
+        FROM
+            ufdata_web..staff_workcheck sta
+        INNER JOIN ufdata_web..staff_workcheck_class wor ON sta.iclass = wor.autoid
+        WHERE
+            cpersoncode = #{cpersoncode} and  CONVERT(varchar(10),dstandtime,120) between CONVERT(varchar(10),DATEADD(dd,1,GETDATE()),120)
+        AND CONVERT (
+            VARCHAR (10),
+            DATEADD (dd, 31, GETDATE()),
+            120
+        )
+        GROUP BY
+            CONVERT (VARCHAR(10), dstandtime, 120),
+            cworkclasscode
+        ORDER BY
+            CONVERT (VARCHAR(10), dstandtime, 120)
+    </select>
+
+
+    <!--将考勤调动写入日志表-->
+    <insert id="addWorkCheckLog">
+        insert into ufdata_web..staff_workcheck_log (altertime,ccode,cstate) values (GETDATE(),#{ccode},#{cstate})
+    </insert>
+
+
+    <!--查询修改日志-->
+    <select id="getWorkCheckLog" resultMap="WorkcheckLogMap">
+        select * from ufdata_web..staff_workcheck_log where cstate = 'pending'
+    </select>
+
+
+    <!--修改完成回写日志表-->
+    <update id="updateWorkCheckLog">
+        update ufdata_web..staff_workcheck_log set uploadtime = GETDATE(),cstate = #{cstate} where ccode = #{ccode} and cstate = '待完成'
+    </update>
+
+
+    <!--更改考勤班次-->
+    <select id="changeWorkClass" resultMap="ResultMap">
+        exec ufdata_web..workcheck_change #{jsonvist}
+    </select>
+
+
+    <!--通过工号查询今日以后的排班信息-->
+    <select id="getCheckDtoList" resultMap="CheckDtoMap">
+        SELECT
+            CONVERT (VARCHAR(10), dstandtime, 112) dstandtime,
+            cworkclasscode
+        FROM
+            ufdata_web..staff_workcheck sta
+        INNER JOIN ufdata_web..staff_workcheck_class wor ON wor.autoid = sta.iclass
+        WHERE
+            cpersoncode = #{cpersoncode} and convert(varchar(10),dstandtime,120) > CONVERT(varchar(10),GETDATE(),120)
+        GROUP BY
+            CONVERT (VARCHAR(10), dstandtime, 112),
+            cworkclasscode
+        ORDER BY
+            CONVERT (VARCHAR(10), dstandtime, 112)
+    </select>
+
+
+    <!--查询月统计表-->
+    <select id="getStaffWorkcheckDay" resultMap="WorkCheckMonStaMap">
+        select * from ufdata_web..v_staffworkcheck_day staf inner join
+        (select cdepcode from ufdata_web..userhold where ctype='hrdata_staff' and cusercode=#{cuserid})
+        userh on staf.ccomcode = userh.cdepcode
+        where 1 = 1
+        <if test="cpersoncode!=null and cpersoncode!=''">
+            and (cpersoncode like '%'+#{cpersoncode}+'%' or cname like '%'+#{cpersoncode}+'%')
+        </if>
+        <if test="iperiod!=null and iperiod!=''">
+            and iperiod = #{iperiod}
+        </if>
+        <if test="ccomcode!=null and ccomcode!=''">
+            and ccomcode = #{ccomcode}
+        </if>
+        <if test="cdepcode!=null and cdepcode!=''">
+            and staf.cdepcode = #{cdepcode}
+        </if>
+        <if test="czjcode!=null and czjcode!=''">
+            and czjcode = #{czjcode}
+        </if>
+    </select>
+
+
+    <!--获取所有考勤数据-->
+    <select id="selectWorkCheckV" resultMap="WorkCheckMap">
+        select * from ufdata_web..v_staffworkcheck_total where 1 = 1
+        <if test="ccomcode!=null and ccomcode!=''">
+            and ccomcode = #{ccomcode}
+        </if>
+        <if test="cdepcode!=null and cdepcode!=''">
+            and cdepcode = #{cdepcode}
+        </if>
+        <if test="cname!=null and cname!=''">
+            and (cpersoncode = #{cname} or cname = #{cname})
+        </if>
+        <if test="ddate1!=null and ddate1!=''">
+            and  ddate between CONVERT(varchar(10),#{ddate1},120) and CONVERT(varchar(10),#{ddate2},120)
+        </if>
+    </select>
+
+
+    <!--考勤数据只允许人事查询-->
+    <select id="getUserHold" resultType="java.lang.Integer">
+        select count(*) from ufdata_web..userhold where ctype = 'hrdata_staff' and cusercode = #{cusercode}
+    </select>
+
+
+    <!--新增关注-->
+    <insert id="addWorkCheckGroup">
+        insert into ufdata_web..staff_workcheck_group (cgroupcode,cgroupname,cpcode) values (#{cgroupcode},#{cgroupname},#{cpcode})
+    </insert>
+
+
+    <!--取消关注-->
+    <delete id="deleteWorkCheckGroup">
+        delete ufdata_web..staff_workcheck_group where cpcode = #{cpcode} and cgroupcode = #{cgroupcode}
+    </delete>
+
+
+    <!--每月考勤统计-->
+    <select id="getWorkcheckRecordList" resultMap="WorkcheckRecordMap">
+        select ccode,cname,COUNT(*)/2 'ydk_day',ISNULL(sdk_day,0) sdk_day,isnull(qk_day,0) qk_day,ISNULL(cd_count,0) cd_count,ISNULL(zt_count,0) zt_count
+        from sxemall..person_v per
+        inner join ufdata_web..staff_workcheck wor on wor.cpersoncode = per.ccode
+        left join (select COUNT(cpersoncode) 'sdk_day',cpersoncode from ufdata_web..staff_workcheck where CONVERT(varchar(7),dstandtime,120) = CONVERT(varchar(7),GETDATE(),120)
+        and ISNULL(dchecktype,'') &lt;&gt; '缺卡' and ISNULL(iwctype,'') = '1' group by cpersoncode) wor2 on wor2.cpersoncode = per.ccode
+        left join (select COUNT(cpersoncode) 'qk_day',cpersoncode from ufdata_web..staff_workcheck where CONVERT(varchar(7),dstandtime,120) = CONVERT(varchar(7),GETDATE(),120)
+        and ISNULL(dchecktype,'') = '缺卡' and ISNULL(iwctype,'') = '1' group by cpersoncode) wor3 on wor3.cpersoncode = per.ccode
+        left join (select COUNT(cpersoncode) 'cd_count',cpersoncode from ufdata_web..staff_workcheck where CONVERT(varchar(7),dstandtime,120) = CONVERT(varchar(7),GETDATE(),120)
+        and ISNULL(dchecktype,'') = '迟到' and ISNULL(iwctype,'') = '1' group by cpersoncode) wor4 on wor4.cpersoncode = per.ccode
+        left join (select COUNT(cpersoncode) 'zt_count',cpersoncode from ufdata_web..staff_workcheck where CONVERT(varchar(7),dstandtime,120) = CONVERT(varchar(7),GETDATE(),120)
+        and ISNULL(dchecktype,'') = '早退' and ISNULL(iwctype,'') = '2' group by cpersoncode) wor5 on wor5.cpersoncode = per.ccode
+        where CONVERT(varchar(7),dstandtime,120) = CONVERT(varchar(7),GETDATE(),120)
+        group by ccode,cname,sdk_day,qk_day,cd_count,zt_count
+    </select>
+
+
+
+</mapper>

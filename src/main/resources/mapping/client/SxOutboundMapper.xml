@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.clientmapper.SxOutBoundMapper">
+
+    <resultMap id="SxOutBoundMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.SxOutBound">
+        <id column="autoid" property="autoid"/>
+        <result column="csocode" property="csocode"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cstate" property="cstate"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="csotype" property="csotype"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+    </resultMap>
+
+
+    <resultMap id="ResultMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+
+    <resultMap id="SxOutRetainedMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.SxOutRetained">
+        <result column="csocode" property="csocode"/>
+        <result column="cname" property="cname"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+        <result column="cstate" property="cstate"/>
+    </resultMap>
+
+
+    <resultMap id="ParameterMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ParameterDto">
+        <result column="ccode" property="ccode"/>
+        <result column="cname" property="cname"/>
+    </resultMap>
+
+
+    <resultMap id="SoorderMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.Soorder">
+        <id column="autoid" property="autoid"/>
+        <result column="csocode" property="csocode"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cstate" property="cstate"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="csotype" property="csotype"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+    </resultMap>
+
+
+    <resultMap id="SxSoorderPlaceMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.SxSoorderPlace">
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+        <result column="cinvimg64" property="cinvimg64"/>
+        <result column="cinvimg500" property="cinvimg500"/>
+    </resultMap>
+
+
+
+    <!--查询出库单-->
+    <!--cstate 状态 01申请 02审核 03出库，如果新增的话默认为01-->
+    <select id="getOutBoundList" resultMap="SxOutRetainedMap">
+        select sx_soorder.csocode,ccus_id,ccus_name,inventory.cinvcode,inventory.cinvname,isnull(cinvstd,'') cinvstd,iquantity,iprice,imoney
+        from sx_soorder
+        inner join sx_customer on sx_soorder.ccus_id=sx_customer.autoid
+        inner join inventory on sx_soorder.cinvcode=inventory.cinvcode
+        where 1 = 1
+        <if test="cperson_id!=null and cperson_id!=''">
+              and sx_soorder.cperson_id =#{cperson_id}
+          </if>
+          <if test="ddate1!=null and ddate1!=''">
+              and CONVERT(varchar(10),sx_soorder.ddate,120) >= #{ddate1} and CONVERT(varchar(10),sx_soorder.ddate,120) &lt;= #{ddate2}
+          </if>
+          <if test="cstate!=null and cstate!=''">
+              and sx_soorder.cstate = #{cstate}
+          </if>
+          <if test="csotype!=null and csotype!=''">
+              and sx_soorder.csotype = #{csotype}
+          </if>
+        order by ddate
+    </select>
+
+
+    <!--新增出库单-->
+    <select id="addOutBoundLists" resultMap="ResultMap">
+        EXEC soorder_add #{jsonvist}
+    </select>
+
+
+    <!--查询昨日留存-->
+    <select id="getSxOutRetained" resultMap="SxOutRetainedMap">
+        EXEC soorder_mathquan #{cperson_id},0,'',1
+    </select>
+
+
+    <!--根据主管经理工号查询所管业务员的出库申请-->
+    <select id="getStaffpsnHold" resultMap="SxOutRetainedMap">
+        select sx_soorder.csocode,person_v.cname cname,sx_soorder.cperson_id,ccus_id,ccus_name,inventory.cinvcode,inventory.cinvname,isnull(cinvstd,'') cinvstd,
+        iquantity,iprice,imoney,case ISNULL(cstate,'') when '01' then '待审核' when '02' then '待出库' when '03' then '已出库' else '' end cstate
+        from sx_soorder
+        inner join sx_customer on sx_soorder.ccus_id=sx_customer.autoid
+        inner join inventory on sx_soorder.cinvcode=inventory.cinvcode
+        inner join person_v on  sx_soorder.cperson_id = person_v.ccode
+        inner join (select ccode1,cname1 from ufdata_web..staffpsnhold where ccode2=#{ccode}) snhold
+        on sx_soorder.cperson_id = snhold.ccode1 where isnull(csotype,'') &lt;&gt;  '02'
+        <if test="cperson_id!=null and cperson_id!=''">
+            and sx_soorder.cperson_id = #{cperson_id}
+        </if>
+        <if test="ddate1!=null and ddate1!=''">
+            and CONVERT(varchar(10),sx_soorder.ddate,120) >= CONVERT(varchar(10),#{ddate1},120)
+            and CONVERT(varchar(10),sx_soorder.ddate,120) &lt;= CONVERT(varchar(10),#{ddate2},120)
+        </if>
+        <if test="cstate!=null and cstate!=''">
+            and sx_soorder.cstate = #{cstate}
+        </if>
+        order by sx_soorder.csocode
+    </select>
+
+
+    <!--根据工号查询今日出库申请-->
+    <select id="getSxSoorderList" resultMap="SxOutRetainedMap">
+        select sx_soorder.csocode,ccus_id,ccus_name,inventory.cinvcode,inventory.cinvname,isnull(cinvstd,'') cinvstd,iquantity,iprice,imoney
+        from sx_soorder inner join sx_customer on sx_soorder.ccus_id=sx_customer.autoid
+        inner join inventory on sx_soorder.cinvcode=inventory.cinvcode
+        where sx_soorder.cperson_id = #{cperson_id} and sx_soorder.cstate = '01' and sx_soorder.csotype = '01'
+    </select>
+
+
+    <!--业务员修改出库申请-->
+    <select id="updateSxSoorder" resultMap="ResultMap">
+        EXEC soorder_add #{jsonvist}
+    </select>
+
+
+    <!--PC端查询出库记录-->
+    <select id="getStaffpsnList" resultMap="SxOutRetainedMap">
+        select sx_soorder.csocode,sx_soorder.ddate,person_v.cname cname,sx_soorder.cperson_id,ccus_id,ccus_name,inventory.cinvcode,inventory.cinvname,isnull(cinvstd,'') cinvstd,
+        iquantity,iprice,imoney,case ISNULL(cstate,'') when '01' then '待审核' when '02' then '待出库' when '03' then '已出库' else '' end cstate
+        from sx_soorder
+        inner join sx_customer on sx_soorder.ccus_id=sx_customer.autoid
+        inner join inventory on sx_soorder.cinvcode=inventory.cinvcode
+        inner join person_v on  sx_soorder.cperson_id = person_v.ccode
+        where 1 = 1
+        <if test="cperson_id!=null and cperson_id!=''">
+            and sx_soorder.cperson_id = #{cperson_id} or person_v.cname like '%'+#{cperson_id}+'%'
+        </if>
+        <if test="ccus_id!=null and ccus_id!=''">
+            and sx_soorder.ccus_id = #{ccus_id} or sx_customer.ccus_name like '%'+#{ccus_id}+'%'
+        </if>
+        <if test="ddate1!=null and ddate1!=''">
+            and CONVERT(varchar(10),sx_soorder.ddate,120) >= CONVERT(varchar(10),#{ddate1},120)
+            and CONVERT(varchar(10),sx_soorder.ddate,120) &lt;= CONVERT(varchar(10),#{ddate2},120)
+        </if>
+        <if test="cstate!=null and cstate!=''">
+            and sx_soorder.cstate = #{cstate}
+        </if>
+        order by sx_soorder.csocode
+    </select>
+
+
+    <!--根据客户编号查询出库申请单-->
+    <select id="getSxSoorderPlace" resultMap="SxOutRetainedMap">
+        EXEC soorder_mathquan #{cperson_id},0,#{ccus_id},1
+    </select>
+
+
+    <!--select inv.cinvname,inv.cinvstd,sor.cinvcode,sor.iquantity,sor.iprice,sor.imoney,
+    ISNULL('http://pic.hnsxtj.com/sxemall/public/'+inm.cinvimg+'_64.jpg','') cinvimg64,
+    ISNULL('http://pic.hnsxtj.com/sxemall/public/'+inm.cinvimg+'_500.jpg','') cinvimg500
+    from sx_soorder sor
+    inner join inventory inv on sor.cinvcode=inv.cinvcode
+    inner join inventory_img inm on inm.cinvcode = inv.cinvcode
+    where ccus_id = #{ccus_id} and cstate = '02'-->
+
+
+    <!--<insert id="addOutBoundList" parameterType="java.util.List">
+        insert into sx_soorder (csocode,cperson_id,ddate,cstate,ccus_id,csotype,cinvcode,iquantity,iprice,imoney) values
+        <foreach collection="list" index="index" separator="," item="item">
+            (#{itme.csocode,jdbcType=VARCHAR},#{itme.cperson_id,jdbcType=VARCHAR},GETDATE(),#{itme.cstate,jdbcType=VARCHAR},
+            #{itme.ccus_id.jdbcType=NCHAR},#{itme.csotype.jdbcType=VARCHAR},#{itme.cinvcode,jdbcType=VARCHAR},
+            #{itme.iquantity,jdbcType=FLOAT},#{itme.iprice},#{itme.imoney})
+        </foreach>
+    </insert>-->
+
+
+
+</mapper>

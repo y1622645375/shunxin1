@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.mallmapper.InventoryMapper">
+
+    <resultMap id="InventoryMap" type="com.shunxin.shunxin_salesman_visit.dto.malldto.InventoryDto">
+        <result column="ccode" property="ccode"/>
+        <result column="cclass" property="cclass"/>
+        <result column="cname" property="cname"/>
+        <result column="imgurl" property="imgurl"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="iinvquan" property="iinvquan"/>
+        <result column="iinvprice" property="iinvprice"/>
+    </resultMap>
+
+    <resultMap id="ResultMap" type="com.shunxin.shunxin_salesman_visit.dto.malldto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+    <resultMap id="CommodityMap" type="com.shunxin.shunxin_salesman_visit.entity.mallentity.Commodity">
+        <result column="cInvcode" property="cInvcode"/>
+        <result column="cInvName" property="cInvName"/>
+        <result column="cInvcname1" property="cInvcname1"/>
+        <result column="cInvcname2" property="cInvcname2"/>
+        <result column="ccus_price" property="ccus_price"/>
+        <result column="isaquan" property="isaquan"/>
+        <result column="ifeelquan" property="ifeelquan"/>
+        <result column="istquan" property="istquan"/>
+        <result column="cInvstd" property="cInvstd"/>
+        <result column="cInvtext1" property="cInvtext1"/>
+        <result column="cinvimg" property="cinvimg"/>
+        <result column="cinvimg1" property="cinvimg1"/>
+        <result column="cinvimg2" property="cinvimg2"/>
+        <result column="cinvimg3" property="cinvimg3"/>
+        <result column="cinvimg4" property="cinvimg4"/>
+        <result column="cinvimg5" property="cinvimg5"/>
+        <result column="cinvimg6" property="cinvimg6"/>
+        <result column="cinvimg7" property="cinvimg7"/>
+        <result column="cinvimg8" property="cinvimg8"/>
+        <result column="cinvimg9" property="cinvimg9"/>
+    </resultMap>
+
+
+    <!--首页查询商品以及分类商品-->
+    <select id="selectInventory" resultMap="InventoryMap">
+        EXEC enumdatas #{ctype},#{cuser_id},#{ctext}
+    </select>
+
+
+    <!--查询所有类别-->
+    <select id="selectInvtype" resultMap="InventoryMap">
+        EXEC enumdatas #{ctype}
+    </select>
+
+
+    <!--添加/删除购物车-->
+    <select id="modifyShoppingTrolley" resultMap="ResultMap">
+        EXEC cart_modify #{ctype},#{cuser_id},#{cinvcode},#{iquan}
+    </select>
+
+
+    <!--删除购物车-->
+    <select id="removeShoppingTrolley" resultMap="ResultMap">
+        EXEC cart_modify #{ctype},#{cuser_id},#{cinvcode},#{iquan}
+    </select>
+
+
+    <!--查询购物车-->
+    <select id="selectShoppingTrolley" resultMap="InventoryMap">
+        EXEC enumdatas #{ctype},#{cuser_id},#{ctext}
+    </select>
+
+
+    <!--查询客户分类-->
+    <select id="selectCcus_level" resultType="java.lang.String">
+        select ccus_level from customer_v where autoid = #{autoid}
+    </select>
+
+
+    <!--查询商品详情-->
+    <select id="selectCommodity" resultMap="CommodityMap">
+        select * from inventory_v where cInvCode = #{cInvCode} and ccus_level = #{ccus_level}
+    </select>
+
+
+
+
+</mapper>

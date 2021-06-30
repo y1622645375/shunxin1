@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.clientmapper.SxCustomerMapper">
+
+    <resultMap id="SxCustomer" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.SxCustomer">
+        <id column="autoid" property="autoid"/>
+        <result column="cCus_Code" property="ccus_code"/>
+        <result column="CCUS_NAME" property="ccus_name"/>
+        <result column="CPASSWORD" property="cpassword"/>
+        <result column="CCUS_CREATE_BY" property="ccus_create_by"/>
+        <result column="CCUS_CREATE_SOURCE" property="ccus_create_source"/>
+        <result column="DCUS_CREATE_TIME" property="dcus_create_time"/>
+        <result column="CCUS_UPDATE_BY" property="ccus_update_by"/>
+        <result column="DCUS_UPDATE_TIME" property="dcus_update_time"/>
+        <result column="CCUS_STATUS" property="ccus_status"/>
+        <result column="CCUS_STATUSNAME" property="ccus_statusname"/>
+        <result column="DFRIST_LOGIN_TIME" property="dfrist_login_time"/>
+        <result column="DLAST_LOGIN_TIME" property="dlast_login_time"/>
+        <result column="CCOMPANY_ID" property="ccompany_id"/>
+        <result column="CDEPARTMENT_ID" property="cdepartment_id"/>
+        <result column="CPERSON_ID" property="cperson_id"/>
+        <result column="CCUS_LEVEL" property="ccus_level"/>
+        <result column="CCUS_TYPE" property="ccus_type"/>
+        <result column="CCUS_XPOINT" property="ccus_xpoint"/>
+        <result column="CCUS_YPOINT" property="ccus_ypoint"/>
+        <result column="CCUS_ADDRESS" property="ccus_address"/>
+        <result column="CCUS_OADDRESS" property="ccus_oaddress"/>
+        <result column="CCUS_PERSON" property="ccus_person"/>
+        <result column="CCUS_PHONE" property="ccus_phone"/>
+        <result column="CCUS_EMAIL" property="ccus_email"/>
+        <result column="CCUS_PAYTYPE" property="ccus_paytype"/>
+        <result column="CCUS_FAREN_NAME" property="ccus_faren_name"/>
+        <result column="CCUS_FAREN_PHONE" property="ccus_faren_phone"/>
+        <result column="CCUS_BANK_NAME" property="ccus_bank_name"/>
+        <result column="CCUS_BANK_ACCOUNT" property="ccus_bank_account"/>
+        <result column="CCUS_BANK_DWNAME" property="ccus_bank_dwname"/>
+        <result column="CCUS_CREDIT_TYPE" property="ccus_credit_type"/>
+        <result column="ICUS_CREDIT_DAYS" property="icus_credit_days"/>
+        <result column="ICUS_CREDIT_LINE" property="icus_credit_line"/>
+        <result column="CCUS_VISIT_TYPE" property="ccus_visit_type"/>
+        <result column="ICUS_VISIT_TIME" property="icus_visit_time"/>
+        <result column="CCUS_VISIT_STATE" property="ccus_visit_state"/>
+        <result column="CLICENSE_ID" property="clicense_id"/>
+        <result column="CLICENSE_NAME" property="clicense_name"/>
+        <result column="CLICENSE_IMG1" property="clicense_img1"/>
+        <result column="CLICENSE_IMG2" property="clicense_img2"/>
+        <result column="CLICENSE_IMG3" property="clicense_img3"/>
+        <result column="CCUS_CLOSE_BY" property="ccus_close_by"/>
+        <result column="CCUS_CLOSE_TIME" property="ccus_close_time"/>
+        <result column="CDEFINE1" property="cdefine1"/>
+        <result column="CDEFINE2" property="cdefine2"/>
+        <result column="CDEFINE3" property="cdefine3"/>
+        <result column="CDEFINE4" property="cdefine4"/>
+        <result column="CDEFINE5" property="cdefine5"/>
+        <result column="DDEFINE1" property="ddefine1"/>
+        <result column="DDEFINE2" property="ddefine2"/>
+        <result column="DDEFINE3" property="ddefine3"/>
+        <result column="IDEFINE1" property="idefine1"/>
+        <result column="IDEFINE2" property="idefine2"/>
+        <result column="IDEFINE3" property="idefine3"/>
+        <result column="CCOMNAME" property="ccomname"/>
+        <result column="cperson_name" property="cperson_name"/>
+    </resultMap>
+
+    <resultMap id="CustNumber" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.CustNumberDto">
+        <result column="ccus_pid" property="ccus_pid"/>
+        <result column="status0" property="status0"/>
+        <result column="status1" property="status1"/>
+        <result column="status2" property="status2"/>
+        <result column="status3" property="status3"/>
+        <result column="status9" property="status9"/>
+        <result column="status10" property="status10"/>
+        <result column="statusall" property="statusall"/>
+    </resultMap>
+
+    <resultMap id="FllowCuslist" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.FllowCuslistDto">
+        <result column="autoid" property="autoid"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccus_address" property="ccus_address"/>
+        <result column="ccus_person" property="ccus_person"/>
+        <result column="ccus_account" property="ccus_account"/>
+        <result column="distance" property="distance"/>
+        <result column="bplan" property="bplan"/>
+        <result column="bvisit" property="bvisit"/>
+        <result column="bimg_fromphoto" property="bimg_fromphoto"/>
+        <result column="bcheckman" property="bcheckman"/>
+    </resultMap>
+
+    <resultMap id="EnumdataMapper" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.EnumdataDto">
+        <result column="ccode" property="ccode"/>
+        <result column="cclass" property="cclass"/>
+        <result column="cname" property="cname"/>
+    </resultMap>
+
+    <resultMap id="CustomerDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.CustomerDto">
+        <id column="autoid" property="autoid"/>
+        <result column="CCUS_CODE" property="ccus_code"/>
+        <result column="CCUS_NAME" property="ccus_name"/>
+        <result column="CPASSWORD" property="cpassword"/>
+        <result column="CCUS_CREATE_BY" property="ccus_create_by"/>
+        <result column="CCUS_CREATE_SOURCE" property="ccus_create_source"/>
+        <result column="DCUS_CREATE_TIME" property="dcus_create_time"/>
+        <result column="CCUS_UPDATE_BY" property="ccus_update_by"/>
+        <result column="DCUS_UPDATE_TIME" property="dcus_update_time"/>
+        <result column="CCUS_STATUS" property="ccus_status"/>
+        <result column="CCUS_STATUSNAME" property="ccus_statusname"/>
+        <result column="DFRIST_LOGIN_TIME" property="dfrist_login_time"/>
+        <result column="DLAST_LOGIN_TIME" property="dlast_login_time"/>
+        <result column="CCOMPANY_ID" property="ccompany_id"/>
+        <result column="CDEPARTMENT_ID" property="cdepartment_id"/>
+        <result column="CPERSON_ID" property="cperson_id"/>
+        <result column="CCUS_LEVEL" property="ccus_level"/>
+        <result column="CCUS_TYPE" property="ccus_type"/>
+        <result column="CCUS_XPOINT" property="ccus_xpoint"/>
+        <result column="CCUS_YPOINT" property="ccus_ypoint"/>
+        <result column="CCUS_ADDRESS" property="ccus_address"/>
+        <result column="CCUS_OADDRESS" property="ccus_oaddress"/>
+        <result column="CCUS_PERSON" property="ccus_person"/>
+        <result column="CCUS_PHONE" property="ccus_phone"/>
+        <result column="CCUS_EMAIL" property="ccus_email"/>
+        <result column="CCUS_PAYTYPE" property="ccus_paytype"/>
+        <result column="CCUS_CREDIT_TYPE" property="ccus_credit_type"/>
+        <result column="ICUS_CREDIT_DAYS" property="icus_credit_days"/>
+        <result column="ICUS_CREDIT_LINE" property="icus_credit_line"/>
+        <result column="CCUS_VISIT_TYPE" property="ccus_visit_type"/>
+        <result column="icus_visit_time" property="icus_visit_time"/>
+        <result column="ccus_visit_state" property="ccus_visit_state"/>
+        <result column="CLICENSE_ID" property="clicense_id"/>
+        <result column="CLICENSE_NAME" property="clicense_name"/>
+        <result column="CLICENSE_IMG1" property="clicense_img1"/>
+        <result column="CLICENSE_IMG2" property="clicense_img2"/>
+        <result column="CCUS_CLOSE_BY" property="ccus_close_by"/>
+        <result column="CCUS_CLOSE_TIME" property="ccus_close_time"/>
+        <result column="CCOMNAME" property="ccomname"/>
+        <result column="CDEPNAME" property="cdepname"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="CCUS_FAREN_NAME" property="ccus_faren_name"/>
+        <result column="CCUS_FAREN_PHONE" property="ccus_faren_phone"/>
+        <result column="CCUS_BANK_NAME" property="ccus_bank_name"/>
+        <result column="CCUS_BANK_ACCOUNT" property="ccus_bank_account"/>
+        <result column="CCUS_BANK_DWNAME" property="ccus_bank_dwname"/>
+        <result column="CCUS_ACCOUNT" property="ccus_account"/>
+        <result column="CLEVELNAME" property="clevelname"/>
+        <result column="CTYPENAME" property="ctypename"/>
+        <result column="CCUS_CREDIT_TYPENAME" property="ccus_credit_typename"/>
+        <result column="CCUS_PAYTYPE_NAME" property="ccus_paytype_name"/>
+        <result column="status0" property="status0"/>
+        <result column="status1" property="status1"/>
+        <result column="status2" property="status2"/>
+        <result column="status3" property="status3"/>
+        <result column="status9" property="status9"/>
+        <result column="status10" property="status10"/>
+        <result column="statusall" property="statusall"/>
+        <result column="bwxbind" property="bwxbind"/>
+    </resultMap>
+
+    <resultMap id="SalesmanDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.SalesmanDto">
+        <result column="ccode" property="ccode"/>
+        <result column="cname" property="cname"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccomname" property="ccomname"/>
+        <result column="cdepname" property="cdepname"/>
+        <result column="cryzt" property="cryzt"/>
+        <result column="cuscount" property="cuscount"/>
+    </resultMap>
+
+    <resultMap id="PersonDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.PersonDto">
+        <result column="CFLLOW_PID" property="cfllow_pid"/>
+        <result column="DFLLOW_START_TIME" property="dfllow_start_time"/>
+        <result column="CFLLOW_XPOINT" property="cfllow_xpoint"/>
+        <result column="CFLLOW_YPOINT" property="cfllow_ypoint"/>
+        <result column="CNAME1" property="cname1"/>
+        <result column="ZGCODE" property="zgcode"/>
+    </resultMap>
+
+    <resultMap id="ResultDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+    <resultMap id="PlanaddDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.PlanaddDto">
+        <result column="ccus_cid" property="ccus_cid"/>
+        <result column="ccus_comid" property="ccus_comid"/>
+        <result column="ccus_pid" property="ccus_pid"/>
+        <result column="ccus_code" property="ccus_code"/>
+        <result column="ccus_visit_type" property="ccus_visit_type"/>
+        <result column="ccus_visit_time" property="ccus_visit_time"/>
+        <result column="ccus_visit_state" property="ccus_visit_state"/>
+    </resultMap>
+
+    <resultMap id="PersonNameDto" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.PersonNameDto">
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccode" property="ccode"/>
+        <result column="cname" property="cname"/>
+    </resultMap>
+
+    <resultMap id="ParameterMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ParameterDto">
+        <result column="cname" property="cname"/>
+        <result column="ccode" property="ccode"/>
+    </resultMap>
+
+    <resultMap id="LinenameTotalMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.LinenameTotal">
+        <id column="column_id" property="column_id"/>
+        <result column="column_name" property="column_name"/>
+        <result column="column_width" property="column_width"/>
+        <result column="column_color" property="column_color"/>
+        <result column="column_order" property="column_order"/>
+        <result column="tables_name" property="tables_name"/>
+        <result column="column_value" property="column_value"/>
+    </resultMap>
+
+    <!--根据业务员ID查询其负责商家的数量-->
+    <select id="selectCustomerCount" resultMap="CustNumber">
+        SELECT * FROM customer_v_count WHERE 1 = 1
+        <if test="cperson_id!=null and cperson_id!=''">
+            AND ccus_pid=#{cperson_id}
+        </if>
+    </select>
+
+
+    <!--新增或修改客户信息-->
+    <select id="insertCustomer" resultMap="ResultDto">
+        EXEC customer_add #{json}
+    </select>
+
+
+    <!--查询今日拜访客户列表-->
+    <select id="selectFllowCuslistList" resultMap="FllowCuslist">
+        EXEC fllow_cuslist #{cperson_id},#{xpiont},#{ypiont},#{distance},#{ccus_name},#{bplan}
+    </select>
+
+
+    <!--根据不同的条件查询客户级别/客户类型/商品-->
+    <select id="selectEnumdatasList" resultMap="EnumdataMapper">
+        EXEC enumdatas #{ctype}
+    </select>
+
+
+    <!--餐饮业务员下单查询客户-->
+    <select id="getFllowCusList" resultMap="FllowCuslist">
+         EXEC fllow_cuslist #{cperson_id},#{xpiont},#{ypiont},#{distance},#{ccus_name},#{bplan},0
+    </select>
+
+
+    <!--查询业务员列表-->
+    <select id="selectSalesmanList" resultMap="SalesmanDto">
+        EXEC GetPsnCus #{ccode}
+        <if test="cname!=null and cname !=''">
+            ,#{cname}
+        </if>
+    </select>
+
+
+    <!--根据客户类型、客户名称查询客户列表及其数量（主要用于主管端）3留存 2活跃 1全部-->
+    <select id="selectCustomerListcharge" resultMap="CustomerDto">
+        EXEC getcuslist #{cperson_id},#{ccus_status},#{ccus_name}
+        <if test="autoid!=0">
+            ,#{autoid}
+        </if>
+    </select>
+
+
+    <!--业务员跟踪-->
+    <select id="selectPersonList" resultMap="PersonDto">
+        SELECT * FROM fllow_person_hold WHERE zgcode LIKE '%'+#{cfllow_pid}+'%'
+    </select>
+
+
+    <!--添加评论-->
+    <select id="updateCuslist" resultMap="ResultDto">
+        EXEC fllow_check #{autoid},#{cuser_id},#{cchecktext}
+    </select>
+
+
+    <!--删除旧的拜访计划-->
+    <delete id="deleteCustomer">
+        DELETE FROM sx_customer_planadd WHERE CCUS_CID=#{ccus_cid} AND CCUS_PID=#{ccus_pid}
+    </delete>
+
+
+    <!--增加新的拜访周期-->
+    <insert id="insertPayvisit">
+        INSERT INTO sx_customer_planadd(CCUS_CID,CCUS_COMID,CCUS_PID,CCUS_CODE,CCUS_VISIT_TYPE,CCUS_VISIT_TIME,ccus_visit_state)
+        VALUES(#{ccus_cid},'01',#{ccus_pid},'',#{ccus_visit_type},#{ccus_visit_time},'1')
+    </insert>
+
+
+    <!--查询客户列表（PC 端）-->
+    <select id="selectCustomerList2" resultMap="CustomerDto">
+        SELECT * FROM customer_v WHERE 1 = 1
+        <if test="cperson_id!=null and cperson_id!=''">
+           AND  CPERSON_ID = #{cperson_id}
+        </if>
+        <if test="ccus_name!=null and ccus_name!=''">
+            AND CCUS_NAME LIKE '%'+#{ccus_name}+'%'
+        </if>
+        <if test="ccus_account!=null and ccus_account!=''">
+            AND ccus_account = #{ccus_account}
+        </if>
+        <if test="cperson_name!=null and cperson_name!=''">
+            AND cperson_name LIKE '%'+#{cperson_name}+'%'
+        </if>
+        <if test="ccus_type!=null and ccus_type!=''">
+            AND ccus_type = #{ccus_type}
+        </if>
+        <if test="ccus_level!=null and ccus_level!=''">
+            AND ccus_level = #{ccus_level}
+        </if>
+        <if test="ccus_visit_type!=null and ccus_visit_type!=''">
+            AND ccus_visit_type =#{ccus_visit_type}
+        </if>
+        <if test="icus_visit_time!=null and icus_visit_time!=''">
+            AND ','+icus_visit_time+',' LIKE '%,'+#{icus_visit_time}+',%'
+        </if>
+        <if test="ccus_status!=null and ccus_status!=''">
+            <if test="ccus_status=='1'">
+                AND ccus_status IN ('1','2','3')
+            </if>
+            <if test="ccus_status!='1'">
+                AND ccus_status = #{ccus_status}
+            </if>
+        </if>
+        <if test="ccompany_id!=null and ccompany_id!=''">
+            AND ccompany_id IN (${ccompany_id})
+        </if>
+    </select>
+
+
+    <!-- 06 禁用或  07启用-->
+    <select id="updateccusStatus" resultMap="ResultDto">
+         EXEC customer_add #{customerjson}
+    </select>
+    <!--update sx_customer set ccus_status = #{ccus_status}  where autoid = #{autoid}-->
+
+
+    <!-- 05 审核客户信息-->
+    <select id="updateAudit" resultMap="ResultDto">
+        EXEC customer_add #{customerjson}
+    </select>
+    <!--update sx_customer set ccus_status = #{ccus_status},ccus_code = #{ccus_code},cdefine1 = #{cdefine1} where autoid = #{autoid}-->
+
+
+   <!-- 查询所有业务员-->
+    <!--<select id="selectPersonName" resultMap="PersonNameDto">
+        select * from person_v where ccomcode = #{ccomcode} order by cname
+    </select>-->
+
+    <!--查询该人员所属公司的所有在职人员-->
+    <select id="selectPersonName" resultMap="ParameterMap">
+        SELECT ccode,cname FROM ufdata_web..staff WHERE cryzt='在职' AND cssbm IN ('2','3','4','5','6','7','8','9','10','11','12','13','14','22')
+        AND ccomcode =(SELECT ccomcode FROM ufdata_web..staff WHERE ccode= #{ccode})
+    </select>
+
+
+   <!-- 查询操作员的级别-->
+    <select id="selectCcompany" resultType="java.lang.String">
+       SELECT cdepcode FROM ufdata_web..userhold WHERE ctype='emall_customer' AND cusercode= #{cperson_id}
+    </select>
+
+
+    <!--删除客户-->
+    <select id="delectCustomers" resultMap="ResultDto">
+        EXEC customer_del #{autoid}
+    </select>
+
+
+    <!--查询导出表信息-->
+    <select id="selectLinenameTotal" resultMap="LinenameTotalMap">
+        SELECT * FROM linename_total_v WHERE tables_name = #{tables_name} ORDER BY column_order
+    </select>
+
+
+    <!--批量修改商家所属业务员-->
+    <select id="batchUpdate" resultMap="ResultDto">
+          EXEC customer_add #{customerinfo}
+    </select>
+
+
+    <!--查询单个店铺信息-->
+    <select id="selectCustomer" resultMap="CustomerDto">
+        SELECT * FROM customer_v WHERE autoid = #{autoid}
+    </select>
+
+
+
+</mapper>

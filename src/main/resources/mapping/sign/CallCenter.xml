@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.signmapper.CallCenterMapper">
+
+    <resultMap id="CallCenterMap" type="com.shunxin.shunxin_salesman_visit.entity.signentity.CallCenter">
+        <id column="autoid" property="autoid"/>
+        <result column="copenid" property="copenid"/>
+        <result column="ddate" property="ddate"/>
+        <result column="csource" property="csource"/>
+        <result column="cmsgtext" property="cmsgtext"/>
+    </resultMap>
+
+
+    <!--根据openid获取近七天的聊天记录-->
+    <select id="selectCallService" resultMap="CallCenterMap">
+        SELECT * FROM sx_service WHERE DATEDIFF(DD,dDate,GETDATE()) &lt;= 7 AND copenid = #{copenid} ORDER BY dDate
+    </select>
+
+
+    <!--根据openid获取所有聊天记录-->
+    <select id="selectAllService" resultMap="CallCenterMap">
+        SELECT * FROM sx_service WHERE copenid = #{copenid} ORDER BY dDate
+    </select>
+
+
+    <!--发送消息-->
+    <insert id="insertCallService">
+        INSERT INTO sx_service (copenid,ddate,csource,cmsgtext) VALUES (#{copenid},getdate(),#{csource},#{cmsgtext})
+    </insert>
+
+
+    <!--将消息转发至企业微信-->
+    <select id="sendMessages" resultType="java.lang.String">
+        EXEC SendMsg '01',#{cperson_id},#{msgtext}
+    </select>
+
+
+    <!--更新客服在线的最后时间-->
+    <update id="updateCdefine5">
+        UPDATE sx_service SET cDefine5 = GETDATE() WHERE copenid =#{copenid} AND dDate = (SELECT MAX(dDate) FROM sx_service WHERE copenid = #{copenid})
+    </update>
+
+
+    <!--获取客服在线的最后时间-->
+    <select id="selectMaxCdefine5" resultType="java.util.Date">
+        SELECT MAX(cDefine5) FROM sx_service WHERE copenid = #{copenid} AND cDefine5 IS NOT NULL
+    </select>
+
+
+
+</mapper>

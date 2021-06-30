@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.promotmapper.RelationMapper">
+
+    <resultMap id="RelationMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.Relation">
+        <result column="ccompany_id" property="ccompany_id"/>
+        <result column="ccompany_name" property="ccompany_name"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="msgtext" property="msgtext"/>
+        <result column="cmemo" property="cmemo"/>
+        <result column="headimg" property="headimg"/>
+    </resultMap>
+
+    <resultMap id="AppDinweiMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.AppDinwei">
+        <result column="cname" property="cname"/>
+        <result column="autoid" property="autoid"/>
+        <result column="cuser_id" property="cuser_id"/>
+        <result column="ddate" property="ddate"/>
+        <result column="logs" property="logs"/>
+        <result column="itype" property="itype"/>
+        <result column="param1" property="param1"/>
+        <result column="param2" property="param2"/>
+        <result column="param3" property="param3"/>
+        <result column="param4" property="param4"/>
+        <result column="param5" property="param5"/>
+    </resultMap>
+
+    <resultMap id="ScanLogMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.ScanLog">
+        <id column="autoid" property="autoid"/>
+        <result column="param1" property="param1"/>
+        <result column="cname" property="cname"/>
+        <result column="param3" property="param3"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cuname" property="cuname"/>
+        <result column="param5" property="param5"/>
+        <result column="param2" property="param2"/>
+        <result column="param4" property="param4"/>
+    </resultMap>
+
+
+    <!--根据当前位置查询业务员-->
+    <select id="selectAreaSalesman" resultMap="RelationMap">
+        EXEC personarea_lookup #{jsonvist}
+    </select>
+
+
+    <!--根据工号绑定openid，先查询需要绑定的openid是否已经存在，如果存在则不进行操作，未绑定的则进行绑定-->
+    <insert id="addStaffOpenid">
+        insert into ufdata_web..staff_openid (ccode,cwxtype,wxopenid,cname) values (#{ccode},'wx',#{wxopenid},#{cname})
+    </insert>
+    <!--<update id="bandStaffOpenid">
+        update ufdata_web..staff_openid set wxopenid = #{wxopenid} where ccode = #{ccode}
+    </update>-->
+
+    <!--判断该openid是否已经绑定-->
+    <select id="selectWxopenidso" resultType="java.lang.Integer">
+        select COUNT(*) from ufdata_web..staff_openid where wxopenid =#{wxopenid}
+    </select>
+
+
+    <!--根据openid查询工号-->
+    <select id="getStaffOpenid" resultType="java.lang.String">
+        select ccode from ufdata_web..staff_openid where wxopenid = #{wxopenid}
+    </select>
+
+    <!--查询扫码时的经纬度-->
+    <select id="selectSxDinweiLogs" resultMap="AppDinweiMap">
+        select cname,logs.* from sx_app_log logs left join ufdata_web..staff sta on logs.param1=sta.cdefine26
+        where logs='手机扫码查询区域业务员'
+        <if test="ddate1!=null and ddate1!=''">
+            and ddate &gt;=#{ddate1} and ddate &lt;=#{ddate2}
+        </if>
+        order by ddate desc
+    </select>
+
+
+    <!--查询客户扫码记录-->
+    <select id="ScanRecordLog" resultMap="ScanLogMap">
+        select sx_app_log.autoid,param1,isnull(staff.cname,'') cname,param3,ddate,staff1.cname cuname,param5,param2,param4 from sx_app_log
+        left join ufdata_web..staff_openid staff on sx_app_log.param1=staff.wxopenid
+        left join ufdata_web..staff_openid staff1 on sx_app_log.cuser_id=staff1.ccode
+        where logs like '%业务员%'  and convert(varchar(10),ddate,120) between #{ddate1} and #{ddate2} and isnull(staff.cname,'')=''
+        order by ddate desc
+    </select>
+
+
+
+</mapper>

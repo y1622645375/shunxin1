@@ -1,0 +1,39 @@
+###服务启动端口号
+server:
+  port: 9443
+  tomcat:
+    max-threads: 8192
+  ssl:
+    key-store: classpath:www.hnsxtj.com.jks
+    key-store-password: 123456
+    key-alias: www.hnsxtj.com
+    key-store-type: JKS
+
+
+http:
+  port: 9999
+
+###服务名称(服务注册到eureka名称)
+spring:
+  datasource:
+      url: jdbc:sqlserver://192.168.10.2;DatabaseName=SXEMALL
+      username: sa
+      password: jiang
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+
+
+## 该配置节点为独立的节点，有很多人容易将这个配置放在spring的节点下，导致配置无法被识别.
+mybatis:
+  mapper-locations: classpath:mapping/*/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.shunxin.shunxin_salesman_visit.entity  # 注意：对应实体类的路径
+  configuration:
+   auto-mapping-behavior: none
+logging:
+  path: /salesman_log
+
+

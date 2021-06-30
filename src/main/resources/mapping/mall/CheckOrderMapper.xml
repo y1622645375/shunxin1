@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.mallmapper.CheckOrderMapper">
+
+    <resultMap id="OrderMap" type="com.shunxin.shunxin_salesman_visit.entity.mallentity.Order">
+        <result column="csocode" property="csocode"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccus_xpoint" property="ccus_xpoint"/>
+        <result column="ccus_ypoint" property="ccus_ypoint"/>
+        <result column="ccus_oaddress" property="ccus_oaddress"/>
+        <result column="ccus_phone" property="ccus_phone"/>
+        <result column="ccus_person" property="ccus_person"/>
+        <result column="ccus_paytype_name" property="ccus_paytype_name"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="cmaker" property="cmaker"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+        <result column="cdefine28" property="cdefine28"/>
+        <result column="cso_state" property="cso_state"/>
+        <result column="enumname" property="enumname"/>
+        <result column="cinvimg" property="cinvimg"/>
+        <result column="csocodes" property="csocodes"/>
+        <result column="iusegold_sum" property="iusegold_sum"/>
+        <result column="mdefine1" property="mdefine1"/>
+        <result column="cpaytypename" property="cpaytypename"/>
+        <result column="cpaytype" property="cpaytype"/>
+        <result column="ccus_remaker" property="ccus_remaker"/>
+        <result column="cso_statename" property="cso_statename"/>
+    </resultMap>
+
+
+    <resultMap id="ResultMap" type="com.shunxin.shunxin_salesman_visit.dto.malldto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+
+
+    <!--根据业务员ID查询其所管理客户的订单  00客户下单   -->
+    <select id="selectManagesOrder" resultMap="OrderMap">
+        SELECT * FROM order_v WHERE ccus_id in (select autoid from sx_customer where CPERSON_ID = #{cuser_id}) and cso_state in ('00','90')
+    </select>
+
+
+    <!--业务员审核客户所下的订单或取消的订单  01保存(相当于客户下单)  02 审核通过   03 审核拒绝  04 客户申请作废  05 业务员同意作废   06 业务员拒绝作废-->
+    <select id="checkOrderList" resultMap="ResultMap">
+        exec order_add #{jsonvist}
+    </select>
+
+
+
+</mapper>

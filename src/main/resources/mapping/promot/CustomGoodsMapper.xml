@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.promotmapper.CustomgoodsMapper">
+
+    <resultMap id="CustomGoodMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.CustomGoods">
+        <id column="autoid" property="autoid"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="dmodifydate" property="dmodifydate"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="benabled" property="benabled"/>
+    </resultMap>
+
+
+    <resultMap id="CustomGoodDto" type="com.shunxin.shunxin_salesman_visit.dto.promotdto.CustomGoodDto">
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccus_code" property="ccus_code"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="bused" property="bused"/>
+    </resultMap>
+
+
+    <!--根据业务员工号查询所管客户-->
+    <select id="selectCustoms" resultMap="CustomGoodDto">
+        select ccus_code,ccus_name from sx_customer where CPERSON_ID = #{cperson_id} and  ISNULL(cCus_Code,'') &lt;&gt; ''
+        <if test="ccus_name!=null and ccus_name!=''">
+            and (ccus_name like '%'+#{ccus_name}+'%' or ccus_code like '%'+#{ccus_name}+'%')
+        </if>
+    </select>
+
+
+    <!--根据业务员工号查询所管商品-->
+    <select id="selectCommodity" resultMap="CustomGoodDto">
+          select cinvcode,cinvname from inventory where dEDate is null
+          <if test="cinvname!=null and cinvname!=''">
+              and (cinvName like '%'+#{cinvname}+'%' or cInvCode like '%'+#{cinvname}+'%')
+          </if>
+    </select>
+
+
+    <!--给客户选择商品或给商品选择客户-->
+   <insert id="addCommdityToCustoms">
+        insert into inventory_cus(ccomcode,ccus_id,cinvcode,dmodifydate,cperson_id,benabled) values (#{ccomcode},#{ccus_id},#{cinvcode},GETDATE(),#{cperson_id},1)
+   </insert>
+
+
+    <!--根据客户编号删除其所有商品-->
+    <delete id="deleteCommdityToCustoms">
+        delete inventory_cus where ccus_id = #{ccus_id}
+    </delete>
+
+
+    <!--根据商品编号删除其所有客户-->
+    <delete id="deleteCustomsToCommdity">
+        delete inventory_cus where cinvcode = #{cinvcode}
+    </delete>
+
+
+    <!--根据业务员工号查询其所属公司-->
+    <select id="selectCompany" resultType="java.lang.String">
+        SELECT distinct ccomcode FROM person_v WHERE ccode = #{cperson_id}
+    </select>
+
+
+    <!--根据客户查询已选择的商品-->
+    <select id="getCustomCommdity" resultMap="CustomGoodDto">
+        select inventory.cInvCode,inventory.cInvName,inventory.cInvStd,case ISNULL(invcus.cinvcode,'') when '' then 0 else 1 end bused from inventory
+        left join (select * from inventory_cus where ccus_id=#{ccus_id} and benabled=1) invcus
+        on inventory.cInvCode=invcus.cinvcode where cinvccode &lt;&gt; '98'
+    </select>
+
+
+    <!--根据商品查询已选择的客户-->
+    <select id="getCommdityCustom" resultMap="CustomGoodDto">
+        select ccus_code,ccus_name,case ISNULL(invcus.ccus_id,'') when '' then 0 else 1 end bused from sx_customer
+        left join (select * from inventory_cus where cinvcode = #{cinvcode} and benabled = 1) invcus
+        on sx_customer.cCus_Code=invcus.ccus_id
+        where ISNULL(cCus_Code,'') &lt;&gt; '' and sx_customer.CPERSON_ID =#{cperson_id}
+    </select>
+
+
+
+</mapper>

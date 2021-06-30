@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.eatbarmapper.EatBarMapper">
+    <resultMap id="EatMenusMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.EatMenus">
+        <id column="me_id" property="me_id"/>
+        <result column="me_name" property="me_name"/>
+        <result column="me_dtime" property="me_dtime"/>
+    </resultMap>
+
+
+    <resultMap id="EatStaffMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.EatStaff">
+        <id column="st_id" property="st_id"/>
+        <result column="st_code" property="st_code"/>
+        <result column="st_name" property="st_name"/>
+        <result column="st_dtime" property="st_dtime"/>
+        <result column="st_remark" property="st_remark"/>
+    </resultMap>
+
+
+    <resultMap id="EatApplyMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.EatApplyDto">
+        <id column="ap_id" property="ap_id"/>
+        <result column="ap_code" property="ap_code"/>
+        <result column="ap_dtime" property="ap_dtime"/>
+        <result column="st_name" property="st_name"/>
+        <result column="ap_type" property="ap_type"/>
+    </resultMap>
+
+    <resultMap id="DayreporyMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.TmpSxDayrepory">
+        <id column="autoid" property="autoid"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cpcode" property="cpcode"/>
+        <result column="cpname" property="cpname"/>
+        <result column="ctoday" property="ctoday"/>
+        <result column="ctomrrow" property="ctomrrow"/>
+        <result column="creport" property="creport"/>
+        <result column="creporter1" property="creporter1"/>
+        <result column="creporter2" property="creporter2"/>
+    </resultMap>
+
+    <resultMap id="ChargesMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.SxCharges">
+        <result column="ccode2" property="ccode2"/>
+        <result column="cname2" property="cname2"/>
+    </resultMap>
+
+
+    <resultMap id="EmptyMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.Empty">
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="iquan" property="iquan"/>
+    </resultMap>
+
+    <resultMap id="PersonNamesDto" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.PersonNameDto">
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccode" property="ccode"/>
+        <result column="cname" property="cname"/>
+    </resultMap>
+
+
+    <resultMap id="BirthdayMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.BirthdayDto">
+        <id column="autoid" property="autoid"/>
+        <result column="greeting" property="greeting"/>
+    </resultMap>
+
+
+    <resultMap id="staffTmpMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.staffTmpDto">
+        <id column="autoid" property="autoid"/>
+        <result column="cname" property="cname"/>
+        <result column="ccode" property="ccode"/>
+        <result column="xpoint" property="xpoint"/>
+        <result column="ypoint" property="ypoint"/>
+        <result column="cadress" property="cadress"/>
+    </resultMap>
+
+
+    <resultMap id="CustomerAddressMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.CustomerAddress">
+        <result column="autoid" property="autoid"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="ccus_xpoint" property="ccus_xpoint"/>
+        <result column="ccus_ypoint" property="ccus_ypoint"/>
+        <result column="ccomname" property="ccomname"/>
+    </resultMap>
+
+
+    <resultMap id="MapTmpsMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.MapTmps">
+        <result column="autoid" property="autoid"/>
+        <result column="lat" property="lat"/>
+        <result column="lng" property="lng"/>
+        <result column="param1" property="param1"/>
+    </resultMap>
+
+    <resultMap id="ResultDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+    <resultMap id="TempFllowMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.TempFllowVisit">
+        <result column="autoid" property="autoid"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="cfllow_cid" property="cfllow_cid"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccus_address" property="ccus_address"/>
+        <result column="cfllow_pid" property="cfllow_pid"/>
+        <result column="cname" property="cname"/>
+        <result column="cfllow_comid" property="cfllow_comid"/>
+        <result column="cccus_xpoint" property="cccus_xpoint"/>
+        <result column="cccus_ypoint" property="cccus_ypoint"/>
+        <result column="dfllow_start_time" property="dfllow_start_time"/>
+        <result column="dfllow_end_time" property="dfllow_end_time"/>
+        <result column="cfllow_memo" property="cfllow_memo"/>
+        <result column="cdefine1" property="cdefine1"/>
+        <result column="cdefine2" property="cdefine2"/>
+        <result column="cdefine3" property="cdefine3"/>
+        <result column="cdefine4" property="cdefine4"/>
+    </resultMap>
+
+    <resultMap id="FllowImgMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.FllowImgDto">
+        <result column="cimg_type" property="cimg_type"/>
+        <result column="cimg_path" property="cimg_path"/>
+    </resultMap>
+
+    <resultMap id="FllowStatisMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.FllowStatis">
+        <result column="ccode" property="ccode"/>
+        <result column="cname" property="cname"/>
+        <result column="shoul_quan" property="shoul_quan"/>
+        <result column="reality_quan" property="reality_quan"/>
+    </resultMap>
+
+
+    <!--查询今日菜单-->
+    <select id="selectMenusList" resultMap="EatMenusMap">
+        select * from eat_web..eat_menus where convert(varchar(10),me_dtime,120) = #{me_dtime}
+    </select>
+
+
+    <!--查询上一次报餐时间-->
+    <select id="getApDtime" resultType="java.lang.String">
+        select CONVERT(varchar(10),MAX(ap_dtime),120) ap_dtime from eat_web..eat_apply
+    </select>
+
+
+    <!--新增菜单-->
+    <insert id="addMenus">
+        insert into eat_web..eat_menus (me_name,me_dtime) values (#{me_name},GETDATE())
+    </insert>
+
+
+    <!--修改菜单-->
+    <update id="updateMenus">
+        update eat_menus set me_name = #{me_name},me_dtime = GETDATE() where me_id = #{me_id}
+    </update>
+
+
+    <!--检测今日菜单是否已经录入-->
+    <select id="getMenusCount" resultType="java.lang.Integer">
+        select COUNT(*) from eat_web..eat_menus where convert(varchar(10),me_dtime,120) = #{me_dtime}
+    </select>
+
+
+    <!--新增允许吃饭人员名单-->
+    <insert id="addStaff">
+        insert into eat_web..eat_staff(st_code,st_name,st_dtime,st_remark) values (#{st_code},#{st_name},GETDATE(),#{st_remark})
+    </insert>
+
+    <!--查询允许吃饭人员名单-->
+    <select id="selectStaff" resultMap="EatStaffMap">
+        select * from eat_web..eat_staff where 1 = 1
+        <if test="st_code!=null and st_code!=''">
+            and st_code = #{st_code}
+        </if>
+        <if test="st_name!=null and st_name!=''">
+            and st_name like '%'+ #{st_name}+'%'
+        </if>
+    </select>
+
+    <!--新增人员时绑定微信Openid-->
+    <insert id="insertWxBinds">
+        insert into eat_web..eat_wxbind (wx_code,wx_openid) select per_userid, per_openid from ufdata_web..aao_staff_list where per_userid = #{st_code}
+    </insert>
+
+    <!--新增今日报餐人员-->
+    <insert id="addApply">
+        delete eat_web..eat_apply where ap_code = #{ap_code} and convert(varchar(10),ap_dtime,120)=convert(varchar(10),GETDATE(),120)
+        insert into eat_web..eat_apply(ap_code,ap_dtime,ap_type) values (#{ap_code},GETDATE(),#{ap_type})
+    </insert>
+
+    <!--查询今日报餐人员-->
+    <select id="selectApply" resultMap="EatApplyMap">
+        select a.*,b.st_name from eat_web..eat_apply a left join eat_web..eat_staff b on a.ap_code = b.st_code
+        where convert(varchar(10),ap_dtime,120) = #{ap_dtime} and a.ap_type &lt;&gt; '4' order by a.ap_type desc
+    </select>
+
+    <!--删除报餐人员-->
+    <delete id="deleteStaff">
+        delete eat_web..eat_staff where st_id = #{st_id}
+    </delete>
+
+    <!--根据st_id查询报餐人员工号-->
+    <select id="selectStcode" resultType="java.lang.String">
+        select st_code from eat_web..eat_staff where st_id = #{st_id}
+    </select>
+
+
+    <!--查询历史菜名-->
+    <select id="selectMenusName" resultMap="EatMenusMap">
+        select distinct me_name from eat_web..eat_menus where me_name like '%'+#{me_name}+'%'
+    </select>
+
+
+    <!--检测今日是否已经报餐-->
+    <select id="getApplyInfo" resultType="java.lang.Integer">
+        select COUNT(*) from eat_web..eat_apply where ap_code = #{ap_code} and convert(varchar(10),ap_dtime,120) = #{ap_dtime}
+    </select>
+
+
+    <!--通过工号查询姓名-->
+    <select id="getCname" resultType="java.lang.String">
+        select cname from person_v where ccode = #{ccode}
+    </select>
+
+
+    <!--通过工号，公司，姓名查询业务员信息-->
+    <select id="getPersons" resultMap="PersonNamesDto">
+        select * from person_v where (cname like  '%'+#{cname}+'%' or ccode = #{cname} or ccomcode = #{cname})
+    </select>
+
+
+    <!--通过微信openid查询工号-->
+    <select id="getWxCode" resultType="java.lang.String">
+        select wx_code from eat_web..eat_wxbind where wx_openid = #{wx_openid}
+    </select>
+
+
+    <!--查询每日报餐的人员-->
+    <select id="getApplyCode" resultMap="EatApplyMap">
+        select ap_code from eat_web..eat_apply where ap_type = '0' and ap_code not in (select ap_code from eat_web..eat_apply where convert(varchar(10),ap_dtime,120) = #{ap_dtime})
+        order by ap_dtime desc
+    </select>
+
+
+    <!--修改报餐状态-->
+    <update id="updateAppleCode">
+        update eat_web..eat_apply set ap_type = #{ap_type},ap_dtime = GETDATE() where ap_code = #{ap_code} and CONVERT(varchar(10),ap_dtime,120) = #{ap_dtime}
+    </update>
+
+
+    <!--扫码绑定Openid-->
+    <insert id="bandingWxOpen">
+        insert into eat_web..eat_wxbind (wx_code,wx_openid) values (#{wx_code},#{wx_openid})
+    </insert>
+
+
+    <!--查询是否绑定过Openid-->
+    <select id="selectWxCode" resultType="java.lang.String">
+        select wx_code from eat_web..eat_wxbind where wx_code = #{wx_code}
+    </select>
+
+
+    <!--查询今日所有员工的工作汇报-->
+    <select id="selectDayrepory" resultMap="DayreporyMap">
+        select * from tmp_sx_dayrepory where 1 = 1
+        <if test="ddate!=null and ddate!=''">
+            and CONVERT(varchar(10),ddate,120) = #{ddate}
+        </if>
+        <if test="cpcode!=null and cpcode!=''">
+            <if test="cpcode!='01003' and cpcode!='01252'">
+                and (cpcode = #{cpcode} or isnull(creporter1,'')=#{cpcode})
+            </if>
+            <if test="cpcode=='01003' or cpcode=='01252'">
+                and (cpcode = #{cpcode} or isnull(creporter1,'')=#{cpcode} or isnull(creporter1,'')='01004')
+            </if>
+        </if>
+        order by ddate asc
+    </select>
+
+
+    <!--查询自己的今日汇报-->
+    <select id="selectDayreporyTwo" resultMap="DayreporyMap">
+        select * from tmp_sx_dayrepory where 1 = 1
+        <if test="ddate!=null and ddate!=''">
+            and CONVERT(varchar(10),ddate,120) = #{ddate}
+        </if>
+        <if test="cpcode!=null and cpcode!=''">
+            and cpcode = #{cpcode}
+        </if>
+    </select>
+
+
+    <!--新增今日工作汇报-->
+    <insert id="addDayrepory">
+        insert into tmp_sx_dayrepory (ddate,cpcode,ctoday,ctomrrow,creport,creporter1,creporter2)
+        values (GETDATE(),#{cpcode},#{ctoday},#{ctomrrow},#{creport},#{creporter1},#{creporter2})
+    </insert>
+
+    <!--删除工作汇报-->
+    <delete id="deltDayrepory">
+         delete tmp_sx_dayrepory where autoid = #{autoid}
+    </delete>
+
+    <!--修改工作汇报-->
+    <update id="updateDayrepory">
+        update tmp_sx_dayrepory set ctoday= #{ctoday}, ctomrrow= #{ctomrrow}, creport= #{creport},
+        creporter1=#{creporter1},creporter2 = #{creporter2}
+        where cpcode = #{cpcode} and CONVERT(varchar(10),ddate,120) = #{ddate}
+    </update>
+
+
+    <!--查询所有主管及以上人员-->
+    <select id="selectCharge" resultMap="ChargesMap">
+        select ccode2,cname2 from ufdata_web..staffpsnhold staff
+        where cdefine20='01' and czjcode2>'M0' group by ccode2,cname2 order by ccode2
+    </select>
+
+
+    <!--查询上次汇报人的工号-->
+    <select id="selectCreporter" resultType="java.lang.String">
+         select top 1 creporter1 from tmp_sx_dayrepory where cpcode = #{cpcode} order by ddate desc
+    </select>
+
+
+    <!--根据工号查询空瓶数量-->
+    <select id="selectEmpty" resultMap="EmptyMap">
+        select inv.cinvcode,cinvname,cinvstd,SUM(iquantity) iquan from sx_order inner join sx_order_sub on sx_order.autoid=sx_order_sub.id
+        inner join (select cinvcode,cinvname,isnull(cinvstd,'') cinvstd from inventory where cinvccode='98') inv
+        on sx_order_sub.cinvcode=inv.cinvcode
+        where ISNULL(bclose,0)=0 and cperson_id=#{cperson_id} and ddate>(select isnull(max(ddate),'2020-03-06') from sx_bottle where cpcode=#{cperson_id})
+        group by inv.cinvcode,inv.cinvname,cinvstd
+    </select>
+
+
+    <!--生日祝福弹幕-->
+    <select id="getBirthdayList" resultMap="BirthdayMap">
+        select * from  eat_web..birthday
+    </select>
+
+    <!--新增祝福弹幕-->
+    <insert id="addBirthday">
+        insert into eat_web..birthday (greeting) values (#{greeting})
+    </insert>
+
+
+    <!--新增住址信息-->
+    <insert id="addStaffTmp">
+        delete ufdata_web..staff_tmp where ccode = #{ccode}
+        insert into ufdata_web..staff_tmp (cname,ccode,xpoint,ypoint,cadress) values (#{cname},#{ccode},#{xpoint},#{ypoint},#{cadress})
+    </insert>
+
+    <!--修改住址信息-->
+    <update id="updateStaffTmp">
+        update ufdata_web..staff_tmp set xpoint=#{xpoint},ypoint=#{ypoint},cadress=#{cadress} where ccode =#{ccode}
+    </update>
+
+
+    <!--查询员工住址信息-->
+    <select id="getStaffTmp" resultMap="staffTmpMap">
+        select * from ufdata_web..staff_tmp where 1 = 1
+        <if test="ccode!=null and ccode!=''">
+            and ccode = #{ccode}
+        </if>
+    </select>
+
+
+    <!--查询店铺地址-->
+    <select id="getLinsiAddress" resultMap="CustomerAddressMap">
+        select autoid,ccus_name,cperson_id,cperson_name,ccus_xpoint,ccus_ypoint,ccomname from customer_v where ISNULL(CCUS_STATUS,'') &lt;&gt; '11' and (CCOMPANY_ID = '05' or CCOMPANY_ID = '20')
+    </select>
+
+
+    <!--保存范围点-->
+    <insert id="addMapTmp">
+        insert into sx_map_tmp (lat,lng,param1) values (#{lat},#{lng},#{param1})
+    </insert>
+
+    <!--查询范围点-->
+    <select id="getMapTmp" resultMap="MapTmpsMap">
+        select * from sx_map_tmp order by param1
+    </select>
+
+
+    <!--删除范围点-->
+    <delete id="deleteMapTmp">
+        delete sx_map_tmp where param1 = #{param1}
+    </delete>
+
+
+    <!--新增员工拜访（短时间内使用）-->
+    <select id="addStaffPayVisit" resultMap="ResultDto">
+        EXEC temp_fllow_add #{jsonvist}
+    </select>
+
+    <!--根据客户编号查询拜访次数-->
+    <select id="getStaffPayCount" resultType="java.lang.Integer">
+        select COUNT(CFLLOW_CID) from tmp_fllow_visit where CFLLOW_CID = #{cfllow_cid} and CFLLOW_PID = #{cfllow_pid}
+    </select>
+
+
+    <!--查询员工拜访记录-->
+    <select id="getTempFllowVisit" resultMap="TempFllowMap">
+        select vis.autoid,customer_v.cperson_name,cfllow_cid,ccus_name,ccus_address,cfllow_pid,per.cname,cfllow_comid,cccus_xpoint,cccus_ypoint,
+        dfllow_start_time,dfllow_end_time,cfllow_memo,vis.cdefine1,vis.cdefine2,vis.cdefine3,vis.cdefine4 from tmp_fllow_visit vis
+        inner join person_v per on per.ccode = vis.CFLLOW_PID
+        inner join customer_v on customer_v.autoid = vis.CFLLOW_CID
+        where customer_v.CDEPARTMENT_ID = '13'
+        <if test="cname!=null and cname!=''">
+            and (per.cname like '%'+#{cname}+'%' or vis.CFLLOW_PID = #{cname})
+        </if>
+        <if test="ddate1!=null and ddate1!=''">
+            and CONVERT(varchar(10),DFLLOW_START_TIME,120) >= #{ddate1} and CONVERT(varchar(10),DFLLOW_START_TIME,120) &lt;= #{ddate2}
+        </if>
+        <if test="ccompany_id!=null and ccompany_id!=''">
+            and customer_v.ccompany_id = #{ccompany_id}
+        </if>
+        <if test="cfllow_cid!=null and cfllow_cid!=''">
+            and vis.cfllow_cid = #{cfllow_cid}
+        </if>
+        <if test="cdefine1!=null and cdefine1!=''">
+            and vis.cdefine1 = #{cdefine1}
+        </if>
+        <if test="cdefine2!=null and cdefine2!=''">
+            and vis.cdefine2 = #{cdefine2}
+        </if>
+        <if test="cdefine3!=null and cdefine3!=''">
+            and vis.cdefine3 = #{cdefine3}
+        </if>
+        <if test="cdefine4!=null and cdefine4!=''">
+            and vis.cdefine4 = #{cdefine4}
+        </if>
+        order by DFLLOW_START_TIME desc
+    </select>
+
+
+    <!--查询拜访图片-->
+    <select id="getFllowImg" resultMap="FllowImgMap">
+        select cimg_type,cimg_path from sx_fllow_img where fllowid = #{fllowid} and cimg_class = 1
+    </select>
+
+    <!--查询拜访统计-->
+    <select id="getFllowStatistics" resultMap="FllowStatisMap">
+        select cus.ccode,cus.cname,COUNT(cus.ccode) shoul_quan,ISNULL(fllo.cout,0) reality_quan from tempdb..staff_cus cus
+        inner join person_v per on per.ccode = cus.ccode
+        left join (select CFLLOW_PID,COUNT(CFLLOW_PID) cout from tmp_fllow_visit group by CFLLOW_PID)
+        fllo on fllo.CFLLOW_PID = cus.ccode
+        group by cus.ccode,cus.cname,fllo.cout
+    </select>
+
+    <select id="getFllowCount" resultType="java.lang.Integer">
+        select COUNT(CFLLOW_PID) from tmp_fllow_visit where CFLLOW_PID = #{cfllow_pid}
+    </select>
+
+
+    <select id="selectPersons" resultType="com.shunxin.shunxin_salesman_visit.dto.eatbardto.PersonNameDto">
+         select top 20 * from person_v
+    </select>
+
+</mapper>

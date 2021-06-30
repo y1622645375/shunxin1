@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.signmapper.SignCenterMapper">
+
+    <resultMap id="SignRecordMap" type="com.shunxin.shunxin_salesman_visit.entity.signentity.SignRecord">
+        <result column="autoid" property="autoid"/>
+        <result column="csign_cid" property="csign_cid"/>
+        <result column="sign_date" property="sign_date"/>
+        <result column="operate_date" property="operate_date"/>
+        <result column="sign_number" property="sign_number"/>
+        <result column="openid" property="openid"/>
+    </resultMap>
+
+
+    <resultMap id="SignCommodMap" type="com.shunxin.shunxin_salesman_visit.entity.signentity.SignCommod">
+        <result column="autoid" property="autoid"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="datebegin" property="datebegin"/>
+        <result column="dateend" property="dateend"/>
+        <result column="bopen" property="bopen"/>
+        <result column="need_integral" property="need_integral"/>
+        <result column="iquan" property="iquan"/>
+        <result column="rquan" property="rquan"/>
+        <result column="squan" property="squan"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="cinvimg" property="cinvimg"/>
+    </resultMap>
+
+
+    <resultMap id="IntegralRecordMap" type="com.shunxin.shunxin_salesman_visit.entity.signentity.IntegralRecord">
+        <result column="autoid" property="autoid"/>
+        <result column="integral_cid" property="integral_cid"/>
+        <result column="integral_date" property="integral_date"/>
+        <result column="integral_type" property="integral_type"/>
+        <result column="integral_Dr" property="integral_dr"/>
+        <result column="integral_Cr" property="integral_cr"/>
+        <result column="integral_Ye" property="integral_ye"/>
+        <result column="sign_id" property="sign_id"/>
+        <result column="commod_id" property="commod_id"/>
+        <result column="fllow_id" property="fllow_id"/>
+        <result column="order_id" property="order_id"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="cInvName" property="cinvname"/>
+        <result column="cInvStd" property="cinvstd"/>
+    </resultMap>
+
+
+    <resultMap id="InformationMap" type="com.shunxin.shunxin_salesman_visit.entity.signentity.Information">
+        <result column="autoid" property="autoid"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="cid" property="cid"/>
+        <result column="cname" property="cname"/>
+        <result column="ccaption" property="ccaption"/>
+        <result column="ctype" property="ctype"/>
+        <result column="cvalue" property="cvalue"/>
+    </resultMap>
+
+
+    <resultMap id="ResultMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+
+    <resultMap id="PersonalCenterMap" type="com.shunxin.shunxin_salesman_visit.dto.signdto.PersonalCenter">
+        <result column="headimgurl" property="headimgurl"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccus_phone" property="ccus_phone"/>
+        <result column="ccus_address" property="ccus_address"/>
+    </resultMap>
+
+
+    <!--根据客户ID查询当前积分-->
+    <select id="selectSignIntegral" resultMap="IntegralRecordMap">
+        select top 1 rec.*,cust.CCUS_NAME from integral_record rec inner join
+        sx_customer cust on rec.integral_cid = cust.autoid
+        where integral_cid = #{integral_cid} order by integral_date desc
+    </select>
+
+
+    <!--查询今日签到获得的积分-->
+    <select id="getTodayIntegral" resultMap="IntegralRecordMap">
+        select * from integral_record where integral_type = 'signday'
+        and sign_id = (select top 1 autoid from sign_record where csign_cid = #{csign_cid} and CONVERT(varchar(10),sign_date,120) =  CONVERT(varchar(10),GETDATE(),120))
+    </select>
+
+
+    <!--查询今日是否已签到-->
+    <select id="getSignTodayRecord" resultType="java.lang.Integer">
+        select count(*) from sign_record where CONVERT(varchar(10),sign_date,120) =  CONVERT(varchar(10),GETDATE(),120) and csign_cid = #{csign_cid}
+    </select>
+
+
+    <!--根据客户ID查询签到记录-->
+    <select id="selectSignRecord" resultMap="SignRecordMap">
+        select * from sign_record where csign_cid = #{csign_cid}
+    </select>
+
+
+    <!--客户签到、客户领取积分、兑换商品 -->
+    <select id="insertSignRecord" resultMap="ResultMap">
+        EXEC integral_add #{jsonvisit}
+    </select>
+
+
+    <!--查询当前可兑换商品-->
+    <select id="selectCommodList" resultMap="SignCommodMap">
+        select sign_commod.*,inventory.cInvName,cInvStd,inventory_img.cinvimg from sign_commod inner join
+        inventory on sign_commod.cinvcode = inventory.cInvCode inner join
+        inventory_img on inventory.cInvCode = inventory_img.cinvcode where bopen = '1' and GETDATE() between datebegin and dateend
+    </select>
+
+
+    <!--查询签到积分记录-->
+    <select id="selectCreditsExchange" resultMap="IntegralRecordMap">
+        select * from integral_record where integral_type &lt;&gt; 'exchange' and integral_cid = #{integral_cid} order by integral_date desc
+    </select>
+
+
+    <!--查询兑换积分记录-->
+    <select id="selectCommodExchange" resultMap="IntegralRecordMap">
+        select rec.*,inv.cInvName,cInvStd from integral_record rec inner join
+        sign_commod com on rec.commod_id = com.autoid inner join inventory inv on com.cinvcode = inv.cInvCode
+        where integral_type = #{integral_type} and integral_cid = #{integral_cid} order by integral_date desc
+    </select>
+
+
+    <!--根据ID查询需要兑换的商品-->
+    <select id="getSignCommods" resultMap="SignCommodMap">
+        select * from sign_commod where autoid = #{autoid}
+    </select>
+
+
+    <!--商品兑换完成，写入积分记录表-->
+    <insert id="addIntegralCommod">
+        insert into integral_record (integral_cid,integral_date,integral_type,integral_Dr,integral_Cr,integral_Ye,commod_id)
+        values (#{integral_cid},GETDATE(),#{integral_type},#{integral_Dr},#{integral_Cr},#{integral_Ye},#{commod_id})
+    </insert>
+
+
+    <!--进行商品兑换，库存发生变化-->
+    <update id="updateCommodQuan">
+        update sign_commod set iquan = #{iquan},rquan = #{rquan} where autoid = #{autoid}
+    </update>
+
+
+    <!--查询连续签到积分方案-->
+    <select id="selectInformation" resultMap="InformationMap">
+        select * from information where cname = #{cname}
+    </select>
+
+
+    <!--查询本周拜访获得的总积分-->
+    <!--<select id="selectFllowRecord" resultType="java.lang.Integer">
+        select isnull(SUM(integral_Dr),0) integral_sum from integral_record where integral_cid = #{integral_cid} and integral_type = #{integral_type}
+        and (DATEPART(wk, integral_date) = DATEPART(wk, GETDATE())) AND (DATEPART(yy, integral_date) = DATEPART(yy, GETDATE()))
+    </select>-->
+
+
+    <!--拜访完成，写入积分记录表-->
+    <!--<insert id="addIntegralFllow">
+        insert into integral_record (integral_cid,integral_date,integral_type,integral_Dr,integral_Cr,integral_Ye,fllow_id)
+        values (#{integral_cid},GETDATE(),#{integral_type},#{integral_Dr},#{integral_Cr},#{integral_Ye},#{fllow_id})
+    </insert>-->
+
+
+    <!--查询今日拜访autoid-->
+    <!--<select id="selectSxFllowToday" resultType="java.lang.Integer">
+        select autoid from sx_fllow_visit where CFLLOW_CID = #{CFLLOW_CID} and CONVERT(varchar(10),DFLLOW_START_TIME,120) = CONVERT(varchar(10),GETDATE(),120)
+    </select>-->
+
+
+    <!--客户手动领取积分后，积分发生改变-->
+    <update id="updateIntegral">
+        update integral_record set integral_Dr = #{integral_dr},integral_Ye = #{integral_ye} where autoid = #{autoid}
+    </update>
+
+
+    <!--根据拜访ID查询积分情况-->
+    <select id="selectFllowIntegral" resultMap="IntegralRecordMap">
+        select * from integral_record where fllow_id = #{fllow_id}
+    </select>
+
+
+    <!--根据auotid查询积分记录-->
+    <!--<select id="selectIntegralAutoid" resultMap="IntegralRecordMap">
+        select * from integral_record where autoid = #{autoid}
+    </select>-->
+
+
+    <!--根据订单ID查询积分情况-->
+    <select id="selectOrderIntegral" resultMap="IntegralRecordMap">
+        select * from integral_record where order_id = #{order_id}
+    </select>
+
+
+    <!--通过openid获取用户的基础信息-->
+    <select id="selectPersonal" resultMap="PersonalCenterMap">
+        select ccus_name,ccus_phone,ccus_address from sx_customer where autoid = (select top 1 ccusid from sx_customer_wxbind where copenid = #{copenid})
+    </select>
+
+
+
+</mapper>

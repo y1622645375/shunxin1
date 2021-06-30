@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.promotmapper.WxgzOrderMapper">
+
+    <resultMap id="OrdervMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.OrdervDto">
+        <result column="autoid" property="autoid"/>
+        <result column="csocode" property="csocode"/>
+        <result column="csocodes" property="csocodes"/>
+        <result column="csotype" property="csotype"/>
+        <result column="csotypename" property="csotypename"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="CCUS_NAME" property="CCUS_NAME"/>
+        <result column="CCUS_XPOINT" property="CCUS_XPOINT"/>
+        <result column="CCUS_YPOINT" property="CCUS_YPOINT"/>
+        <result column="CCUS_OADDRESS" property="CCUS_OADDRESS"/>
+        <result column="CCUS_PHONE" property="CCUS_PHONE"/>
+        <result column="CCUS_PERSON" property="CCUS_PERSON"/>
+        <result column="CCUS_PAYTYPE_NAME" property="CCUS_PAYTYPE_NAME"/>
+        <result column="CCUS_LEVEL" property="CCUS_LEVEL"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cInvName" property="cInvName"/>
+        <result column="cInvStd" property="cInvStd"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="cmaker" property="cmaker"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+        <result column="cdefine28" property="cdefine28"/>
+        <result column="cso_state" property="cso_state"/>
+        <result column="enumname" property="enumname"/>
+        <result column="cinvimg" property="cinvimg"/>
+        <result column="ccus_remaker" property="ccus_remaker"/>
+        <result column="ccom_remaker" property="ccom_remaker"/>
+        <result column="igold_sum" property="igold_sum"/>
+        <result column="iusegold_sum" property="iusegold_sum"/>
+        <result column="cpaytype" property="cpaytype"/>
+        <result column="cpaytypename" property="cpaytypename"/>
+        <result column="icashmoney" property="icashmoney"/>
+        <result column="iqrcodemoney" property="iqrcodemoney"/>
+        <result column="bclose" property="bclose"/>
+        <result column="borderpay" property="borderpay"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="CCOMNAME" property="CCOMNAME"/>
+        <result column="ordersid" property="ordersid"/>
+        <result column="cshiptype" property="cshiptype"/>
+        <result column="cCus_Code" property="cCus_Code"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="mdefine1" property="mdefine1"/>
+        <result column="cso_statename" property="cso_statename"/>
+    </resultMap>
+
+
+    <resultMap id="WxgzFllowVistMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.WxgzFllowVist">
+        <result column="autoid" property="autoid"/>
+        <result column="ccus_address" property="ccus_address"/>
+        <result column="dfllow_start_time" property="dfllow_start_time"/>
+        <result column="dfllow_end_time" property="dfllow_end_time"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="dfllow_visit_time" property="dfllow_visit_time"/>
+        <result column="ifllow_space" property="ifllow_space"/>
+        <result column="ifllow_bplan" property="ifllow_bplan"/>
+        <result column="cfllow_pid" property="cfllow_pid"/>
+        <result column="cfllow_xpoint" property="cfllow_xpoint"/>
+        <result column="cfllow_ypoint" property="cfllow_ypoint"/>
+        <result column="cname" property="cname"/>
+        <result column="cfllow_memo" property="cfllow_memo"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccomname" property="ccomname"/>
+        <result column="cdepcode" property="cdepcode"/>
+        <result column="cdepname" property="cdepname"/>
+        <result column="cfllow_cid" property="cfllow_cid"/>
+    </resultMap>
+
+
+    <resultMap id="PriceEntersMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.PriceEnter">
+        <id column="autoid" property="autoid"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvccode" property="cinvccode"/>
+        <result column="ccus_level" property="ccus_level"/>
+        <result column="ccus_price" property="ccus_price"/>
+        <result column="igoldrate" property="igoldrate"/>
+        <result column="ddateb" property="ddateb"/>
+        <result column="ddatee" property="ddatee"/>
+        <result column="igrade" property="igrade"/>
+        <result column="bclose" property="bclose"/>
+        <result column="cInvName" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="clevelname" property="clevelname"/>
+        <result column="cinvimg64" property="cinvimg64"/>
+        <result column="cinvimg500" property="cinvimg500"/>
+    </resultMap>
+
+
+    <resultMap id="CImagePathMap" type="com.shunxin.shunxin_salesman_visit.dto.promotdto.CImagePathDto">
+        <result column="autoid" property="autoid"/>
+        <result column="fllowid" property="fllowid"/>
+        <result column="cimg_type" property="cimg_type"/>
+        <result column="cimg_path" property="cimg_path"/>
+        <result column="iimg_sort" property="iimg_sort"/>
+    </resultMap>
+
+
+    <resultMap id="ExaminingMap" type="com.shunxin.shunxin_salesman_visit.dto.promotdto.ExaminingDto">
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ddate" property="ddate"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="cname" property="cname"/>
+    </resultMap>
+
+
+    <resultMap id="UnpaidOrderMap" type="com.shunxin.shunxin_salesman_visit.dto.promotdto.UnpaidOrderDto">
+        <result column="csocode" property="csocode"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="ddate" property="ddate"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+    </resultMap>
+
+
+    <resultMap id="OrderWxbandMap" type="com.shunxin.shunxin_salesman_visit.dto.promotdto.OrderWxbands">
+        <result column="copenid" property="copenid"/>
+        <result column="cnickname" property="cnickname"/>
+        <result column="cmaskname" property="cmaskname"/>
+    </resultMap>
+
+
+    <!--查询订单列表，主要用于公众号中商家查询自己的订单-->
+    <!--cso_state：01 已下单 02 发货中 03 已发货  04 已结算  09 已关闭-->
+    <select id="getOrderList" resultMap="OrdervMap">
+        select * from order_v where  1 = 1
+        <if test="ccus_id!=null and ccus_id!=''">
+            and ccus_id = #{ccus_id}
+        </if>
+        <if test="ddate2!=null and ddate2!=''">
+            and convert(varchar(10),ddate,120) = #{ddate2}
+        </if>
+        <if test="csocode!=null and csocode!=''">
+            and csocode like '%'+#{csocode}+'%'
+        </if>
+        <if test="cso_state!=null and cso_state!=''">
+            and cso_state = #{cso_state}
+        </if>
+        order by ddate desc
+    </select>
+
+
+    <!--客户查看自己店铺的拜访记录-->
+    <select id="getFllowList" resultMap="WxgzFllowVistMap">
+        select * from fllow_visit_list where CFLLOW_CID = #{cfllow_cid} order by DFLLOW_START_TIME desc
+    </select>
+
+
+    <!--根据拜访表的autoid查询拜访图片-->
+    <select id="getCimgPath" resultMap="CImagePathMap">
+        select cimg_path from sx_fllow_img where fllowid = #{fllowid} order by cimg_type
+    </select>
+
+
+    <!--客户查看各类商品的最新价格 （用于微信公众号）-->
+    <select id="getCommodityNewPrice" resultMap="PriceEntersMap">
+        select inventory_ext.*,cinvccode,cInvName,cinvstd,clevelname,ISNULL('http://pic.hnsxtj.com/sxemall/public/'+inventory_img.cinvimg+'_64.jpg','') cinvimg64,
+        ISNULL('http://pic.hnsxtj.com/sxemall/public/'+inventory_img.cinvimg+'_500.jpg' ,'') cinvimg500  from inventory_ext
+        inner join inventory on inventory_ext.cinvcode=inventory.cinvcode
+        inner join sx_customer_level on inventory_ext.ccus_level=sx_customer_level.clevelid
+        left join inventory_img on inventory_ext.cInvCode=inventory_img.cinvcode
+        where 1 = 1 and inventory_ext.bclose=0 and ccus_price &lt;&gt; 0
+        and CLEVELID = (select top 1 ccus_level_sub from sx_customer_planadd inner join sx_customer on sx_customer_planadd.CCUS_CID=sx_customer.autoid where CCUS_CID=#{ccus_cid})
+        and ccomcode = (select CCOMPANY_ID from customer_v where autoid = #{ccus_cid})
+        order by cinvccode asc
+    </select>
+
+
+    <!--返回异常订单结果-->
+    <select id="getExaminingReport" resultMap="ExaminingMap">
+       exec examining_report #{userid},#{ctype}
+    </select>
+
+
+    <!--获取异常结果日期-->
+    <select id="getTempdbDtime" resultType="java.lang.String">
+        select dtime from tempdb..tmp_yindata02 where autoid = #{autoid}
+    </select>
+
+
+    <!--查询未付款订单-->
+    <select id="selectUnpaidOrder" resultMap="UnpaidOrderMap">
+        select csocode,ccus_name,ccus_id,ddate,imoney_sum from sx_order
+        where cperson_id = #{cperson_id} and CONVERT(varchar(10),ddate,120) = CONVERT(varchar(10),getdate(),120) and ipay_sum is null
+    </select>
+
+
+    <!--根据商家ID查询绑定信息-->
+    <select id="getOrderWxbind" resultMap="OrderWxbandMap">
+        select copenid,cnickname,cmaskname from sx_customer_wxbind where ccusid = #{ccusid}
+    </select>
+
+
+
+
+</mapper>

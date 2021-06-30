@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.clientmapper.SxFllowTotalMapper">
+
+    <resultMap id="SxFllowTotal" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.SxFllowTotal">
+        <id column="autoid" property="autoid"/>
+        <result column="ctotal_comid" property="ctotal_comid"/>
+        <result column="ctotal_deptid" property="ctotal_deptid"/>
+        <result column="ctotal_pid" property="ctotal_pid"/>
+        <result column="dtotal_time" property="dtotal_time"/>
+        <result column="itotal_plan" property="itotal_plan"/>
+        <result column="itotal_onvisit" property="itotal_onvisit"/>
+        <result column="itotal_unplan" property="itotal_unplan"/>
+    </resultMap>
+
+    <resultMap id="FllowTotalDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.FllowTotalDto">
+        <result column="dtotal_time" property="dtotal_time"/>
+        <result column="ctotal" property="ctotal"/>
+    </resultMap>
+
+
+    <!--查询今日该拜访客户数量和已拜访数量-->
+    <select id="selectFllowTotaCount" resultMap="FllowTotalDto">
+        EXEC fllow_total #{ctotal_pid},#{dtotal_time}
+    </select>
+
+
+    <!--更新key的过期时间-->
+    <update id="renewalExpirationTime">
+        UPDATE sx_login SET DEXPIRED_TIME = #{ddate} WHERE CUSER_ID = #{cuser_id}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.clientmapper.SxPersonareaMapper">
+
+    <resultMap id="SxPersonareaMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.SxPersonarea">
+        <id column="autoid" property="autoid"/>
+        <result column="ccompand_id" property="ccompand_id"/>
+        <result column="cuser_id" property="cuser_id"/>
+        <result column="xpoint" property="xpoint"/>
+        <result column="ypoint" property="ypoint"/>
+        <result column="ddate" property="ddate"/>
+        <result column="param1" property="param1"/>
+        <result column="param2" property="param2"/>
+        <result column="param3" property="param3"/>
+    </resultMap>
+
+    <resultMap id="ParameterMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ParameterDto">
+        <result column="cname" property="cname"/>
+        <result column="ccode" property="ccode"/>
+    </resultMap>
+
+    <resultMap id="SxOrderInfoMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.SxOrderInfo">
+        <result column="csocode" property="csocode"/>
+        <result column="ddate" property="ddate"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="bprint" property="bprint"/>
+        <result column="printmsg" property="printmsg"/>
+    </resultMap>
+
+    <resultMap id="OrdervMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.OrdervDto">
+        <result column="autoid" property="autoid"/>
+        <result column="csocode" property="csocode"/>
+        <result column="csocodes" property="csocodes"/>
+        <result column="csotype" property="csotype"/>
+        <result column="csotypename" property="csotypename"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="CCUS_NAME" property="CCUS_NAME"/>
+        <result column="CCUS_XPOINT" property="CCUS_XPOINT"/>
+        <result column="CCUS_YPOINT" property="CCUS_YPOINT"/>
+        <result column="CCUS_OADDRESS" property="CCUS_OADDRESS"/>
+        <result column="CCUS_PHONE" property="CCUS_PHONE"/>
+        <result column="CCUS_PERSON" property="CCUS_PERSON"/>
+        <result column="CCUS_PAYTYPE_NAME" property="CCUS_PAYTYPE_NAME"/>
+        <result column="CCUS_LEVEL" property="CCUS_LEVEL"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cInvName" property="cInvName"/>
+        <result column="cInvStd" property="cInvStd"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="cmaker" property="cmaker"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+        <result column="cdefine28" property="cdefine28"/>
+        <result column="cso_state" property="cso_state"/>
+        <result column="enumname" property="enumname"/>
+        <result column="cinvimg" property="cinvimg"/>
+        <result column="ccus_remaker" property="ccus_remaker"/>
+        <result column="ccom_remaker" property="ccom_remaker"/>
+        <result column="igold_sum" property="igold_sum"/>
+        <result column="iusegold_sum" property="iusegold_sum"/>
+        <result column="cpaytype" property="cpaytype"/>
+        <result column="cpaytypename" property="cpaytypename"/>
+        <result column="icashmoney" property="icashmoney"/>
+        <result column="iqrcodemoney" property="iqrcodemoney"/>
+        <result column="bclose" property="bclose"/>
+        <result column="borderpay" property="borderpay"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="CCOMNAME" property="CCOMNAME"/>
+        <result column="ordersid" property="ordersid"/>
+        <result column="cshiptype" property="cshiptype"/>
+        <result column="cCus_Code" property="cCus_Code"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="mdefine1" property="mdefine1"/>
+        <result column="cso_statename" property="cso_statename"/>
+    </resultMap>
+
+    <resultMap id="WxMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.WeixinDto">
+        <result column="openid" property="openid"/>
+        <result column="ccode" property="ccode"/>
+    </resultMap>
+
+    <resultMap id="SxcustomerWxbindMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.SxcustomerWxbind">
+        <id column="autoid" property="autoid"/>
+        <result column="ccusid" property="ccusid"/>
+        <result column="copenid" property="copenid"/>
+        <result column="cunitid" property="cunitid"/>
+        <result column="dbindtime" property="dbindtime"/>
+        <result column="dunbindtime" property="dunbindtime"/>
+        <result column="ccus_name" property="ccus_name"/>
+    </resultMap>
+
+    <resultMap id="customeropenidMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.SxcustomerWxbind">
+        <result column="copenid" property="copenid"/>
+    </resultMap>
+
+    <resultMap id="SxOrderGiftMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.SxOrderGift">
+        <result column="autoid" property="autoid"/>
+        <result column="id" property="id"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvcode_member" property="cinvcode_member"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="cdefine28" property="cdefine28"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="cinvimg" property="cinvimg"/>
+    </resultMap>
+
+
+    <resultMap id="SxCustomerMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.SxCustomer">
+        <id column="autoid" property="autoid"/>
+        <result column="cCus_Code" property="ccus_code"/>
+        <result column="CCUS_NAME" property="ccus_name"/>
+        <result column="CPASSWORD" property="cpassword"/>
+        <result column="CCUS_CREATE_BY" property="ccus_create_by"/>
+        <result column="CCUS_CREATE_SOURCE" property="ccus_create_source"/>
+        <result column="DCUS_CREATE_TIME" property="dcus_create_time"/>
+        <result column="CCUS_UPDATE_BY" property="ccus_update_by"/>
+        <result column="DCUS_UPDATE_TIME" property="dcus_update_time"/>
+        <result column="CCUS_STATUS" property="ccus_status"/>
+        <result column="CCUS_STATUSNAME" property="ccus_statusname"/>
+        <result column="DFRIST_LOGIN_TIME" property="dfrist_login_time"/>
+        <result column="DLAST_LOGIN_TIME" property="dlast_login_time"/>
+        <result column="CCOMPANY_ID" property="ccompany_id"/>
+        <result column="CDEPARTMENT_ID" property="cdepartment_id"/>
+        <result column="CPERSON_ID" property="cperson_id"/>
+        <result column="CCUS_LEVEL" property="ccus_level"/>
+        <result column="CCUS_TYPE" property="ccus_type"/>
+        <result column="CCUS_XPOINT" property="ccus_xpoint"/>
+        <result column="CCUS_YPOINT" property="ccus_ypoint"/>
+        <result column="CCUS_ADDRESS" property="ccus_address"/>
+        <result column="CCUS_OADDRESS" property="ccus_oaddress"/>
+        <result column="CCUS_PERSON" property="ccus_person"/>
+        <result column="CCUS_PHONE" property="ccus_phone"/>
+        <result column="CCUS_EMAIL" property="ccus_email"/>
+        <result column="CCUS_PAYTYPE" property="ccus_paytype"/>
+        <result column="CCUS_FAREN_NAME" property="ccus_faren_name"/>
+        <result column="CCUS_FAREN_PHONE" property="ccus_faren_phone"/>
+        <result column="CCUS_BANK_NAME" property="ccus_bank_name"/>
+        <result column="CCUS_BANK_ACCOUNT" property="ccus_bank_account"/>
+        <result column="CCUS_BANK_DWNAME" property="ccus_bank_dwname"/>
+        <result column="CCUS_CREDIT_TYPE" property="ccus_credit_type"/>
+        <result column="ICUS_CREDIT_DAYS" property="icus_credit_days"/>
+        <result column="ICUS_CREDIT_LINE" property="icus_credit_line"/>
+        <result column="CCUS_VISIT_TYPE" property="ccus_visit_type"/>
+        <result column="ICUS_VISIT_TIME" property="icus_visit_time"/>
+        <result column="CCUS_VISIT_STATE" property="ccus_visit_state"/>
+        <result column="CLICENSE_ID" property="clicense_id"/>
+        <result column="CLICENSE_NAME" property="clicense_name"/>
+        <result column="CLICENSE_IMG1" property="clicense_img1"/>
+        <result column="CLICENSE_IMG2" property="clicense_img2"/>
+        <result column="CLICENSE_IMG3" property="clicense_img3"/>
+        <result column="CCUS_CLOSE_BY" property="ccus_close_by"/>
+        <result column="CCUS_CLOSE_TIME" property="ccus_close_time"/>
+        <result column="CDEFINE1" property="cdefine1"/>
+        <result column="CDEFINE2" property="cdefine2"/>
+        <result column="CDEFINE3" property="cdefine3"/>
+        <result column="CDEFINE4" property="cdefine4"/>
+        <result column="CDEFINE5" property="cdefine5"/>
+        <result column="DDEFINE1" property="ddefine1"/>
+        <result column="DDEFINE2" property="ddefine2"/>
+        <result column="DDEFINE3" property="ddefine3"/>
+        <result column="IDEFINE1" property="idefine1"/>
+        <result column="IDEFINE2" property="idefine2"/>
+        <result column="IDEFINE3" property="idefine3"/>
+        <result column="CCOMNAME" property="ccomname"/>
+        <result column="cperson_name" property="cperson_name"/>
+    </resultMap>
+
+    <resultMap id="PrintLogMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.PrintLogDto">
+        <result column="ddate" property="ddate"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="CCOMNAME" property="ccomname"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="csocode" property="csocode"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="CCUS_NAME" property="ccus_name"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="ddate1" property="ddate1"/>
+        <result column="ddate2" property="ddate2"/>
+        <result column="ddate3" property="ddate3"/>
+        <result column="paytype" property="paytype"/>
+        <result column="printype" property="printype"/>
+        <result column="paycount" property="paycount"/>
+        <result column="princount" property="princount"/>
+    </resultMap>
+
+
+    <resultMap id="ResultDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+    <resultMap id="wxlogindataMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.wxlogindataDto">
+        <result column="lefttime" property="lefttime"/>
+        <result column="ckey" property="ckey"/>
+    </resultMap>
+
+
+    <resultMap id="TouristMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.TouristDto">
+        <result column="autoid" property="ccus_id"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccompany_id" property="ccompany_id"/>
+        <result column="ccus_level" property="ccus_level"/>
+        <result column="ccus_address" property="ccus_address"/>
+    </resultMap>
+
+
+
+    <!--根据业务员ID查询其所属公司-->
+    <select id="selectCompand" resultType="java.lang.String">
+          SELECT distinct ccomcode FROM UFDATA_WEB..staff WHERE ccode = #{cuser_id}
+    </select>
+
+
+    <!--查询A表中某公司已录点业务员-->
+    <select id="selectCuserTemp" resultMap="ParameterMap">
+         SELECT cname,ccode FROM person_v WHERE ccode IN (SELECT DISTINCT cuser_id FROM sx_personarea_temp WHERE ccompand_id = (SELECT ccomcode FROM person_v WHERE ccode = #{cuser_id}))
+    </select>
+
+
+    <!--增加A表数据-->
+    <insert id="insertPersonareaTemp">
+        INSERT INTO sx_personarea_temp (ccompand_id,cuser_id,xpoint,ypoint,ddate,param1) VALUES (#{ccompand_id},#{cuser_id},#{xpoint},#{ypoint},GETDATE(),#{param1})
+    </insert>
+
+
+    <!--查询A表中该业务员的信息是否已经存在-->
+    <select id="selectExistTemp" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM sx_personarea_temp WHERE cuser_id = #{cuser_id} AND param1 = #{param1}
+    </select>
+
+
+    <!--删查A表中某业务员的数据-->
+    <delete id="delectPersonareaTemp">
+        DELETE FROM sx_personarea_temp WHERE cuser_id = #{cuser_id}
+    </delete>
+
+
+    <!--查询B表中某公司已录点业务员-->
+    <select id="selectCuser" resultMap="ParameterMap">
+        select cname,ccode from person_v where ccode in (select distinct cuser_id from sx_personarea where ccompand_id = (select ccomcode from person_v where ccode = #{cuser_id}))
+    </select>
+
+
+    <!--增加B表数据-->
+    <insert id="insertPersonarea">
+        INSERT INTO sx_personarea (ccompand_id,cuser_id,xpoint,ypoint,ddate,param1) VALUES (#{ccompand_id},#{cuser_id},#{xpoint},#{ypoint},GETDATE(),#{param1})
+    </insert>
+
+
+    <!--查询B表中该业务员的信息是否已经存在-->
+    <select id="selectExist" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM sx_personarea WHERE cuser_id = #{cuser_id}
+    </select>
+
+
+    <!--删查B表中某业务员的数据-->
+    <delete id="delectPersonarea">
+        DELETE FROM sx_personarea WHERE cuser_id = #{cuser_id}
+    </delete>
+
+
+    <!--由A表复制进B表-->
+    <insert id="duplication">
+        insert into sx_personarea(ccompand_id,cuser_id,XPOINT,YPOINT,DDATE,PARAM1) select ccompand_id,cuser_id,XPOINT,YPOINT,DDATE,PARAM1
+        from sx_personarea_temp  where cuser_id = #{cuser_id}
+    </insert>
+
+
+    <!--查询A表中某业务员的所有点-->
+    <select id="selectCusersTemp" resultMap="SxPersonareaMap">
+         select * from sx_personarea_temp where cuser_id = #{cuser_id} ORDER BY cast(PARAM1 AS NUMERIC(5,0)) ASC
+    </select>
+
+
+    <!--查询B表中某业务员的所有点-->
+    <select id="selectCusers"  resultMap="SxPersonareaMap">
+          SELECT * FROM sx_personarea WHERE cuser_id = #{cuser_id} ORDER BY cast(PARAM1 AS NUMERIC(5,0)) ASC
+    </select>
+
+
+    <!--查询A表第一个点和最后一个点-->
+    <select id="selectDistance" resultMap="SxPersonareaMap">
+        select * from sx_personarea_temp where cuser_id=#{cuser_id} and (PARAM1 = (select MIN(cast(PARAM1 as numeric(5,0))) from sx_personarea_temp where cuser_id = #{cuser_id}) or PARAM1 =(select MAX(cast(PARAM1 as numeric(5,0))) from sx_personarea_temp where cuser_id = #{cuser_id}))
+    </select>
+
+
+    <!--查询B表第一个点和最后一个点-->
+    <select id="selectDistance2" resultMap="SxPersonareaMap">
+        select * from sx_personarea where cuser_id=#{cuser_id} and (PARAM1 = (select MIN(cast(PARAM1 as numeric(5,0))) from sx_personarea where cuser_id = #{cuser_id}) or PARAM1 =(select MAX(cast(PARAM1 as numeric(5,0))) from sx_personarea where cuser_id = #{cuser_id}))
+    </select>
+
+
+    <!--查询B表中所有业务员的点-->
+    <select id="selectAllCusers"  resultMap="SxPersonareaMap">
+         SELECT *,row_number() over (partition by cuser_id order by cast(PARAM1 AS NUMERIC(5,0)) ASC) FROM sx_personarea
+    </select>
+
+
+    <!--查询业务员区域的中心点-->
+    <select id="selectCenterPoint" resultMap="SxPersonareaMap">
+        SELECT (MIN(xpoint)+MAX(xpoint))/2 AS xpoint,(MIN(ypoint)+MAX(ypoint))/2 AS ypoint,(SELECT cname FROM person_v WHERE ccode = #{cuser_id}) AS param2 FROM sx_personarea WHERE cuser_id=#{cuser_id}
+    </select>
+
+
+    <!--在最小列的后面加上总列数-->
+    <update id="updateParam2">
+        UPDATE sx_personarea_temp SET PARAM2 = #{param2} WHERE param1 =(SELECT MIN(PARAM1) FROM sx_personarea_temp WHERE cuser_id= #{cuser_id})
+    </update>
+
+
+    <!--查询所有业务员-->
+    <select id="getPersonList" resultMap="ParameterMap">
+        select ccode,cname+(case when cdefine20='02' then '_离职' else '' end) cname from ufdata_web..staff
+        where ccomcode = #{ccomcode} and cssbm=#{cdepcode}
+        <if test="ccode!=null and ccode!=''">
+            and ccode = #{ccode}
+        </if>
+        <if test="cname!=null and cname!=''">
+            and cname like '%'+#{cname}+'%'
+        </if>
+        order by cdefine20,ccode
+    </select>
+
+
+    <!--新增业务员的范围点-->
+    <select id="addPersonDot" resultMap="ResultDto">
+        EXEC personarea_add #{jsonvisit}
+    </select>
+
+
+    <!--检查userid和ckey是否合法-->
+    <select id="detectionKey" resultType="java.lang.Integer">
+        select COUNT(autoid) icount from sx_login where CKEY=#{ckey} and CUSER_ID=#{userid} and dexpired_time > GETDATE()
+    </select>
+
+
+    <!--查询前五条订单-->
+    <select id="getOrderList" resultMap="SxOrderInfoMap">
+        select csocode,convert(varchar(20),ddate,120) ddate,CCUS_NAME,ccomname,cperson_name,
+        convert(varchar(10),round((imoney_sum-isnull(iusegold_sum,0)),2)) imoney_sum,case when DATEDIFF(n,ddate,GETDATE())&lt;=10 then '0' else '1' end bprint,
+        case when DATEDIFF(n,ddate,GETDATE())&lt;=10 then '点击可打印' else '超时不可打印' end printmsg from order_v
+        where 1=1  and csocode not in (select ISNULL(param1,'') param1 from sx_app_log)
+        <if test="userid ==null or userid ==''">
+            and 1 = 2
+        </if>
+        <if test="userid !=null and userid !=''">
+            <if test="userid != '01228'">
+                and DATEDIFF(d,ddate,GETDATE()) &lt;= 1
+            </if>
+            and cperson_id = #{userid}
+        </if>
+        <if test="csocode!=null and csocode!=''">
+            and csocode = #{csocode}
+        </if>
+         group by csocode,ddate,CCUS_NAME,cperson_name,imoney_sum,iusegold_sum,ccomname order by ddate desc
+    </select>
+
+
+    <!--查询单个订单信息-->
+    <select id="getOrderOne" resultMap="OrdervMap">
+        select * from order_v where csocode = #{csocode}
+    </select>
+
+
+    <!--查询订单的赠品-->
+    <select id="getSxOrderGift" resultMap="SxOrderGiftMap">
+        select gift.autoid,gift.id,gift.cinvcode,gift.cinvcode_member,gift.iquantity,gift.cdefine28,inv.cInvName,inv.cInvStd,img.cinvimg from sx_order_gift gift
+        inner join inventory inv on inv.cInvCode = gift.cinvcode inner join inventory_img img on inv.cInvCode = img.cinvcode where gift.id = #{autoid}
+    </select>
+
+
+    <!--查询订单列表，主要用于公众号中商家查询自己的订单-->
+    <!--cso_state：01 已下单 02 发货中 03 已发货  04 已结算  09 已关闭-->
+    <select id="selectOrdervList" resultMap="OrdervMap">
+        select  * from order_v where  1 = 1
+        <if test="ccus_id!=null and ccus_id!=''">
+            and ccus_id = #{ccus_id}
+        </if>
+        <if test="ddate2!=null and ddate2!=''">
+            and convert(varchar(10),ddate,120) = #{ddate2}
+        </if>
+        <if test="csocode!=null and csocode!=''">
+            and csocode like '%'+#{csocode}+'%'
+        </if>
+        <if test="cso_state!=null and cso_state!=''">
+            and cso_state = #{cso_state}
+        </if>
+        order by ddate desc
+    </select>
+
+
+    <!--增加打印的日志文件-->
+    <insert id="increaseLog">
+        insert into sx_app_log(cuser_id,ddate,logs,itype,param1,param2,param3,param4) values(#{userid},GETDATE(),'蓝牙打印机打印订单',1,#{csocode},'','','')
+    </insert>
+
+
+    <!--在临时表中绑定openid-->
+    <insert id="bindingOPenid">
+        insert into tmp_wxbind (openid,ccode,md5str,ddate) values (#{openid},#{ccode},#{md5str},GETDATE())
+    </insert>
+
+
+    <!--通过md5查询openid和code-->
+    <select id="selectOderOpen" resultMap="WxMap">
+        select openid,ccode from tmp_wxbind where md5str = #{md5str}
+    </select>
+
+
+    <!--查询openid是否已经绑定过-->
+    <select id="selectWxbindOpenid" resultMap="SxcustomerWxbindMap">
+        select * from sx_customer_wxbind where copenid = #{copenid} order by bdefault desc
+    </select>
+
+
+    <!--通过openid查询已绑定的客户信息-->
+    <select id="selectWxbindOpenid2" resultMap="SxcustomerWxbindMap">
+        select cwx.*,cst.ccus_name from sx_customer_wxbind cwx inner join sx_customer cst on
+        cwx.ccusid = cst.autoid where copenid = #{copenid} order by bdefault desc
+    </select>
+
+
+    <!--查询 游客 信息-->
+    <select id="selectTouristInfo" resultMap="TouristMap">
+        select autoid,ccus_name,ccompany_id,ccus_level,ccus_address from customer_v where autoid = '41503'
+    </select>
+
+
+    <!--先将所有的默认改为0-->
+    <update id="updateDbefault">
+        update sx_customer_wxbind set bdefault = 0 where copenid = #{copenid}
+    </update>
+
+
+    <!--再将选择的店铺设置为默认-->
+    <update id="updateDbefault2">
+        update sx_customer_wxbind set bdefault = 1 where copenid = #{copenid} and ccusid = #{ccusid}
+    </update>
+
+
+    <!--查询店铺绑定的微信数量-->
+    <select id="selectCcusid" resultType="java.lang.Integer">
+        select COUNT(*) from sx_customer_wxbind where ccusid = #{ccusid}
+    </select>
+
+
+    <!--绑定店铺信息-->
+    <insert id="insertCustomerWx">
+        insert into sx_customer_wxbind (ccusid,copenid,cunitid,dbindtime) values (#{ccusid},#{copenid},#{cunitid},GETDATE())
+    </insert>
+
+
+    <!--绑定成功之后删除临时表中的数据-->
+    <delete id="delectWxbind">
+        delete from tmp_wxbind where openid = #{openid}
+    </delete>
+
+
+    <!--清除所有七天以前的记录-->
+    <delete id="deleteWxDate">
+        delete from tmp_wxbind where datediff(day,[ddate],getdate()) >= 7
+    </delete>
+
+
+    <!--根据客户编号查询客户所属公司-->
+    <select id="getCustomerPanyID" resultMap="SxCustomerMap">
+        select CCOMPANY_ID,CCUS_LEVEL from sx_customer where autoid = #{autoid}
+    </select>
+
+
+    <!--获取客户允许绑定微信数量-->
+    <select id="getInformCvalues" resultType="java.lang.String">
+        select cvalue from information where cname = #{cname}
+    </select>
+
+
+    <!--判断查询人绑定的客户是否和被查询的客户一致-->
+    <select id="getTomerWxbind" resultType="java.lang.Integer">
+        select COUNT(*) from sx_customer_wxbind where ccusid = #{ccusid} and copenid = #{copenid}
+    </select>
+
+
+    <!--判断被查看客户是否已绑定-->
+    <select id="getCcusidBind" resultType="java.lang.Integer">
+        select COUNT(*) from sx_customer_wxbind where ccusid = #{ccusid}
+    </select>
+
+
+    <!--通过客户ID查询微信openid-->
+    <select id="selectCopenid" resultMap="customeropenidMap">
+        select copenid from sx_customer_wxbind where ccusid = #{ccusid}
+    </select>
+
+
+    <!--新增公众号token-->
+    <insert id="insertGztoken">
+        insert into sx_login (CUSER_ID,ILOGIN_TYPE,CKEY,DLOGIN_TIME,DEXPIRED_TIME) values ('gztoken','5',#{access_token},GETDATE(),dateadd(n,+120,getdate()))
+    </insert>
+
+
+    <!--更新公众号token-->
+    <update id="updateGztoken">
+        update sx_login set CKEY=#{access_token},DLOGIN_TIME = GETDATE(),DEXPIRED_TIME = dateadd(n,+100,getdate()) where CUSER_ID = 'gztoken'
+    </update>
+
+
+    <!--校验当前公众号token是否在有效期内-->
+    <select id="validationDEXTIME" resultType="java.lang.Integer">
+        select COUNT(*) from sx_login where CUSER_ID = 'gztoken' and DEXPIRED_TIME >GETDATE()
+    </select>
+
+
+    <!--查询公众号token是否存在-->
+    <select id="selectGztoken" resultType="java.lang.String">
+        select CKEY from sx_login where CUSER_ID = 'gztoken'
+    </select>
+
+
+    <!--新增企业微信token-->
+    <insert id="insertQytoken">
+        insert into sx_login (CUSER_ID,ILOGIN_TYPE,CKEY,DLOGIN_TIME,DEXPIRED_TIME) values (#{cuser_id},'5',#{access_token},GETDATE(),dateadd(n,+120,getdate()))
+    </insert>
+
+
+    <!--更新企业微信token-->
+    <update id="updateQytoken">
+         update sx_login set CKEY=#{access_token},DLOGIN_TIME = GETDATE(),DEXPIRED_TIME = dateadd(n,+100,getdate()) where CUSER_ID = #{cuser_id}
+    </update>
+
+
+    <!--校验当前企业微信token是否在有效期内-->
+    <select id="validtionQytoken" resultType="java.lang.Integer">
+         select COUNT(*) from sx_login where CUSER_ID = #{cuser_id} and DEXPIRED_TIME >GETDATE()
+    </select>
+
+
+    <!--查询企业微信token是否存在  -->
+    <select id="selectQytoken" resultType="java.lang.String">
+        select CKEY from sx_login where CUSER_ID = #{cuser_id}
+    </select>
+
+
+    <!--查询订单打印记录，ddate为下单时间，ddate1为付款时间，ddate2为打印时间-->
+    <select id="selectPrintlog" resultMap="PrintLogMap">
+        select *,case when datediff(N,ddate1,ddate2)&lt;=3 then 1 else 0 end paytype,case when datediff(N,ddate2,ddate3)&lt;=3 and datediff(N,ddate2,ddate3) > 0 then 1 else 0 end printype
+        from printlog_v where 1 = 1
+              <if test="ddate!=null and ddate!=''">
+                  and ddate = #{ddate}
+              </if>
+              <if test="cperson_id!=null and cperson_id!=''">
+                  and cperson_id =#{cperson_id}
+              </if>
+              <if test="ccomcode!=null and ccomcode!=''">
+                  and ccomcode = #{ccomcode}
+              </if>
+          order by ddate1 desc
+    </select>
+
+
+    <!--获取订单状态  1 已付款 0 未付款-->
+    <select id="getOrderStatus" resultType="java.lang.Integer">
+        select count(autoid) ordercount from sx_order where imoney_sum &lt;=isnull(iusegold_sum,0)+isnull(icashmoney,0)+isnull(iqrcodemoney,0) and csocode=#{csocode} and 2=2
+    </select>
+
+
+    <!--存储年会报名二维码的openid-->
+    <insert id="insertMd5OpenID">
+        insert into ufdata_web..tmp_wxbind(openid,md5str,ddate) values (#{openid},#{md5str},GETDATE())
+    </insert>
+
+
+    <!--判断openid是否已经存在-->
+    <select id="judgeOpenid" resultType="java.lang.String">
+        select openid from ufdata_web..tmp_wxbind where md5str = #{md5str}
+    </select>
+
+
+    <!--通过openid和客户ID换取Ckey-->
+    <select id="exchangeCkey" resultMap="wxlogindataMap">
+        exec sxemall..wxlogindata #{cuser_id},6,#{copenid}
+    </select>
+
+
+
+
+</mapper>

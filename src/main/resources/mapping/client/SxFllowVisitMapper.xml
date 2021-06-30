@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.clientmapper.SxFllowVisitMapper">
+
+    <resultMap id="FllowVisitListDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.FllowVisitListDto">
+        <id column="autoid" property="autoid"/>
+        <result column="ccus_address" property="ccus_address"/>
+        <result column="dfllow_start_time" property="dfllow_start_time"/>
+        <result column="dfllow_end_time" property="dfllow_end_time"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="dfllow_visit_time" property="dfllow_visit_time"/>
+        <result column="ifllow_space" property="ifllow_space"/>
+        <result column="ifllow_bplan" property="ifllow_bplan"/>
+        <result column="cfllow_pid" property="cfllow_pid"/>
+        <result column="cfllow_xpoint" property="cfllow_xpoint"/>
+        <result column="cfllow_ypoint" property="cfllow_ypoint"/>
+        <result column="sortid" property="sortid"/>
+        <result column="icount_all" property="icount_all"/>
+        <result column="icount_plan" property="icount_plan"/>
+        <result column="icount_unplan" property="icount_unplan"/>
+        <result column="bfllow" property="bfllow"/>
+    </resultMap>
+
+    <resultMap id="FllowVisitStortDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.FllowVisitStortDto">
+        <id column="autoid" property="autoid"/>
+        <result column="cInvCName" property="cinvcname"/>
+        <result column="cInvCode" property="cinvcode"/>
+        <result column="cInvName" property="cinvname"/>
+        <result column="DINVDATE" property="dinvdate"/>
+        <result column="IINVQUAN" property="iinvquan"/>
+        <result column="CINVMEMO" property="cinvmemo"/>
+    </resultMap>
+
+    <resultMap id="FllowVisitDetailDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.FllowVisitDetailDto">
+        <id column="autoid" property="autoid"/>
+        <result column="ccus_address" property="ccus_address"/>
+        <result column="dfllow_start_time" property="dfllow_start_time"/>
+        <result column="dfllow_end_time" property="dfllow_end_time"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="cfllow_xpoint" property="cfllow_xpoint"/>
+        <result column="cfllow_ypoint" property="cfllow_ypoint"/>
+        <result column="cccus_xpoint" property="cccus_xpoint"/>
+        <result column="cccus_ypoint" property="cccus_ypoint"/>
+        <result column="cfllow_memo" property="cfllow_memo"/>
+        <result column="cimg_type" property="cimg_type"/>
+        <result column="cimg_path" property="cimg_path"/>
+        <result column="iimg_sort" property="iimg_sort"/>
+        <result column="cchecker1" property="cchecker1"/>
+        <result column="cchecker2" property="cchecker2"/>
+        <result column="ccheckmemo1" property="ccheckmemo1"/>
+        <result column="ccheckmemo2" property="ccheckmemo2"/>
+        <result column="dchecktime1" property="dchecktime1"/>
+        <result column="dchecktime2" property="dchecktime2"/>
+        <result column="cname" property="cname"/>
+        <result column="cname1" property="cname1"/>
+        <result column="cname2" property="cname2"/>
+    </resultMap>
+
+    <resultMap id="ResultDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+    <resultMap id="StatisMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.StatisDto">
+        <result column="公司" property="公司"/>
+        <result column="拜访" property="拜访"/>
+        <result column="平均" property="平均"/>
+        <result column="数量" property="数量"/>
+        <result column="笔数" property="笔数"/>
+    </resultMap>
+
+
+    <resultMap id="StatisalesmanMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.StatisalesmanDto">
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="ivalue" property="ivalue"/>
+    </resultMap>
+
+    <resultMap id="MapDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.MapDto">
+        <result column="lat" property="lat"/>
+        <result column="lng" property="lng"/>
+        <result column="icount" property="count"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cinvtext" property="cinvtext"/>
+    </resultMap>
+
+    <resultMap id="BusinessMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.BusinessDto">
+        <result column="ccompany_id" property="ccompany_id"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccus_status" property="ccus_status"/>
+        <result column="ddate" property="ddate"/>
+        <result column="ccus_xpoint" property="ccus_xpoint"/>
+        <result column="ccus_ypoint" property="ccus_ypoint"/>
+    </resultMap>
+
+
+    <resultMap id="FllowVisitinfoDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.FllowVisitinfoDto">
+        <result column="autoid" property="autoid"/>
+        <result column="ipagecount" property="ipagecount"/>
+        <result column="rownum" property="rownum"/>
+        <result column="ccus_address" property="ccus_address"/>
+        <result column="dfllow_start_time" property="dfllow_start_time"/>
+        <result column="dfllow_end_time" property="dfllow_end_time"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="dfllow_visit_time" property="dfllow_visit_time"/>
+        <result column="ifllow_space" property="ifllow_space"/>
+        <result column="ifllow_bplan" property="ifllow_bplan"/>
+        <result column="cfllow_pid" property="cfllow_pid"/>
+        <result column="cfllow_xpoint" property="cfllow_xpoint"/>
+        <result column="cfllow_ypoint" property="cfllow_ypoint"/>
+        <result column="cname" property="cname"/>
+        <result column="cfllow_memo" property="cfllow_memo"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccomname" property="ccomname"/>
+        <result column="fllowid" property="fllowid"/>
+        <result column="img1_1" property="img1_1"/>
+        <result column="img1_2" property="img1_2"/>
+        <result column="img1_3" property="img1_3"/>
+        <result column="img1_4" property="img1_4"/>
+        <result column="img1_5" property="img1_5"/>
+        <result column="img2_1" property="img2_1"/>
+        <result column="img2_2" property="img2_2"/>
+        <result column="img2_3" property="img2_3"/>
+        <result column="img2_4" property="img2_4"/>
+        <result column="img2_5" property="img2_5"/>
+        <result column="img3_1" property="img3_1"/>
+        <result column="img3_2" property="img3_2"/>
+        <result column="img3_3" property="img3_3"/>
+        <result column="img3_4" property="img3_4"/>
+        <result column="img3_5" property="img3_5"/>
+        <result column="img4_1" property="img4_1"/>
+        <result column="img4_2" property="img4_2"/>
+        <result column="img4_3" property="img4_3"/>
+        <result column="img4_4" property="img4_4"/>
+        <result column="img4_5" property="img4_5"/>
+        <result column="isalesum" property="isalesum"/>
+        <result column="cdepname" property="cdepname"/>
+    </resultMap>
+
+    <resultMap id="MaySalesMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.MaySalesDto">
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="lat" property="lat"/>
+        <result column="lng" property="lng"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="icount" property="icount"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="cperson_id" property="cperson_id"/>
+    </resultMap>
+
+    <resultMap id="StaffCusMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.StaffCus">
+        <result column="ccode" property="ccode"/>
+        <result column="cname" property="cname"/>
+        <result column="autoid" property="autoid"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccus_statusname" property="ccus_statusname"/>
+        <result column="dcus_create_time" property="dcus_create_time"/>
+        <result column="ccus_xpoint" property="ccus_xpoint"/>
+        <result column="ccus_ypoint" property="ccus_ypoint"/>
+        <result column="ccus_address" property="ccus_address"/>
+        <result column="ccus_person" property="ccus_person"/>
+        <result column="ccus_phone" property="ccus_phone"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="ccus_account" property="ccus_account"/>
+        <result column="ctypename" property="ctypename"/>
+        <result column="cffol_time" property="cffol_time"/>
+        <result column="order_time" property="order_time"/>
+        <result column="paycount" property="paycount"/>
+    </resultMap>
+
+
+    <resultMap id="FllowVisitMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.FllowVisitList">
+        <id column="autoid" property="autoid"/>
+        <result column="ccus_address" property="ccus_address"/>
+        <result column="dfllow_start_time" property="dfllow_start_time"/>
+        <result column="dfllow_end_time" property="dfllow_end_time"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="dfllow_visit_time" property="dfllow_visit_time"/>
+        <result column="ifllow_space" property="ifllow_space"/>
+        <result column="ifllow_bplan" property="ifllow_bplan"/>
+        <result column="cfllow_pid" property="cfllow_pid"/>
+        <result column="cfllow_xpoint" property="cfllow_xpoint"/>
+        <result column="cfllow_ypoint" property="cfllow_ypoint"/>
+        <result column="cname" property="cname"/>
+        <result column="cfllow_memo" property="cfllow_memo"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccomname" property="ccomname"/>
+        <result column="cdepcode" property="cdepcode"/>
+        <result column="cdepname" property="cdepname"/>
+        <result column="cfllow_cid" property="cfllow_cid"/>
+    </resultMap>
+
+
+    <!--查询某日拜访记录-->
+    <select id="selectVisitInfos" resultMap="FllowVisitinfoDto">
+        EXEC fllow_list #{jsonvist}
+    </select>
+
+
+    <!--查询今天已拜访的客户列表-->
+    <select id="selectSxFllowVisitList" resultMap="FllowVisitListDto">
+        EXEC fllow_persontotal #{jsonvist}
+    </select>
+
+
+    <!--查询单个具体的拜访记录-->
+    <select id="selectFllowVisitDetail" resultMap="FllowVisitDetailDto">
+        SELECT * FROM fllow_visit_detail WHERE autoid = #{autoid} ORDER BY cimg_type,iimg_sort
+    </select>
+
+
+    <!--查询客户的商品资料-->
+    <select id="selectStort" resultMap="FllowVisitStortDto">
+        SELECT * FROM fllow_visit_stort WHERE autoid = #{autoid}
+    </select>
+
+
+    <!--添加拜访记录-->
+    <select id="insertFllowVisit" resultMap="ResultDto">
+       EXEC fllow_add #{json}
+    </select>
+
+
+    <!--查询5分钟内同一业务员是否有拜访记录-->
+    <select id="getFllowVistt" resultType="java.lang.Integer">
+        select count(*) from sx_fllow_visit where CFLLOW_PID = #{cfllow_pid} and  DFLLOW_END_TIME > DATEADD(n,-5,GETDATE())
+    </select>
+
+
+    <!-- 查询统计表 -->
+    <select id="selectStatistics" resultMap="StatisMap">
+        EXEC auto_char0202 #{ctype},#{userid},#{dateb},#{datee}
+    </select>
+
+
+    <!--查询单个区域的详情-->
+    <select id="selectStatisalesman" resultMap="StatisalesmanMap">
+        EXEC auto_char0202 #{ctype},#{userid},#{dateb},#{datee}
+    </select>
+
+
+    <!--查询地图数据(蜂窝地图)-->
+    <select id="selectMapinfo" resultMap="MapDto">
+        EXEC auto_business_map #{ckey},#{ctype},#{sales},#{userid},#{datea},#{datee},#{coloron}
+    </select>
+
+
+    <!--查询店铺的位置（售点平面地图）-->
+    <select id="selectBusiness" resultMap="BusinessMap">
+        EXEC auto_business_map #{ckey},#{ctype},#{stype},#{userid},#{date1},#{date2},#{param1},#{param2}
+    </select>
+
+
+
+    <!-- ====================================================临时性地图接口============================================================================ -->
+
+    <!--查询5月销量（柱状图）-->
+    <!--<select id="selectMaySales" resultMap="MaySalesMap">
+        select ccomcode,CCUS_XPOINT lat,CCUS_YPOINT lng,cinvname,SUM(iquantity) icount,ccus_name,MAX(ddate) ddate,cperson_name,ccus_id,cperson_id
+        from order_v where ISNULL(bclose,'关闭')=''
+        and ddate &gt;= #{begdate} and ddate &lt;=#{dendate} and iprice>0
+        group by ccomcode,CCUS_XPOINT,CCUS_YPOINT,ccus_name,ccus_id,cinvname,cperson_name,cperson_id order by ddate
+    </select>-->
+
+
+    <!--查询五六月份售点分布图-->
+    <select id="selectMaySellDot" resultMap="BusinessMap">
+        select ccus_comid CCOMPANY_ID,ccus_pid CPERSON_ID,CCUS_NAME,ccus_status_sub CCUS_STATUS,convert(varchar(10),DCUS_CREATE_TIME,120) ddate,CCUS_XPOINT,ccus_ypoint from sx_customer
+        inner join sx_customer_planadd on sx_customer.autoid=sx_customer_planadd.ccus_cid
+        right join (select ccus_id,count(autoid) icount from sx_order where isnull(bclose,0)= 0 and convert(varchar(7),ddate,120) = #{ddate}
+        group by ccus_id) cusorder on sx_customer.autoid=cusorder.ccus_id
+        where  ccus_status_sub &lt; 10
+        <if test="cperson_id!=null and cperson_id!=''">
+            and sx_customer_planadd.CCUS_PID = #{cperson_id}
+        </if>
+        <if test="cdepartment_id!=null and cdepartment_id!=''">
+            and cdepartment_id = #{cdepartment_id}
+        </if>
+        <if test="ccus_comid!=null and ccus_comid!=''">
+            and ccus_comid = #{ccus_comid}
+        </if>
+        and isnull(icount,0) >= convert(varchar(2),isnull('1',0))
+    </select>
+
+
+    <!--查询现存所有有过交易的售点-->
+    <select id="selectAllSellDot" resultMap="BusinessMap">
+        select ccus_comid CCOMPANY_ID,ccus_pid CPERSON_ID,CCUS_NAME,ccus_status_sub CCUS_STATUS,convert(varchar(10),DCUS_CREATE_TIME,120) ddate,CCUS_XPOINT,ccus_ypoint from sx_customer
+        inner join sx_customer_planadd on sx_customer.autoid=sx_customer_planadd.ccus_cid
+        right join (select ccus_id,count(autoid) icount from sx_order where isnull(bclose,0)= 0 group by ccus_id) cusorder on sx_customer.autoid=cusorder.ccus_id
+        where ccus_level_sub = '0202' and ccus_status_sub &lt; 10
+        and isnull(icount,0)>= convert(varchar(2),isnull('1',0))
+    </select>
+
+
+    <!--查询5月份有过拜访的售点-->
+    <select id="selectFllowDto" resultMap="BusinessMap">
+        select ccus_comid CCOMPANY_ID,ccus_pid CPERSON_ID,CCUS_NAME,ccus_status_sub CCUS_STATUS,convert(varchar(10),DCUS_CREATE_TIME,120) ddate,CCUS_XPOINT,ccus_ypoint from sx_customer
+        inner join sx_customer_planadd on sx_customer.autoid=sx_customer_planadd.ccus_cid
+        right join (select CFLLOW_CID,COUNT(autoid) icount from sx_fllow_visit where convert(varchar(7),DFLLOW_END_TIME,120) = #{ddate}
+        group by CFLLOW_CID) cusfllow on sx_customer.autoid=cusfllow.CFLLOW_CID
+        where  ccus_status_sub &lt; 10
+        <if test="cperson_id!=null and cperson_id!=''">
+            and sx_customer_planadd.CCUS_PID = #{cperson_id}
+        </if>
+        <if test="cdepartment_id!=null and cdepartment_id!=''">
+            and cdepartment_id = #{cdepartment_id}
+        </if>
+        <if test="ccus_comid!=null and ccus_comid!=''">
+            and ccus_comid = #{ccus_comid}
+        </if>
+        and isnull(icount,0)>= convert(varchar(2),isnull('1',0))
+    </select>
+
+
+    <!--根据工号查询客户-->
+    <select id="getStaffCus" resultMap="StaffCusMap">
+        exec tmp_staff_cus #{ccode}
+        select cus.ccode,cus.cname,cus.autoid,ccus_name,CCUS_STATUS as ccus_statusname,dcus_create_time,ccus_xpoint,ccus_ypoint,ccus_address,ccus_person,ccus_phone,
+        cperson_name,ccus_account,ctypename,vis.cffol_time,orde.order_time,ISNULL(cff.cfllow_count,0) paycount
+        from tempdb..staff_cus cus inner join customer_v on cus.autoid=customer_v.autoid
+        left join (select CFLLOW_CID,max(DFLLOW_END_TIME) cffol_time from sx_fllow_visit group by CFLLOW_CID) vis on vis.CFLLOW_CID = cus.autoid
+        left join (select ccus_id,MAX(ddate) order_time from sx_order group by ccus_id) orde on orde.ccus_id = cus.autoid
+        left join (select CFLLOW_CID,COUNT(CFLLOW_CID) cfllow_count from tmp_fllow_visit group by CFLLOW_CID) cff on cff.CFLLOW_CID = cus.autoid
+        where (CCOMPANY_ID='20' or CCOMPANY_ID='05') and CDEPARTMENT_ID='13' and ccode = #{ccode}
+    </select>
+
+    <!--查询所有客户的坐标-->
+    <!--select top 100 autoid,ccus_xpoint,ccus_ypoint,ccus_address from customer_v where ISNULL(CDEFINE2,'') = ''-->
+    <select id="getCusAddress" resultMap="StaffCusMap">
+        select cus.autoid,ccus_xpoint,ccus_ypoint,ccus_address from customer_v cus
+        inner join tempdb..staff_cus sta on cus.autoid = sta.autoid
+        where ISNULL(CDEFINE2,'') = ''
+    </select>
+
+    <!--将腾讯坐标修改为百度坐标-->
+    <update id="updateCusAddress">
+        update customer_v set CCUS_ADDRESS=#{ccus_address},CCUS_OADDRESS=#{ccus_address},CDEFINE2 = '1' where autoid= #{autoid}
+    </update>
+
+
+    <!--查询今日每个业务员的最新拜访位置-->
+    <select id="getFllowVistList" resultMap="FllowVisitMap">
+        select flo.* from fllow_visit_list flo inner join
+        (select CFLLOW_PID,MAX(DFLLOW_END_TIME) as DFLLOW_END_TIME  from fllow_visit_list where CONVERT(varchar(10),DFLLOW_END_TIME,120) = CONVERT(varchar(10),GETDATE(),120)
+        and ISNULL(ccomcode,'') &lt;&gt; '11' group by CFLLOW_PID) vis on vis.DFLLOW_END_TIME = flo.DFLLOW_END_TIME and vis.CFLLOW_PID = flo.CFLLOW_PID
+        <if test="ccomcode!=null and ccomcode!=''">
+            and ISNULL(flo.ccomcode,'') = #{ccomcode}
+        </if>
+        <if test="cfllow_pid!=null and cfllow_pid!=''">
+            and flo.cfllow_pid = #{cfllow_pid}
+        </if>
+        order by flo.DFLLOW_END_TIME desc
+    </select>
+
+
+</mapper>

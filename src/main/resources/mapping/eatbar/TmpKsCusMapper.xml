@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.eatbarmapper.TmpKsCusMapper">
+
+    <resultMap id="TmpKsCusMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.TmpKsCusDto">
+        <id column="autoid" property="autoid"/>
+        <result column="ddate" property="ddate"/>
+        <result column="ccusname" property="ccusname"/>
+        <result column="ccomname" property="ccomname"/>
+        <result column="cpsnname" property="cpsnname"/>
+        <result column="cstate" property="cstate"/>
+    </resultMap>
+
+
+    <resultMap id="StatKsCusMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.StatKsCusDto">
+        <result column="cpsnname" property="cpsnname"/>
+        <result column="counts" property="counts"/>
+    </resultMap>
+
+
+    <!--查询 ks_cus 表数据-->
+    <select id="selectTmpKsCus" resultMap="TmpKsCusMap">
+        select * from tmp_ks_cus order by ddate desc
+    </select>
+
+
+    <!--查询Ks_cus的统计数据-->
+    <select id="selectStatKsCus" resultMap="StatKsCusMap">
+        select cpsnname,COUNT(cpsnname) as counts from tmp_ks_cus group by cpsnname
+    </select>
+
+
+    <!--根据设备编码查询需要跳转的页面-->
+    <select id="getPageUrl" resultType="java.lang.String">
+        select page_url from device where device_id = #{device_id}
+    </select>
+
+
+    <!--根据unionid查询是否绑定-->
+    <select id="getUnionidExist" resultType="java.lang.Integer">
+        select COUNT(*) from person_v where cdefine26 = #{unionid}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.eatbarmapper.PriceEnterLogMapper">
+
+    <resultMap id="PriceEnterLogMap" type="com.shunxin.shunxin_salesman_visit.entity.eatbarentity.PriceEnterLog">
+        <id column="autoid" property="autoid"/>
+        <result column="iext_id" property="iext_id"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="cuser_id" property="cuser_id"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="ccus_level" property="ccus_level"/>
+        <result column="ccus_price" property="ccus_price"/>
+        <result column="igoldrate" property="igoldrate"/>
+        <result column="ddateb" property="ddateb"/>
+        <result column="ddatee" property="ddatee"/>
+        <result column="cchecker" property="cchecker"/>
+        <result column="dcheck" property="dcheck"/>
+        <result column="ccloser" property="ccloser"/>
+        <result column="dclose" property="dclose"/>
+        <result column="cmemo" property="cmemo"/>
+        <result column="ccomname" property="ccomname"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="clevelname" property="clevelname"/>
+        <result column="checktepy" property="checktepy"/>
+    </resultMap>
+
+
+    <resultMap id="PriceAllMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.PriceAllDto">
+        <result column="cusercode" property="cusercode"/>
+    </resultMap>
+
+    <resultMap id="ResultMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+
+    <!--查询历史价格表-->
+    <select id="selectPriceEnterLog" resultMap="PriceEnterLogMap">
+        select inventory_ext_log.*,ccomname,cInvName,cinvstd,clevelname,case isnull(ccloser,'') when '' then case isnull(cchecker,'') when ''  then '未审核' else '已审核' end else '已禁用' end checktepy from inventory_ext_log
+        inner join (select enumcode,enumname ccomname from enumdata where enumid='1') company on inventory_ext_log.ccomcode=company.enumcode
+        inner join inventory on inventory_ext_log.cinvcode=inventory.cinvcode
+        inner join sx_customer_level on inventory_ext_log.ccus_level=sx_customer_level.clevelid
+        where 1 = 1
+        <if test="ccomcode==null or ccomcode==''">
+            and inventory_ext_log.ccomcode in(select cdepcode from ufdata_web..userhold where ctype='emall_price' and cusercode=#{cuser_id})
+        </if>
+        <if test="ccomcode!=null and ccomcode!=''">
+            and inventory_ext_log.ccomcode in(select cdepcode from ufdata_web..userhold where ctype='emall_price' and cusercode=#{cuser_id} and cdepcode=#{ccomcode})
+            and inventory_ext_log.ccomcode = #{ccomcode}
+        </if>
+        <if test="cinvcode!=null and cinvcode!=''">
+            and inventory_ext_log.cinvcode = #{cinvcode}
+        </if>
+        <if test="ccus_level!=null and ccus_level!=''">
+            and inventory_ext_log.ccus_level = #{ccus_level}
+        </if>
+        <if test="ddate!=null and ddate!=''">
+            and #{ddate} between ddateb and ddatee
+        </if>
+        order by ddate desc
+    </select>
+
+
+    <!--查询有权限的工号-->
+    <select id="getCuserCode" resultMap="PriceAllMap">
+        select cusercode from ufdata_web..userhold where ctype='emall'
+    </select>
+
+
+
+    <!--新增历史价格表-->
+    <!--<insert id="insertPriceEnter">
+         insert into inventory_ext_log(ccomcode,cuser_id,ddate,cinvcode,ccus_level,ccus_price,igoldrate,ddateb,ddatee,cmemo)
+          values(#{ccomcode},#{cuser_id},GETDATE(),#{cinvcode},#{ccus_level},#{ccus_price},#{igoldrate},#{ddateb},#{ddatee},#{cmemo})
+    </insert>
+
+
+    &lt;!&ndash;修改历史价格表&ndash;&gt;
+    <update id="updatePriceEnter">
+        update inventory_ext_log set ccomcode=#{ccomcode},cuser_id = #{cuser_id},ddate=GETDATE(),cinvcode=#{cinvcode},ccus_level=#{ccus_level},
+        ccus_price= #{ccus_price},igoldrate=#{igoldrate},ddateb=#{ddateb},ddatee=#{ddatee},cmemo=#{cmemo} where autoid = #{autoid}
+    </update>
+
+    &lt;!&ndash;停用，录入禁用人和禁用时间&ndash;&gt;
+    <update id="forbiddenInventory">
+        update inventory_ext_log set ccloser= #{ccloser},dclose=GETDATE(),cmemo=cmemo+'/'+#{cmemo} where autoid = #{autoid}
+    </update>
+
+
+    &lt;!&ndash;判断该数据是否已经审核&ndash;&gt;
+    <select id="getChecktepy" resultType="java.lang.String">
+        select case when cchecker is null then '未审核' else '已审核' end checktepy from inventory_ext_log where autoid = #{autoid}
+    </select>
+
+
+    &lt;!&ndash;通过autoid查询Log表信息&ndash;&gt;
+    <select id="getExtLogs" resultMap="PriceEnterLogMap">
+        select * from inventory_ext_log where autoid = #{autoid}
+    </select>
+
+
+    &lt;!&ndash;再将正式表的bclose修改为1(0为有效，1为禁用)&ndash;&gt;
+    <update id="updateBclose">
+        update inventory_ext set bclose = 1 where autoid = #{iext_id}
+    </update>
+
+
+    &lt;!&ndash;填入审核人和审核时间&ndash;&gt;
+    <update id="checkInventory">
+        update inventory_ext_log set cchecker = #{cchecker},dcheck=GETDATE() where autoid = #{autoid}
+    </update>
+
+
+    &lt;!&ndash;判断公司、商品、客户级别、时间段是否重复&ndash;&gt;
+    <select id="judgeRepeat" resultType="java.lang.Integer">
+        select count(*) from inventory_ext_log where ccomcode = #{ccomcode} and ccus_level =#{ccus_level} and cinvcode = #{cinvcode}
+        and ((ddateb between #{ddateb} and #{ddatee}) or (ddatee between #{ddateb} and #{ddatee})
+        or (ddateb &lt;=#{ddateb} and ddatee>=#{ddatee})) and isnull(ccloser,'')=''
+    </select>
+
+
+    &lt;!&ndash;判断该数据正式表中是否存在&ndash;&gt;
+    <select id="judgeInventoryExt" resultType="java.lang.Integer">
+        select count(*) from inventory_ext where ccomcode = #{ccomcode} and ccus_level =#{ccus_level} and cinvcode = #{cinvcode}
+    </select>
+
+
+    &lt;!&ndash;查询正式表的autoid&ndash;&gt;
+    <select id="judgeInventoryExtAutoid" resultType="java.lang.Integer">
+        select autoid from inventory_ext where ccomcode = #{ccomcode} and ccus_level =#{ccus_level} and cinvcode = #{cinvcode}
+    </select>
+
+
+    &lt;!&ndash;最后将iext_id修改为正式表的autoid&ndash;&gt;
+    <update id="updateIextId">
+        update inventory_ext_log set iext_id = #{iext_id} where autoid = #{autoid}
+    </update>-->
+
+
+    <!--停用价格-->
+    <select id="stopPriceEnter" resultMap="ResultMap">
+        EXEC inventory_price_add #{jsonvist}
+    </select>
+
+
+    <!--新增价格记录-->
+    <select id="addPriceEnter" resultMap="ResultMap">
+        EXEC inventory_price_add #{jsonvist}
+    </select>
+
+
+    <!--修改价格-->
+    <select id="modificatPriceEnter" resultMap="ResultMap">
+        EXEC inventory_price_add #{jsonvist}
+    </select>
+
+
+    <!--审核价格-->
+    <select id="auditPriceEnter" resultMap="ResultMap">
+        EXEC inventory_price_add #{jsonvist}
+    </select>
+
+
+    <!--延长商品上架时间-->
+    <update id="updateInventoryExt">
+        update inventory_ext set ddatee = #{ddatee} where autoid = (select iext_id from inventory_ext_log where autoid = #{autoid})
+    </update>
+
+    <update id="updateInventoryExtLog">
+        update inventory_ext_log set ddatee = #{ddatee} where autoid = #{autoid}
+    </update>
+
+
+
+</mapper>

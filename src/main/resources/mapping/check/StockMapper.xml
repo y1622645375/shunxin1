@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.checkmapper.StockMapper">
+
+    <resultMap id="StockMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.Stock">
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvaddcode" property="cinvaddcode"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="cinvccode" property="cinvccode"/>
+        <result column="cvencode" property="cvencode"/>
+        <result column="iinvsprice" property="iinvsprice"/>
+        <result column="dsdate" property="dsdate"/>
+        <result column="dedate" property="dedate"/>
+        <result column="ccreateperson" property="ccreateperson"/>
+        <result column="cmodifyperson" property="cmodifyperson"/>
+        <result column="dmodifydate" property="dmodifydate"/>
+        <result column="igrouptype" property="igrouptype"/>
+        <result column="cgroupcode" property="cgroupcode"/>
+        <result column="ccomunitcode" property="ccomunitcode"/>
+        <result column="csacomunitcode" property="csacomunitcode"/>
+        <result column="cpucomunitcode" property="cpucomunitcode"/>
+        <result column="cstcomunitcode" property="cstcomunitcode"/>
+        <result column="ccacomunitcode" property="ccacomunitcode"/>
+        <result column="cinvcname" property="cinvcname"/>
+        <result column="cgroupname" property="cgroupname"/>
+        <result column="igrouptypename" property="igrouptypename"/>
+        <result column="caddress" property="caddress"/>
+        <result column="ccomunitname" property="ccomunitname"/>
+        <result column="ichangrate" property="ichangrate"/>
+        <result column="cinvimg" property="cinvimg"/>
+        <result column="cinvdefine1" property="cinvdefine1"/>
+        <result column="cinvstyle" property="cinvstyle"/>
+    </resultMap>
+
+    <resultMap id="ResultDto" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+    <resultMap id="InventoryMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.InventoryStock">
+        <result column="cinvccode" property="cinvccode"/>
+        <result column="cinvcname" property="cinvcname"/>
+        <result column="iinvcgrade" property="iinvcgrade"/>
+        <result column="binvcend" property="binvcend"/>
+    </resultMap>
+
+
+    <resultMap id="GroupMap" type="com.shunxin.shunxin_salesman_visit.entity.checkentity.Group">
+        <result column="cgroupcode" property="cgroupcode"/>
+        <result column="cgroupname" property="cgroupname"/>
+        <result column="igrouptype" property="igrouptype"/>
+        <result column="unitcode1" property="unitcode1"/>
+        <result column="unitname1" property="unitname1"/>
+        <result column="unitcode2" property="unitcode2"/>
+        <result column="unitname2" property="unitname2"/>
+        <result column="ichangerate" property="ichangerate"/>
+        <result column="grouptypename" property="grouptypename"/>
+        <result column="propertyList" property="propertyList"/>
+    </resultMap>
+
+
+    <!--录入库存商品-->
+    <select id="enterStock" resultMap="ResultDto">
+        EXEC inventory_add #{jsonvist}
+    </select>
+
+
+    <!--审核存货商品-->
+    <select id="checkStock" resultMap="ResultDto">
+        EXEC inventory_add #{jsonvist}
+    </select>
+
+
+    <!--禁用存货商品-->
+    <select id="forbidStock" resultMap="ResultDto">
+        EXEC inventory_add #{jsonvist}
+    </select>
+
+
+    <!--删除存货商品-->
+    <select id="deleteStock" resultMap="ResultDto">
+        EXEC inventory_add #{jsonvist}
+    </select>
+
+
+    <!--查询商品数据-->
+    <select id="selectStockinfo" resultMap="StockMap">
+        select inventory.*,cInvCName,cGroupName,case inventory.iGroupType when 0 then '无换算' when 1 then '固定换算' when 2 then '浮动换算' end iGroupTypeName,isnull(caddress,0) caddress,
+        computationunit.cComUnitName,unit.cComUnitName,unit.iChangRate,inventory_img.cinvimg,
+        case bsale when 1 then '销售' else '' end + case bpurchase when 1 then '/采购' else '' end+ case bself when 1 then '/自制' else '' end
+        + case bcomsume when 1 then '/生产' else '' end + case bproducing when 1 then '/在制' else '' end + case bservice when 1 then '/劳务' else '' end  cinvstyle
+        from inventory inner join InventoryClass on inventory.cInvCCode=inventoryclass.cInvCCode
+        inner join ComputationGroup on inventory.cGroupCode=computationgroup.cGroupCode inner join ComputationUnit on inventory.cComUnitCode=computationunit.cComunitCode
+        left join ComputationUnit unit on inventory.csaComUnitCode=unit.ccomunitcode left join inventory_img on inventory.cInvCode=inventory_img.cinvcode
+        where 1 = 1 and left(inventory.cinvccode,2) &lt;&gt; '99'
+        <if test="cinvccode!=null and cinvccode!=''">
+            and inventory.cInvCCode like #{cinvccode}+'%'
+        </if>
+        <if test="cinvcode!=null and cinvcode!=''">
+            and (inventory.cinvcode like '%'+ #{cinvcode}+'%' or inventory.cinvname like '%'+#{cinvcode}+'%')
+        </if>
+        order by inventory.cinvcode asc
+    </select>
+
+
+    <!--查询计量单位类别-->
+    <select id="selectGroupType" resultMap="GroupMap">
+        select computationgroup.cgroupcode,cgroupname,igrouptype,comunit.unitcode1,comunit.unitname1,comunit.unitcode2,comunit.unitname2,comunit.ichangerate, case igrouptype when 0 then '无换算' when '1' then '固定换算' when '2' then '浮动换算' end grouptypename
+        from ComputationGroup inner join (select cgroupcode,max(case bmainunit when '1' then ccomunitcode else '' end) unitcode1,
+        max(case bmainunit when '1' then ccomunitname else '' end) unitname1,max(case bmainunit when '0' then ccomunitcode else '' end) unitcode2,
+        max(case bmainunit when '0' then ccomunitname else '' end) unitname2,max(case bmainunit when '0' then ichangrate else '' end) ichangerate from ComputationUnit where cGroupCode &lt;&gt; '00' group by cgroupcode
+        union all
+        select '00','30','件','30','件','1' )
+        comunit on computationgroup.cGroupCode=comunit.cgroupcode
+    </select>
+
+
+    <!--查询商品分类-->
+    <select id="selectInventoryOne" resultMap="InventoryMap">
+        select * from inventoryclass where left(cinvccode,2) &lt;&gt; '99' order by cinvccode
+    </select>
+
+
+    <!--根据存货编码删除图片-->
+    <delete id="deleteInventotyImg">
+        delete inventory_img where cinvcode = #{cinvcode}
+    </delete>
+
+
+    <!--根据存货编码新增图片-->
+    <insert id="insertInventotyImg">
+        insert into inventory_img(cinvcode,cinvimg1,cinvimg) values (#{cinvcode},#{cinvimg1},#{cinvimg})
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.mallmapper.SxOrderMapper">
+    <resultMap id="OrderMap" type="com.shunxin.shunxin_salesman_visit.entity.mallentity.Order">
+        <result column="csocode" property="csocode"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccus_xpoint" property="ccus_xpoint"/>
+        <result column="ccus_ypoint" property="ccus_ypoint"/>
+        <result column="ccus_oaddress" property="ccus_oaddress"/>
+        <result column="ccus_phone" property="ccus_phone"/>
+        <result column="ccus_person" property="ccus_person"/>
+        <result column="ccus_paytype_name" property="ccus_paytype_name"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="cmaker" property="cmaker"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+        <result column="cdefine28" property="cdefine28"/>
+        <result column="cso_state" property="cso_state"/>
+        <result column="enumname" property="enumname"/>
+        <result column="cinvimg" property="cinvimg"/>
+        <result column="csocodes" property="csocodes"/>
+        <result column="iusegold_sum" property="iusegold_sum"/>
+        <result column="mdefine1" property="mdefine1"/>
+        <result column="cpaytypename" property="cpaytypename"/>
+        <result column="cpaytype" property="cpaytype"/>
+        <result column="ccus_remaker" property="ccus_remaker"/>
+        <result column="inopaymoney" property="inopaymoney"/>
+        <result column="icashmoney" property="icashmoney"/>
+        <result column="iqrcodemoney" property="iqrcodemoney"/>
+        <result column="cshiptype" property="cshiptype"/>
+    </resultMap>
+
+    <resultMap id="OrdervsMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.OrdervDto">
+        <result column="autoid" property="autoid"/>
+        <result column="csocode" property="csocode"/>
+        <result column="csocodes" property="csocodes"/>
+        <result column="csotype" property="csotype"/>
+        <result column="csotypename" property="csotypename"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="CCUS_NAME" property="CCUS_NAME"/>
+        <result column="CCUS_XPOINT" property="CCUS_XPOINT"/>
+        <result column="CCUS_YPOINT" property="CCUS_YPOINT"/>
+        <result column="CCUS_OADDRESS" property="CCUS_OADDRESS"/>
+        <result column="CCUS_PHONE" property="CCUS_PHONE"/>
+        <result column="CCUS_PERSON" property="CCUS_PERSON"/>
+        <result column="CCUS_PAYTYPE_NAME" property="CCUS_PAYTYPE_NAME"/>
+        <result column="CCUS_LEVEL" property="CCUS_LEVEL"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="ddate" property="ddate"/>
+        <result column="cInvName" property="cInvName"/>
+        <result column="cInvStd" property="cInvStd"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="cmaker" property="cmaker"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+        <result column="cdefine28" property="cdefine28"/>
+        <result column="cso_state" property="cso_state"/>
+        <result column="enumname" property="enumname"/>
+        <result column="cinvimg" property="cinvimg"/>
+        <result column="ccus_remaker" property="ccus_remaker"/>
+        <result column="ccom_remaker" property="ccom_remaker"/>
+        <result column="igold_sum" property="igold_sum"/>
+        <result column="iusegold_sum" property="iusegold_sum"/>
+        <result column="cpaytype" property="cpaytype"/>
+        <result column="cpaytypename" property="cpaytypename"/>
+        <result column="icashmoney" property="icashmoney"/>
+        <result column="iqrcodemoney" property="iqrcodemoney"/>
+        <result column="bclose" property="bclose"/>
+        <result column="borderpay" property="borderpay"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="CCOMNAME" property="CCOMNAME"/>
+        <result column="ordersid" property="ordersid"/>
+        <result column="cshiptype" property="cshiptype"/>
+        <result column="cCus_Code" property="cCus_Code"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="mdefine1" property="mdefine1"/>
+        <result column="cso_statename" property="cso_statename"/>
+    </resultMap>
+
+    <resultMap id="OrderLogMap" type="com.shunxin.shunxin_salesman_visit.entity.mallentity.OrderLog">
+        <id column="autoid" property="autoid"/>
+        <result column="order_id" property="order_id"/>
+        <result column="ddate_log" property="ddate_log"/>
+        <result column="ctype_log" property="ctype_log"/>
+        <result column="msg_log" property="msg_log"/>
+        <result column="enumcode" property="enumcode"/>
+        <result column="enumname" property="enumname"/>
+    </resultMap>
+
+    <resultMap id="ResultMap" type="com.shunxin.shunxin_salesman_visit.dto.malldto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+
+    <resultMap id="ResultOrderMap" type="com.shunxin.shunxin_salesman_visit.dto.eatbardto.ResultOrderDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+        <result column="csocode" property="csocode"/>
+    </resultMap>
+
+
+    <resultMap id="OrderstyleMap" type="com.shunxin.shunxin_salesman_visit.dto.malldto.OrderstyleDto">
+        <result column="bsale" property="bsale"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="iprice" property="iprice"/>
+        <result column="imoney" property="imoney"/>
+        <result column="ccus_person" property="ccus_person"/>
+        <result column="ccus_phone" property="ccus_phone"/>
+        <result column="ccus_oaddress" property="ccus_oaddress"/>
+        <result column="ccus_paytype_name" property="ccus_paytype_name"/>
+        <result column="cinvimg" property="cinvimg"/>
+    </resultMap>
+
+
+    <resultMap id="SxOrderMap" type="com.shunxin.shunxin_salesman_visit.entity.mallentity.SxOrder">
+        <id column="autoid" property="autoid"/>
+        <result column="csocode" property="csocode"/>
+        <result column="csotype" property="csotype"/>
+        <result column="ddate" property="ddate"/>
+        <result column="ccus_id" property="ccus_id"/>
+        <result column="ccus_code" property="ccus_code"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="cperson_id" property="cperson_id"/>
+        <result column="cso_state" property="cso_state"/>
+        <result column="xpiont_order" property="xpiont_order"/>
+        <result column="ypiont_order" property="ypiont_order"/>
+        <result column="iquan_sum" property="iquan_sum"/>
+        <result column="ikpquan_sum" property="ikpquan_sum"/>
+        <result column="imoney_sum" property="imoney_sum"/>
+        <result column="ikpmoney_sum" property="ikpmoney_sum"/>
+        <result column="igold_sum" property="igold_sum"/>
+        <result column="iusegold_sum" property="iusegold_sum"/>
+        <result column="cpaytype" property="cpaytype"/>
+        <result column="icashmoney" property="icashmoney"/>
+        <result column="iqrcodemoney" property="iqrcodemoney"/>
+        <result column="ipay_sum" property="ipay_sum"/>
+        <result column="cmaker" property="cmaker"/>
+        <result column="bclose" property="bclose"/>
+        <result column="cclose_name" property="cclose_name"/>
+        <result column="dclose_date" property="dclose_date"/>
+        <result column="dclose_desc" property="dclose_desc"/>
+        <result column="mdefine1" property="mdefine1"/>
+        <result column="cperson_name" property="cperson_name"/>
+        <result column="cpaytypename" property="cpaytypename"/>
+        <result column="cso_statename" property="cso_statename"/>
+        <result column="ccomname" property="ccomname"/>
+        <result column="ccus_oaddress" property="ccus_oaddress"/>
+        <result column="strReslut" property="strReslut"/>
+    </resultMap>
+
+
+    <resultMap id="SxOrderDtoMap" type="com.shunxin.shunxin_salesman_visit.dto.malldto.SxOrderDto">
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="csocode" property="csocode"/>
+        <result column="iquantity" property="iquantity"/>
+        <result column="imoney" property="imoney"/>
+        <result column="cInvName" property="cInvName"/>
+        <result column="cInvStd" property="cInvStd"/>
+        <result column="iprice" property="iprice"/>
+    </resultMap>
+
+
+    <!--查询我的订单-->
+    <select id="selectOrderList" resultMap="OrdervsMap">
+        select * from order_v where  1 = 1
+        <if test="ccus_id!=null and ccus_id!=''">
+            and ccus_id = #{ccus_id}
+        </if>
+        <if test="ddate2!=null and ddate2!=''">
+            and convert(varchar(10),ddate,120) = #{ddate2}
+        </if>
+        <if test="csocode!=null and csocode!=''">
+            and csocode like '%'+#{csocode}+'%'
+        </if>
+        <if test="cso_state!=null and cso_state!=''">
+            and cso_state = #{cso_state}
+        </if>
+        order by ddate desc
+    </select>
+
+
+    <!--查询订单对应的日志-->
+    <select id="selectOrderLog" resultMap="OrderLogMap">
+        SELECT * FROM sx_order_log INNER JOIN (SELECT enumcode,enumname FROM ufdata_web..enumdata WHERE enumid=12)
+        enumdata ON sx_order_log.ctype_log=enumdata.enumcode AND order_id = #{order_id}
+    </select>
+
+
+    <!--将商品添加到临时订单表-->
+    <select id="insertOrder" resultMap="ResultMap">
+        EXEC orderstyle_add #{items}
+    </select>
+
+
+    <!--核对订单-->
+    <select id="selectOrderstyleList" resultMap="OrderstyleMap">
+        EXEC orderstyle_list #{ccus_id}
+    </select>
+
+
+    <!--生成订单-->
+    <select id="addOrder" resultMap="ResultOrderMap">
+       EXEC order_add #{items}
+    </select>
+
+
+    <!--订单作废-->
+    <select id="cancelOrder" resultMap="ResultMap">
+        EXEC order_add #{jsonvist}
+    </select>
+
+
+    <!--<update id="cancelOrder">
+        update sx_order set cso_state='98' where cso_state='01' and csocode= #{csocode}
+    </update>-->
+
+
+    <!--查询订单详情-->
+    <select id="selectOrderInfo" resultMap="OrderMap">
+        select * from order_v where csocode = #{csocode}
+    </select>
+
+
+    <!--根据客户编号查询所属分销商编号-->
+    <select id="getDistribution" resultType="java.lang.String">
+        select isnull(CCUS_DISTRIBUTION,'') CCUS_DISTRIBUTION from sx_customer where  autoid = #{autoid}
+    </select>
+
+    <!--查询支付二维码的收款状态-->
+    <select id="selectPayCodeType" resultType="java.lang.Integer">
+        select count(autoid) ordercount from sx_order where imoney_sum &lt;=isnull(iusegold_sum,0)+isnull(icashmoney,0)+isnull(iqrcodemoney,0)
+        and csocode=#{csocode} and 2 = 2
+    </select>
+
+
+    <!--新增日志-->
+    <insert id="addErrlogs">
+        insert into eat_web..web_errlog(cuserid,logs,ddate) values (#{cuserid},#{logs},GETDATE())
+    </insert>
+
+
+    <!--查询订单列表（非详情）-->
+    <select id="queryOrderList" resultMap="SxOrderMap">
+        select top 10000 sx_order.*,customer_v.cperson_name,CASE sx_order.cpaytype WHEN '1' THEN '现金' WHEN '2' THEN '二维码' WHEN '3' THEN '现金+二维码' WHEN 0 THEN '' ELSE '其他' END AS cpaytypename,
+        CASE cso_state WHEN '00' THEN '待审核' WHEN '01' THEN '已下单' WHEN '02' THEN '发货中' WHEN '03' THEN '已送货' WHEN '04' THEN '已结算' WHEN '09' THEN '已关闭' ELSE '其他' END AS cso_statename,
+        sx_company.CCOMNAME,customer_v.CCUS_OADDRESS
+        from sx_order INNER JOIN dbo.customer_v ON dbo.sx_order.ccus_id = dbo.customer_v.autoid
+        INNER JOIN (SELECT enumcode AS CCOMCODE, enumname AS CCOMNAME, enumname3 AS CCOMCACC
+        FROM UFDATA_WEB.dbo.enumdata AS enumdata_2
+        WHERE (enumid = 1)) AS sx_company ON dbo.sx_order.ccomcode = sx_company.CCOMCODE where 1 = 1
+          <if test="cperson_id!=null and cperson_id!=''">
+              and sx_order.cperson_id = #{cperson_id}
+          </if>
+          <if test="ddate1!=null and ddate1!=''">
+              and CONVERT(varchar(10),sx_order.ddate,120) >= #{ddate1} and CONVERT(varchar(10),sx_order.ddate,120) &lt;= #{ddate2}
+          </if>
+          <if test="csocode!=null and csocode!=''">
+              and sx_order.csocode like '%'+#{csocode}+'%'
+          </if>
+        <if test="cso_state!=null and cso_state!=''">
+            and sx_order.cso_state = #{cso_state}
+        </if>
+        order by ddate desc
+    </select>
+
+
+    <select id="queryOrderInfo" resultMap="SxOrderDtoMap">
+        select Inventory.cinvcode,csocode,iquantity,imoney,cInvName,cInvStd,sx_order_sub.iprice from sx_order
+        inner join sx_order_sub ON sx_order.autoid = sx_order_sub.id
+        inner join Inventory ON sx_order_sub.cinvcode = Inventory.cInvCode
+        where csocode = #{csocode}
+    </select>
+
+
+    <!--查询订单列表-->
+    <select id="selectSxOrderList" resultMap="OrdervsMap">
+        select * from order_v where 1 = 1
+            <if test="cperson_id!=null and cperson_id!=''">
+                and cperson_id = #{cperson_id}
+            </if>
+            <if test="ddate1!=null and ddate1!=''">
+                and CONVERT(varchar(10),ddate,120) >= #{ddate1} and CONVERT(varchar(10),ddate,120) &lt;= #{ddate2}
+            </if>
+            <if test="csocode!=null and csocode!=''">
+                and csocode like '%'+#{csocode}+'%'
+            </if>
+            <if test="cso_state!=null and cso_state!=''">
+                and cso_state = #{cso_state}
+            </if>
+            <if test="ccomcode!=null and ccomcode!=''">
+                and ccomcode = #{ccomcode}
+            </if>
+            <if test="ccomcode==null and ccomcode==''">
+                and ccomcode in (select cdepcode from ufdata_web..userhold where ctype='emall_order' and cusercode= #{cusercode})
+            </if>
+        order by ddate desc
+    </select>
+
+
+    <!--让失效的订单重新生效-->
+    <update id="takeEffectOrder">
+        update sx_order set bclose = null,cclose_name = null,dclose_date = null,dclose_desc = null,bsnerp = 0,ddate = GETDATE() where csocode = #{csocode}
+    </update>
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.clientmapper.SxAInvMapper">
+
+    <resultMap id="InventoryMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.Inventory">
+        <result column="cinvccode" property="cinvccode"/>
+        <result column="cInvCode" property="cinvcode"/>
+        <result column="cInvName" property="cinvname"/>
+        <result column="cInvStd" property="cinvstd"/>
+        <result column="ccus_price" property="ccus_price"/>
+        <result column="igoldrate" property="igoldrate"/>
+        <result column="cinvimg64" property="cinvimg64"/>
+        <result column="cinvimg500" property="cinvimg500"/>
+    </resultMap>
+
+
+    <resultMap id="InventoryClassMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.InventoryClass">
+        <result column="cInvCCode" property="cInvCCode"/>
+        <result column="cInvCName" property="cInvCName"/>
+    </resultMap>
+
+
+    <resultMap id="AutoCharMap" type="com.shunxin.shunxin_salesman_visit.entity.cliententity.AutoChar">
+        <result column="sort1" property="sort1"/>
+        <result column="sort2" property="sort2"/>
+        <result column="visits" property="visits"/>
+        <result column="plans" property="plans"/>
+        <result column="complate" property="complate"/>
+        <result column="salepsn" property="salepsn"/>
+        <result column="saleavg" property="saleavg"/>
+        <result column="salemax" property="salemax"/>
+        <result column="cusonline" property="cusonline"/>
+        <result column="cusall" property="cusall"/>
+        <result column="cusavg" property="cusavg"/>
+        <result column="vouchpsn" property="vouchpsn"/>
+        <result column="vouchavg" property="vouchavg"/>
+        <result column="vouchmax" property="vouchmax"/>
+    </resultMap>
+
+    <resultMap id="Tourist2Map" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.TouristDto">
+        <result column="autoid" property="ccus_id"/>
+        <result column="ccus_name" property="ccus_name"/>
+        <result column="ccompany_id" property="ccompany_id"/>
+        <result column="ccus_level" property="ccus_level"/>
+        <result column="ccus_address" property="ccus_address"/>
+    </resultMap>
+
+    <!--查询分类-->
+    <select id="getInventClass" resultMap="InventoryClassMap">
+        select cInvCCode,cInvCName from inventoryclass where iinvcgrade= 1 and cInvCCode != '99' order by cInvCCode asc
+    </select>
+
+
+    <!--根据分类查询商品详细 (大概率作废)-->
+    <select id="getInventory" resultMap="InventoryMap">
+        select cinvccode,inventory.cInvCode,cInvName,isnull(cInvStd,'') cinvstd, ccus_price,ISNULL(igoldrate,0)
+        igoldrate,ISNULL('http://pic.hnsxtj.com/sxemall/public/'+inventory_img.cinvimg+'_64.jpg','') cinvimg64,
+        ISNULL('http://pic.hnsxtj.com/sxemall/public/'+inventory_img.cinvimg+'_500.jpg' ,'') cinvimg500
+        from inventory inner join (select cinvcode,ccus_price,igoldrate from inventory_ext where ccomcode= #{ccomcode}
+        and ccus_level= #{ccus_level} and convert(varchar(10),GETDATE(),120)  between ddateb and ddatee and ccus_price&lt;&gt;0)
+        cinvprice on inventory.cinvcode=cinvprice.cinvcode left join inventory_img on inventory.cInvCode=inventory_img.cinvcode
+        where cinvccode&lt;&gt;'99'
+        <if test="cInvCCode!=null and cInvCCode!=''">
+            and left(cinvccode,2) = #{cInvCCode}
+        </if>
+        order by cInvCCode asc
+    </select>
+
+    <!--根据客户ID查询客户所属公司和客户级别 (大概率作废)-->
+    <select id="selectCcompanyId" resultMap="Tourist2Map">
+        select ccompany_id,ccus_level from customer_v where autoid = #{autoid}
+    </select>
+
+
+    <!--查询各类排名-->
+    <select id="selectAutoChar" resultMap="AutoCharMap">
+        exec auto_char0202 #{ctype},#{userid},#{ddate1},#{ddate2}
+    </select>
+
+
+    <!--通过客户编号查询客户电话号码-->
+    <select id="getCcusAccount" resultType="java.lang.String">
+         select ISNULL(ccus_account,'') ccus_account from customer_v where autoid = #{autoid}
+    </select>
+
+
+</mapper>

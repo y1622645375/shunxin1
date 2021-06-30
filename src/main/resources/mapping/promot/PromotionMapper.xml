@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.promotmapper.PromotionMapper">
+
+    <resultMap id="PromotionMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.Promotion">
+        <result column="sacxid" property="sacxid"/>
+        <result column="sacxname" property="sacxname"/>
+        <result column="ccomcode" property="ccomcode"/>
+        <result column="ccomname" property="ccomname"/>
+        <result column="sacximg" property="sacximg"/>
+        <result column="dbegin" property="dbegin"/>
+        <result column="dend" property="dend"/>
+        <result column="iquan" property="iquan"/>
+        <result column="istate" property="istate"/>
+        <result column="cstate" property="cstate"/>
+        <result column="sacxtype" property="sacxtype"/>
+        <result column="csacxstate" property="csacxstate"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="csamemo" property="csamemo"/>
+        <result column="sacxtext" property="sacxtext"/>
+        <result column="izpgroup" property="izpgroup"/>
+    </resultMap>
+
+    <resultMap id="SacxHoldMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.SacxHold">
+        <result column="sacxid" property="sacxid"/>
+        <result column="ccustype" property="ccustype"/>
+        <result column="ctypename" property="ctypename"/>
+    </resultMap>
+
+
+    <resultMap id="ZpcinvCodeMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.ZpcinvCode">
+        <result column="sacxid" property="sacxid"/>
+        <result column="zpcinvcode" property="zpcinvcode"/>
+        <result column="zpiquan" property="zpiquan"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="scInvName" property="scInvName"/>
+        <result column="sacxtext" property="sacxtext"/>
+        <result column="izpquan" property="izpquan"/>
+        <result column="zpizpquan" property="zpizpquan"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="ichangrate" property="ichangrate"/>
+        <result column="izpquan_X" property="izpquan_X"/>
+        <result column="izpquan_P" property="izpquan_P"/>
+        <result column="sacxname" property="sacxname"/>
+    </resultMap>
+
+    <resultMap id="ResultMap" type="com.shunxin.shunxin_salesman_visit.dto.clientdto.ResultDto">
+        <result column="result" property="result"/>
+        <result column="msg" property="msg"/>
+    </resultMap>
+
+
+    <resultMap id="InventMap" type="com.shunxin.shunxin_salesman_visit.entity.promotentity.Inventory2">
+        <result column="cinvccode" property="cinvccode"/>
+        <result column="cinvcname" property="cinvcname"/>
+        <result column="cinvcode" property="cinvcode"/>
+        <result column="cinvname" property="cinvname"/>
+        <result column="cinvstd" property="cinvstd"/>
+        <result column="ccomunitcode" property="ccomunitcode"/>
+        <result column="ccomunitname" property="ccomunitname"/>
+        <result column="iinvscost" property="iinvscost"/>
+    </resultMap>
+
+
+    <!--查询促销活动列表-->
+    <select id="selectPromotion" resultMap="PromotionMap">
+        select sacxid,sacxname,ccomcode,ccomname,sacximg,dbegin,dend,iquan,istate,
+        case isnull(istate,'0') when '0' then '生效' when '1' then '待审' when '8' then '终止' when '9' then '到期' else '' end cstate,
+        isnull(sacxtype,'0') sacxtype,
+        case isnull(sacxtype,'0') when '0' then '累计赠品' when '1' then '单独赠品' end csacxstate,
+        sx_sacx.cinvcode,cInvName,csamemo,sacxtext,
+        case when ISNULL(cinvcode1,'')='' then 0 else
+        case when ISNULL(cinvcode2,'')='' then 1 else
+        case when ISNULL(cinvcode3,'')='' then 2 else
+        case when ISNULL(cinvcode4,'')='' then 3 else
+        case when ISNULL(cinvcode5,'')='' then 4 else
+        case when ISNULL(cinvcode6,'')='' then 5 else
+        case when ISNULL(cinvcode7,'')='' then 6 else
+        case when ISNULL(cinvcode8,'')='' then 7 else
+        case when ISNULL(cinvcode9,'')='' then 8 else
+        case when ISNULL(cinvcode10,'')='' then 9 else 10 end
+        end end end  end  end  end end  end  end izpgroup
+        from sx_sacx
+        inner join (select enumcode ccomcode,enumname ccomname from ufdata_web..enumdata where enumid='1' ) company on sx_sacx.ccompany=company.ccomcode
+        inner join inventory on sx_sacx.cinvcode=inventory.cinvcode
+        where ccomcode in (select cdepcode from ufdata_web..userhold where ctype='emall_sacx' and cusercode=#{cusercode})
+        <if test="ddate!=null and ddate!=''">
+            and convert(varchar(10),#{ddate},120) between dbegin and dend
+        </if>
+        <if test="istate!=null and istate!=''">
+            and istate=#{istate}
+        </if>
+        order by dbegin desc
+    </select>
+
+
+    <!--新增促销活动-->
+    <select id="addPromotion" resultMap="ResultMap">
+        EXEC sacx_add #{jsonvist}
+    </select>
+
+
+     <!--修改促销活动-->
+     <select id="updatePromotion" resultMap="ResultMap">
+        EXEC sacx_add #{jsonvist}
+     </select>
+
+
+     <!--审核促销活动-->
+     <select id="checkPromotion" resultMap="ResultMap">
+        EXEC sacx_add #{jsonvist}
+     </select>
+
+
+     <!--作废该促销活动-->
+     <select id="invalidPromotion" resultMap="ResultMap">
+        EXEC sacx_add #{jsonvist}
+     </select>
+
+
+    <!--根据id查询单条数据-->
+    <select id="selectPromoOne" resultMap="PromotionMap">
+        select sacxid,sacxname,ccomcode,ccomname,sacximg,dbegin,dend,iquan,istate,
+        case isnull(istate,'0') when '0' then '生效' when '1' then '待审' when '8' then '终止' when '9' then '到期' else '' end cstate,
+        isnull(sacxtype,'0') sacxtype,
+        case isnull(sacxtype,'0') when '0' then '累计赠品' when '1' then '单独赠品' end csacxstate,
+        sx_sacx.cinvcode,cInvName,csamemo,sacxtext,
+        case when ISNULL(cinvcode1,'')='' then 0 else
+        case when ISNULL(cinvcode2,'')='' then 1 else
+        case when ISNULL(cinvcode3,'')='' then 2 else
+        case when ISNULL(cinvcode4,'')='' then 3 else
+        case when ISNULL(cinvcode5,'')='' then 4 else
+        case when ISNULL(cinvcode6,'')='' then 5 else
+        case when ISNULL(cinvcode7,'')='' then 6 else
+        case when ISNULL(cinvcode8,'')='' then 7 else
+        case when ISNULL(cinvcode9,'')='' then 8 else
+        case when ISNULL(cinvcode10,'')='' then 9 else 10 end
+        end end end  end  end  end end  end  end izpgroup
+        from sx_sacx
+        inner join (select enumcode ccomcode,enumname ccomname from ufdata_web..enumdata where enumid='1' ) company on sx_sacx.ccompany=company.ccomcode
+        inner join inventory on sx_sacx.cinvcode=inventory.cinvcode
+        where ccomcode in (select cdepcode from ufdata_web..userhold where ctype='emall_sacx' and cusercode=#{cusercode})
+        and sacxid=#{sacxid}
+    </select>
+
+
+    <!--根据活动编号查询客户类型详细-->
+    <select id="selectSacxHold" resultMap="SacxHoldMap">
+        select sacxid,ccustype,ctypename from sx_sacx_hold
+        inner join sx_customer_type on sx_sacx_hold.ccustype=sx_customer_type.ctypeid where sacxid=#{sacxid}
+    </select>
+
+
+   <!-- 根据活动编号查询赠品详细-->
+    <!--exec sacx_query #{ctype},'','','',0,#{sacxid}-->
+    <select id="selectZpCinvName" resultMap="ZpcinvCodeMap">
+        declare @outsacxid as varchar(50)
+        exec sacx_query #{ctype},'','','',0,#{sacxid},0,@outsacxid OUTPUT
+    </select>
+
+
+    <!--商家查询某商品的优惠-->
+    <!--exec sacx_query #{ctype},#{ccomcode},#{ccus_id},#{cinvcode},#{iquan},''-->
+    <select id="getZpSacxCount" resultMap="ZpcinvCodeMap">
+       declare @outsacxid as varchar(50)
+       exec sacx_query #{ctype},#{ccomcode},#{ccus_id},#{cinvcode},#{iquan},'',0,@outsacxid OUTPUT
+    </select>
+
+
+    <!--根据客户ID查询业务员工号-->
+    <select id="getCpersonIds" resultType="java.lang.String">
+        select CPERSON_ID from customer_v where autoid = #{autoid}
+    </select>
+
+    <!--查询所有商品-->
+    <select id="selectInvent2" resultMap="InventMap">
+        select inventory.cinvccode,cinvcname,cinvcode,cinvname,isnull(cInvStd,'') cinvstd,inventory.ccomunitcode,ccomunitname,isnull(iInvSCost,0) iinvscost from inventory
+        inner join InventoryClass on inventory.cinvccode=inventoryclass.cinvccode
+        inner join ComputationUnit on inventory.cComUnitCode=computationunit.ccomunitcode
+        where inventory.cinvccode &lt;&gt;'98' and inventory.cinvccode &lt;&gt;'99' and bsale=1 and dedate is null
+        <if test="cinvname!=null and cinvname!=''">
+            and (cInvName like '%'+#{cinvname}+'%' or cInvCode like #{cinvname}+'%')
+        </if>
+        order by inventory.cinvccode,cinvcode
+    </select>
+
+
+
+</mapper>

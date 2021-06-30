@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.shunxin.shunxin_salesman_visit.mapper.mallmapper.SxadDataMapper">
+    <resultMap id="SxadDataMap" type="com.shunxin.shunxin_salesman_visit.entity.mallentity.SxadData">
+        <id column="autoid" property="autoid"/>
+        <result column="cad_name" property="cad_name"/>
+        <result column="cad_title" property="cad_title"/>
+        <result column="cad_usefor" property="cad_usefor"/>
+        <result column="cad_type" property="cad_type"/>
+        <result column="cad_img" property="cad_img"/>
+        <result column="cad_text" property="cad_text"/>
+        <result column="iad_sort" property="iad_sort"/>
+        <result column="cad_memo" property="cad_memo"/>
+        <result column="cad_link" property="cad_link"/>
+        <result column="iad_state" property="iad_state"/>
+        <result column="is_del" property="is_del"/>
+        <result column="create_by" property="create_by"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_by" property="update_by"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+
+    <!--查询首页的所有图片-->
+    <select id="selectSxadDataList" resultMap="SxadDataMap">
+        SELECT * FROM adlist_wx
+    </select>
+
+
+
+
+
+</mapper>
